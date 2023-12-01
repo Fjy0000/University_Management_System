@@ -8,6 +8,6 @@ package adt;
  *
  * @author fongj
  */
-public interface SetInterface {
-    
+public interface SetInterface<T> {
+    public boolean add(T newElement);
 }
