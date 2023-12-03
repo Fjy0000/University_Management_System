@@ -7,7 +7,9 @@ package adt;
 /**
  *
  * @author fongj
+ * @param <T>
  */
+
 public class Set<T> implements SetInterface<T> {
     T[] setArray;
     int numberOfElements;

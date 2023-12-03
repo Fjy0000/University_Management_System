@@ -4,6 +4,7 @@
  */
 package dao;
 
+import adt.Set;
 import adt.SetInterface;
 import entity.Tutor;
 
@@ -15,9 +16,9 @@ public class TutorInitializer {
 
     public SetInterface<Tutor> initializeTutor() {
 
-    SetInterface<Tutor> tutorList = new ArrayList<>();
-    
-    return tutorList;
-  }
+        SetInterface<Tutor> tutorList = new Set<>();
+
+        return tutorList;
+    }
 
 }

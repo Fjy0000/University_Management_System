@@ -16,6 +16,17 @@ public class Student extends StudentCourse {
     private String studentProgremme;
     private StudentCourse studentCourse;
 
+    public Student() {
+    }
+
+    public Student(String id, String name, String password, String progremme, StudentCourse course) {
+        this.studentId = id;
+        this.studentName = name;
+        this.studentPassword = password;
+        this.studentProgremme = progremme;
+        this.studentCourse = course;
+    }
+
     public String getStudentId() {
         return studentId;
     }
