@@ -8,6 +8,12 @@ package adt;
  *
  * @author fongj
  */
-public interface SetInterface {
-    
+public interface SetInterface<T> {
+    public boolean add(T newElement);
+    public boolean remove(T newElement);
+    // public boolean checkSubset(SetInterface anotherSet);
+    // public void union(SetInterface anotherSet);
+    // public  SetInterface intersection(SetInterface anotherSet);
+    // public boolean isEmpty();
+    // public Iterator<T> getIterator();
 }

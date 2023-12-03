@@ -4,10 +4,20 @@
  */
 package dao;
 
+import adt.SetInterface;
+import entity.Tutor;
+
 /**
  *
  * @author fongj
  */
 public class TutorInitializer {
+
+    public SetInterface<Tutor> initializeTutor() {
+
+    SetInterface<Tutor> tutorList = new ArrayList<>();
     
+    return tutorList;
+  }
+
 }
