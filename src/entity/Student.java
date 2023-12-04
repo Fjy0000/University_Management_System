@@ -11,19 +11,21 @@ package entity;
 public class Student extends StudentCourse {
 
     private String studentId;
-    private String studentName;
     private String studentPassword;
+    private String studentName;
+    private String studentIc;
     private String studentProgremme;
     private StudentCourse studentCourse;
 
     public Student() {
     }
 
-    public Student(String id, String name, String password, String progremme, StudentCourse course) {
+    public Student(String id, String name, String password, String ic, String progremme,StudentCourse course) {
         this.studentId = id;
         this.studentName = name;
         this.studentPassword = password;
-        this.studentProgremme = progremme;
+        this.studentIc = ic;
+        this.studentProgremme =  progremme;
         this.studentCourse = course;
     }
 
@@ -35,6 +37,14 @@ public class Student extends StudentCourse {
         this.studentId = studentId;
     }
 
+    public String getStudentPassword() {
+        return studentPassword;
+    }
+
+    public void setStudentPassword(String studentPassword) {
+        this.studentPassword = studentPassword;
+    }
+
     public String getStudentName() {
         return studentName;
     }
@@ -43,12 +53,12 @@ public class Student extends StudentCourse {
         this.studentName = studentName;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public String getStudentIc() {
+        return studentIc;
     }
 
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
+    public void setStudentIc(String studentIc) {
+        this.studentIc = studentIc;
     }
 
     public String getStudentProgremme() {
@@ -69,7 +79,7 @@ public class Student extends StudentCourse {
 
     @Override
     public String toString() {
-        return studentId + "\t" + studentName + "\t" + studentPassword + "\t" + studentProgremme + "\t" + studentCourse;
+        return "Student{" + "studentId=" + studentId + ", studentPassword=" + studentPassword + ", studentName=" + studentName + ", studentIc=" + studentIc + ", studentProgremme=" + studentProgremme + ", studentCourse=" + studentCourse + '}';
     }
 
 }
