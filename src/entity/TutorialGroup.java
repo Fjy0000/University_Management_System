@@ -4,29 +4,46 @@
  */
 package entity;
 
-/**
- *
- * @author hongli
- */
-import adt.Set;
+import adt.arraySet;
 import adt.SetInterface;
-import java.io.Serializable;
+import java.util.Iterator;
 
 /**
  *
  * @author 60111
  */
-public class TutorialGroup implements Serializable{
+public class TutorialGroup{
     private String groupName;
     private static int groupNum = 1;
     private boolean assigned;
+    private SetInterface<Student> students = new arraySet<>();
     
     public TutorialGroup() {
+        this.students = new arraySet<>(); // Initialize the set of students
+        this.groupName = "G" + groupNum;
+        assigned = false;
+        groupNum++;
     }
 
-    public TutorialGroup(String groupName) {
-        this.groupName = groupName;
+    
+    public TutorialGroup(String name) {
+        this.groupName = name;
+        assigned = false;
+        groupNum++;
     }
+    public void addStudent(Student student) {
+            students.add(student);
+        }
+
+    // Method to list all students in the tutorial group
+    public void listStudents() {
+        System.out.println("Students in Tutorial Group " + groupName + ":");
+        Iterator<Student> iterator = students.getIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+    
 
     public String getGroupName() {
         return groupName;
