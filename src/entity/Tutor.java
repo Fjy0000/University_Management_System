@@ -4,16 +4,14 @@ public class Tutor {
 
     private String tutorId;
     private String tutorName;
-    private String tutorUsername;
     private String tutorPassword;
 
     public Tutor() {
     }
 
-    public Tutor(String id, String name, String username, String password) {
+    public Tutor(String id, String name, String password) {
         this.tutorId = id;
         this.tutorName = name;
-        this.tutorUsername = username;
         this.tutorPassword = password;
     }
 
@@ -33,14 +31,6 @@ public class Tutor {
         this.tutorName = tutorName;
     }
 
-    public String getTutorUsername() {
-        return tutorUsername;
-    }
-
-    public void setTutorUsername(String tutorUsername) {
-        this.tutorUsername = tutorUsername;
-    }
-
     public String getTutorPassword() {
         return tutorPassword;
     }
@@ -51,7 +41,7 @@ public class Tutor {
 
     @Override
     public String toString() {
-        return "Tutor{" + "tutorId=" + tutorId + ", tutorName=" + tutorName + ", tutorUsername=" + tutorUsername + ", tutorPassword=" + tutorPassword + '}';
+        return "tutorId=" + tutorId + ", tutorName=" + tutorName + ", tutorPassword=" + tutorPassword;
     }
 
 }

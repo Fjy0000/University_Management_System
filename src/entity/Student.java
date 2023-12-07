@@ -20,13 +20,12 @@ public class Student extends StudentCourse {
     public Student() {
     }
 
-    public Student(String id, String name, String password, String ic, String progremme,StudentCourse course) {
+    public Student(String id, String name, String password, String ic, String progremme) {
         this.studentId = id;
         this.studentName = name;
         this.studentPassword = password;
         this.studentIc = ic;
-        this.studentProgremme =  progremme;
-        this.studentCourse = course;
+        this.studentProgremme = progremme;
     }
 
     public String getStudentId() {
