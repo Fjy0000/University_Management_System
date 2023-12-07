@@ -4,6 +4,9 @@
  */
 package control;
 
+import adt.Set;
+import adt.SetInterface;
+import entity.Student;
 import java.util.Scanner;
 
 /**
@@ -16,15 +19,15 @@ public class StudentController {
 
     public static void studentManagement() {
 
+        SetInterface<Student> student = new Set<>();
+
         Scanner input = new Scanner(System.in);
         int countInvalidInput;
-        int option;
+        int option, exit;
 
         do {
+            exit = 0;
             countInvalidInput = 0;
-
-            // clear screen
-            System.out.print("\033[H\033[2J");
 
             studentManageMenu();
 
@@ -42,38 +45,122 @@ public class StudentController {
                 }
             } while (option < 1 || option > 8);
 
-        } while (countInvalidInput >= MAX_INVALID_ATTEMPTS);
+            switch (option) {
+                case 1 -> {
+                    headerUI("Add New Student", 1, 30);
+                    exit = registration(student);
+                }
+                case 2 -> {
+                    headerUI("View Student List", 1, 30);
 
-        switch (option) {
-            case 1 -> {
-                System.out.printf("%-10s\n", "Add New Student");
-                System.out.printf("%10s\n", "====================================");
+                }
+                case 3 -> {
+                    headerUI("Update Student Details", 1, 30);
+
+                }
+                case 4 -> {
+                    headerUI("Manage Student Course", 1, 30);
+
+                }
+                case 5 -> {
+                    headerUI("Remove Student", 1, 30);
+
+                }
+                case 6 -> {
+                    headerUI("Calculate Total Cost of Registed Course", 1, 30);
+
+                }
+                case 7 -> {
+                    headerUI("Generate Report", 1, 30);
+                }
             }
-            case 2 -> {
-                System.out.printf("%-10s\n", "View Student List");
-                System.out.printf("%10s\n", "====================================");
+
+        } while (countInvalidInput >= MAX_INVALID_ATTEMPTS || exit == 1);
+
+    }
+
+    private static int registration(SetInterface<Student> student) {
+        Scanner input = new Scanner(System.in);
+        String id, name, password, ic, progremme, confirm;
+        int countInvalidInput, exit;
+
+        do {
+            countInvalidInput = 0;
+
+            // Consume the newline character left in the buffer
+            input.nextLine();
+
+            do {
+                System.out.printf("%-20s", "Enter Student Name : ");
+                name = input.nextLine();
+                if (name.length() < 3) {
+                    System.out.println("Student Name must more than 3 letter...");
+                }
+            } while (name.length() < 3);
+
+            do {
+                System.out.printf("%-20s", "Enter Student Password : ");
+                password = input.nextLine();
+                if (password.length() < 5) {
+                    System.out.println("Student Password must more than 5 character...");
+                }
+            } while (password.length() < 5);
+
+            do {
+                System.out.printf("%-20s", "Enter Student IC : ");
+                ic = input.nextLine();
+                if (ic.length() != 12 || ic.matches("\\d+") == false) {
+                    System.out.println("Student IC must be real...");
+                }
+            } while (ic.length() != 12 || ic.matches("\\d+") == false);
+
+            do {
+                System.out.printf("%-20s", "Enter Student Progremme (exp: RSD): ");
+                progremme = input.nextLine();
+                if (progremme.isEmpty()) {
+                    System.out.println("Student Progremme cannot leave empty...");
+                }
+            } while (progremme.isEmpty());
+
+            System.out.println();
+            System.out.printf("%-20s", "Confirm Registration the Student Account? (Y/N): ");
+            confirm = input.nextLine();
+
+            if (confirm.toLowerCase().equals("y")) {
+                //generate student id first 3 character of name + year + number
+                id = name.substring(0, 3) + "1";
+
+                // added new student account
+                student.add(new Student(id, name, password, ic, progremme));
+                System.out.println("Successful Registered !!!!");
+            } else if (confirm.toLowerCase().equals("n")) {
+                System.out.println("Cancelled Registration !!!!");
             }
-            case 3 -> {
-                System.out.printf("%-10s\n", "Update Student Details");
-                System.out.printf("%10s\n", "====================================");
+
+            //Exit or Continue registration
+            System.out.printf("%-30s", "Do you want to continue registering student ? (Yes=0/No=1) :");
+            exit = input.nextInt();
+            while (exit < 0 || exit > 1) {
+                ++countInvalidInput;
+                System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=0/No=1) :");
+                exit = input.nextInt();
+
+                if (countInvalidInput >= MAX_INVALID_ATTEMPTS) {
+                    break;
+                }
             }
-            case 4 -> {
-                System.out.printf("%-10s\n", "Manage Student Course");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 5 -> {
-                System.out.printf("%-10s\n", "Remove Student");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 6 -> {
-                System.out.printf("%-10s\n", "Calculate Total Cost of Registed Course");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 7 -> {
-                System.out.printf("%-10s\n", "Generate Report");
-                System.out.printf("%10s\n", "====================================");
+        } while (countInvalidInput >= MAX_INVALID_ATTEMPTS || exit == 0);
+        return exit;
+    }
+
+    private static void headerUI(String header, int row, int col) {
+        System.out.printf("%-20s\n", header);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print("-");
             }
         }
+        System.out.println();
     }
 
     private static void studentManageMenu() {
