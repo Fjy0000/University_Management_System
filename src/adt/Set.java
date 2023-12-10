@@ -9,8 +9,8 @@ package adt;
  * @author fongj
  * @param <T>
  */
-
 public class Set<T> implements SetInterface<T> {
+
     T[] setArray;
     int numberOfElements;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
@@ -26,6 +26,7 @@ public class Set<T> implements SetInterface<T> {
 
     @Override
     public boolean add(T newEntry) {
+
         for (int i = 0; i < numberOfElements; ++i) {
             if (setArray[i].equals(newEntry)) {
                 return false;
@@ -40,10 +41,9 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
-    // Remove object 
     @Override
     public boolean remove(T object) {
-        int index = checkIndex(object);
+        int index = getElementIndex(object);
         if (index != -1) {
             // Shift elements to fill the gap
             for (int i = index; i < numberOfElements; i++) {
@@ -57,8 +57,25 @@ public class Set<T> implements SetInterface<T> {
 
     }
 
-    // Find the index of an object in the array, returns -1 if not found
-    private int checkIndex(T object) {
+    public T getElements(int position) {
+        T result = null;
+        
+        if(position <= numberOfElements || position >= 0){
+            result = setArray[position];
+        }
+       
+        return result;
+    }
+
+    public int getSize() {
+        return numberOfElements;
+    }
+
+    public boolean isEmpty() {
+        return numberOfElements == 0;
+    }
+
+    private int getElementIndex(T object) {
         for (int i = 0; i < numberOfElements; i++) {
             if (setArray[i].equals(object)) {
                 return i;
@@ -67,12 +84,10 @@ public class Set<T> implements SetInterface<T> {
         return -1;
     }
 
-    // Check Array is Full or not
     private boolean isArrayFull() {
         return numberOfElements == setArray.length;
     }
 
-    // Resize the array size
     private void doubleArray() {
         T[] oldArray = setArray;
 

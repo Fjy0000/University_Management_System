@@ -19,6 +19,8 @@ public class StudentController {
     private StudentRegistrationUI studentUI = new StudentRegistrationUI();
     private SetInterface<Student> student = new Set<>();
 
+    Scanner input = new Scanner(System.in);
+
     public void studentManagement() {
 
         int result, exit;
@@ -33,7 +35,7 @@ public class StudentController {
                     break;
                 }
                 case 2: {
-                    studentUI.headerUI("View Student List");
+                    exit = displayStudentList(student);
                     break;
                 }
                 case 3: {
@@ -41,7 +43,7 @@ public class StudentController {
                     break;
                 }
                 case 4: {
-                    studentUI.headerUI("Manage Student Course");
+                    exit = manageStudentCourse(student);
                     break;
                 }
                 case 5: {
@@ -64,6 +66,39 @@ public class StudentController {
 
     }
 
+    private int displayStudentList(SetInterface<Student> student) {
+        int exit;
+        int count = 0;
+
+        studentUI.headerUI("View Student List");
+        studentUI.printLine(1, 150);
+        studentUI.studentListHeader();
+        studentUI.printLine(1, 150);
+        if (student.isEmpty()) {
+            System.out.println("Oops !!! Student List is Empty............");
+        } else {
+            for (int i = 0; i < student.getSize(); i++) {
+                ++count;
+                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                        count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
+                        student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
+                        student.getElements(i).getStudentProgremme(), student.getElements(i).getStudentCourse());
+
+            }
+        }
+        
+        exit = studentUI.studentListExit();
+        return exit;
+    }
+
+    private int manageStudentCourse(SetInterface<Student> student) {
+        int exit;
+        studentUI.headerUI("Manage Student Course");
+        
+        exit = studentUI.inputExitPage();
+        return exit;
+    }
+
     private int registration(SetInterface<Student> student) {
         int exit;
         studentUI.headerUI("Add New Student");
@@ -75,7 +110,7 @@ public class StudentController {
             } else {
                 System.out.println("Cancelled Registration !!!!");
             }
-            exit = studentUI.inputContinuePage();
+            exit = studentUI.inputExitPage();
         } while (exit == 1);
         return exit;
     }

@@ -11,9 +11,7 @@ package adt;
 public interface SetInterface<T> {
     public boolean add(T newElement);
     public boolean remove(T newElement);
-    // public boolean checkSubset(SetInterface anotherSet);
-    // public void union(SetInterface anotherSet);
-    // public  SetInterface intersection(SetInterface anotherSet);
-    // public boolean isEmpty();
-    // public Iterator<T> getIterator();
+    public T getElements(int position);
+    public int getSize();
+    public boolean isEmpty();
 }

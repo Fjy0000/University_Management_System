@@ -18,17 +18,17 @@ public class StudentRegistrationUI {
     public void headerUI(String header) {
         System.out.println();
         System.out.printf("%-20s\n", header);
-        System.out.println("==========================================");
+        printLine(1, 35);
     }
 
-    // Student Menu ----------------------------------------------------------------------------------------------------------------------------
+    // Student Menu UI----------------------------------------------------------------------------------------------------------------------------
     public int studentManageMenu() {
         int option;
 
         System.out.println();
-        System.out.println("============================================");
+        printLine(1, 35);
         System.out.printf("%-10s\n", "Student Management");
-        System.out.println("============================================");
+        printLine(1, 35);
         System.out.printf("%2s %-10s\n", "1)", "Add Student");
         System.out.printf("%2s %-10s\n", "2)", "View Student List");
         System.out.printf("%2s %-10s\n", "3)", "Update Student Details");
@@ -37,7 +37,7 @@ public class StudentRegistrationUI {
         System.out.printf("%2s %-10s\n", "6)", "Calculate Total Cost of Registed Course");
         System.out.printf("%2s %-10s\n", "7)", "Generate Report");
         System.out.printf("%2s %-5s\n", "8)", "Exit");
-        System.out.println("=============================================");
+        printLine(1, 35);
 
         System.out.printf("%-10s", "Enter Number(1-8): ");
         option = input.nextInt();
@@ -50,7 +50,7 @@ public class StudentRegistrationUI {
         return option;
     }
 
-    // Student Registration ------------------------------------------------------------------------------------------------------------------
+    // Student Registration UI------------------------------------------------------------------------------------------------------------------
     public String inputStudentName() {
         String name;
         do {
@@ -68,10 +68,10 @@ public class StudentRegistrationUI {
         do {
             System.out.printf("%-20s", "Enter Student Contact No : ");
             contactNo = input.nextLine();
-            if (contactNo.length() < 12 ) {
+            if (contactNo.length() < 10) {
                 System.out.println("Please enter correct and real contact no...");
             }
-        } while (contactNo.length() < 12);
+        } while (contactNo.length() < 10);
         return contactNo;
     }
 
@@ -99,17 +99,6 @@ public class StudentRegistrationUI {
         return progremme;
     }
 
-    public int inputContinuePage() {
-        int exit;
-        System.out.printf("%-30s", "Do you want to continue this page? (Yes=1/No=0) :");
-        exit = input.nextInt();
-        while (exit < 0 || exit > 1) {
-            System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=1/No=0) :");
-            exit = input.nextInt();
-        }
-        return exit;
-    }
-
     public boolean inputConfirmation() {
         System.out.printf("%-20s", "Confirm Registration the Student Account? (Y/N): ");
         String confirm = input.nextLine();
@@ -132,4 +121,59 @@ public class StudentRegistrationUI {
         return new Student(id, name, contactNo, ic, progremme);
     }
 
+    // Student Course UI -------------------------------------------------------------------------------------------------------------------------
+    public String inputSelectStudent() {
+        String id;
+        System.out.print("Enter the Student ID:");
+        id = input.nextLine();
+        return id;
+    }
+
+    public int addOrRemoveCourse() {
+        int select;
+
+        System.out.printf("%-20s", "Do you want to Register or Remove a student's course? (Register=1/Remove=2) : ");
+        select = input.nextInt();
+
+        return select;
+    }
+
+    // Display Student List UI ---------------------------------------------------------------------------------------------------------------------
+    public void studentListHeader() {
+        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                "NO", "Student ID", "Student Name", "Contact No", "Student IC", "Programme", "Courses");
+    }
+
+    public int studentListExit() {
+        int exit;
+
+        System.out.println();
+        do {
+            System.out.print("Enter 0 to exit this page : ");
+            exit = input.nextInt();
+        } while (exit != 0);
+        return exit;
+    }
+
+    // Exit Page UI ------------------------------------------------------------------------------------------------------------------------------
+    public int inputExitPage() {
+        int exit;
+        System.out.printf("%-30s", "Do you want to EXIT this page? (Yes=1/No=0) :");
+        exit = input.nextInt();
+        while (exit < 0 || exit > 1) {
+            System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=1/No=0) :");
+            exit = input.nextInt();
+        }
+        return exit;
+    }
+
+    // Print Line UI ------------------------------------------------------------------------------------------------------------------------------
+    public void printLine(int row, int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print("=");
+            }
+        }
+        System.out.println();
+    }
 }
