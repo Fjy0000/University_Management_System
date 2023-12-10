@@ -11,7 +11,7 @@ package entity;
 public class Student extends StudentCourse {
 
     private String studentId;
-    private String studentPassword;
+    private String contactNo;
     private String studentName;
     private String studentIc;
     private String studentProgremme;
@@ -20,10 +20,10 @@ public class Student extends StudentCourse {
     public Student() {
     }
 
-    public Student(String id, String name, String password, String ic, String progremme) {
+    public Student(String id, String name, String contactNo, String ic, String progremme) {
         this.studentId = id;
         this.studentName = name;
-        this.studentPassword = password;
+        this.contactNo = contactNo;
         this.studentIc = ic;
         this.studentProgremme = progremme;
     }
@@ -36,12 +36,12 @@ public class Student extends StudentCourse {
         this.studentId = studentId;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public String getStudentName() {
@@ -78,7 +78,7 @@ public class Student extends StudentCourse {
 
     @Override
     public String toString() {
-        return "Student{" + "studentId=" + studentId + ", studentPassword=" + studentPassword + ", studentName=" + studentName + ", studentIc=" + studentIc + ", studentProgremme=" + studentProgremme + ", studentCourse=" + studentCourse + '}';
+        return studentId + contactNo + studentName + studentIc + studentProgremme + studentCourse;
     }
 
 }

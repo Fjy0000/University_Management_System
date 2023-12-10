@@ -43,17 +43,12 @@ public class Set<T> implements SetInterface<T> {
     // Remove object 
     @Override
     public boolean remove(T object) {
-
-        int index = indexOf(object);
+        int index = checkIndex(object);
         if (index != -1) {
-
             // Shift elements to fill the gap
-            for (int i = index; i < numberOfElements - 1; i++) {
+            for (int i = index; i < numberOfElements; i++) {
                 setArray[i] = setArray[i + 1];
             }
-
-            // Set the last element to null and decrement the size
-            setArray[numberOfElements - 1] = null;
             numberOfElements--;
             return true;
         } else {
@@ -63,7 +58,7 @@ public class Set<T> implements SetInterface<T> {
     }
 
     // Find the index of an object in the array, returns -1 if not found
-    private int indexOf(T object) {
+    private int checkIndex(T object) {
         for (int i = 0; i < numberOfElements; i++) {
             if (setArray[i].equals(object)) {
                 return i;
