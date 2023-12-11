@@ -10,19 +10,19 @@ import java.util.Objects;
  *
  * @author 60111
  */
-public class Student {
-    private int id;
+public class Student implements Comparable<Student>{
+    private String id;
     private String name;
-    public Student(int id, String name) {
+    public Student(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,23 +33,27 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+    
+    @Override
+    public int compareTo(Student o) {
+      return id.compareTo(o.id);
+    }
 
     @Override
     public String toString() {
         return "Student{" + "id=" + id + ", name=" + name + '}';
     }
-    @Override
+    
+   @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Student student = (Student) obj;
-        return id == student.id;
+        return id.equals(student.id); // Use equals for content equality
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }
