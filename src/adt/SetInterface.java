@@ -4,16 +4,19 @@
  */
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
- * @author fongj
+ * @author 60111
  */
 public interface SetInterface<T> {
     public boolean add(T newElement);
+//    public boolean addAll(SetInterface<T> otherSet);
     public boolean remove(T newElement);
-    // public boolean checkSubset(SetInterface anotherSet);
-    // public void union(SetInterface anotherSet);
-    // public  SetInterface intersection(SetInterface anotherSet);
-    // public boolean isEmpty();
-    // public Iterator<T> getIterator();
+    public boolean contains(T anEntry);
+    public Iterator<T> getIterator();
+    public int getTotalEntries();
+    public boolean isEmpty();
+    public void union(SetInterface anotherSet);
 }

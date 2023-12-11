@@ -4,61 +4,56 @@
  */
 package entity;
 
+import java.util.Objects;
+
 /**
  *
- * @author fongj
+ * @author 60111
  */
-public class Student extends StudentCourse {
-
-    private String studentId;
-    private String studentName;
-    private String studentPassword;
-    private String studentProgremme;
-    private StudentCourse studentCourse;
-
-    public String getStudentId() {
-        return studentId;
+public class Student implements Comparable<Student>{
+    private String id;
+    private String name;
+    public Student(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public String getId() {
+        return id;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public String getName() {
+        return name;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
-    }
-
-    public String getStudentProgremme() {
-        return studentProgremme;
-    }
-
-    public void setStudentProgremme(String studentProgremme) {
-        this.studentProgremme = studentProgremme;
-    }
-
-    public StudentCourse getStudentCourse() {
-        return studentCourse;
-    }
-
-    public void setStudentCourse(StudentCourse studentCourse) {
-        this.studentCourse = studentCourse;
+    
+    @Override
+    public int compareTo(Student o) {
+      return id.compareTo(o.id);
     }
 
     @Override
     public String toString() {
-        return studentId + "\t" + studentName + "\t" + studentPassword + "\t" + studentProgremme + "\t" + studentCourse;
+        return "Student{" + "id=" + id + ", name=" + name + '}';
+    }
+    
+   @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Student student = (Student) obj;
+        return id.equals(student.id); // Use equals for content equality
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
