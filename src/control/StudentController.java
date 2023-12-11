@@ -66,6 +66,22 @@ public class StudentController {
         } while (exit == 1);
     }
 
+    private int registration(SetInterface<Student> student) {
+        int exit;
+        studentUI.titleUI("Add New Student");
+        do {
+            Student newStudent = studentUI.inputStudentDetails();
+            if (studentUI.inputConfirmation("add new student") == true) {
+                student.add(newStudent);
+                System.out.println("Successful Registered !!!!");
+            } else {
+                System.out.println("Cancelled Registration !!!!");
+            }
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
     private int manageStudentCourse(SetInterface<Student> student) {
         int exit;
         String id, course, status;
@@ -120,22 +136,6 @@ public class StudentController {
         } while (exit == 0);
     }
 
-    private int registration(SetInterface<Student> student) {
-        int exit;
-        studentUI.titleUI("Add New Student");
-        do {
-            Student newStudent = studentUI.inputStudentDetails();
-            if (studentUI.inputConfirmation("add new student") == true) {
-                student.add(newStudent);
-                System.out.println("Successful Registered !!!!");
-            } else {
-                System.out.println("Cancelled Registration !!!!");
-            }
-            exit = studentUI.inputExitPage();
-        } while (exit == 0);
-        return exit;
-    }
-
     private int updateStudent(SetInterface<Student> student) {
         int exit;
 
@@ -169,10 +169,27 @@ public class StudentController {
         } else {
             for (int i = 0; i < student.getSize(); i++) {
                 ++count;
-                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                        count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
-                        student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
-                        student.getElements(i).getStudentProgremme(), student.getElements(i).getStudentCourse());
+                if (student.getElements(i).getStudentCourseSize() != 0) {
+                    for (int j = 0; j < student.getElements(i).getStudentCourseSize(); j++) {
+                        if (j > 0) {
+                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    "", "", "", "", "", "", 
+                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                        } else {
+                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
+                                    student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
+                                    student.getElements(i).getStudentProgremme(),
+                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                        }
+                    }
+                } else {
+                    System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
+                            count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
+                            student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
+                            student.getElements(i).getStudentProgremme());
+                }
+
             }
         }
 
