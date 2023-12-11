@@ -4,6 +4,9 @@
  */
 package entity;
 
+import adt.Set;
+import adt.SetInterface;
+
 /**
  *
  * @author fongj
@@ -15,8 +18,9 @@ public class Student extends StudentCourse {
     private String studentName;
     private String studentIc;
     private String studentProgremme;
-    private StudentCourse studentCourse;
+    private SetInterface<StudentCourse> studentCourse = new Set<>();
 
+    // Student ------------------------------------------------------------------------------
     public Student() {
     }
 
@@ -68,17 +72,27 @@ public class Student extends StudentCourse {
         this.studentProgremme = studentProgremme;
     }
 
-    public StudentCourse getStudentCourse() {
+    // Student Course ------------------------------------------------------------------------------
+    public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
     }
-
-    public void setStudentCourse(StudentCourse studentCourse) {
-        this.studentCourse = studentCourse;
+    
+    public int getStudentCourseSize(){
+        return this.studentCourse.getSize();
     }
 
+    public void addStudentCourse(StudentCourse courses) {
+        this.studentCourse.add(courses);
+    }
+    
+    public void removeStudentCourse(StudentCourse courses) {
+        this.studentCourse.remove(courses);
+    }
+    
+    // ToString -----------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return studentId + contactNo + studentName + studentIc + studentProgremme + studentCourse;
+        return studentId + contactNo + studentName + studentIc + studentProgremme;
     }
 
 }

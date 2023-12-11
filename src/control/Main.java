@@ -20,7 +20,10 @@ public class Main {
     private static StudentController studentPage = new StudentController();
 
     public static void main(String[] args) {
+        homepage();
+    }
 
+    public static void homepage() {
         TutorInitializer t = new TutorInitializer();
         SetInterface<Tutor> tutorList = t.initializeTutor();
 
@@ -82,4 +85,5 @@ public class Main {
         }
         System.out.println();
     }
+
 }

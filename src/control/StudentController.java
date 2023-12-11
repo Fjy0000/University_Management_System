@@ -7,7 +7,9 @@ package control;
 import adt.Set;
 import adt.SetInterface;
 import boundary.StudentRegistrationUI;
+import static control.Main.homepage;
 import entity.Student;
+import entity.StudentCourse;
 import java.util.Scanner;
 
 /**
@@ -22,7 +24,6 @@ public class StudentController {
     Scanner input = new Scanner(System.in);
 
     public void studentManagement() {
-
         int result, exit;
 
         do {
@@ -39,7 +40,7 @@ public class StudentController {
                     break;
                 }
                 case 3: {
-                    studentUI.headerUI("Update Student Details");
+                    exit = updateStudent(student);
                     break;
                 }
                 case 4: {
@@ -47,33 +48,122 @@ public class StudentController {
                     break;
                 }
                 case 5: {
-                    studentUI.headerUI("Remove Student");
+                    exit = removeStudent(student);
                     break;
                 }
                 case 6: {
-                    studentUI.headerUI("Calculate Total Cost of Registed Course");
+                    exit = displayTotalCost(student);
                     break;
                 }
                 case 7: {
-                    studentUI.headerUI("Generate Report");
+                    exit = displayReport(student);
                     break;
                 }
-                default:
+                case 8:
+                    homepage();
                     break;
             }
+        } while (exit == 1);
+    }
 
+    private int manageStudentCourse(SetInterface<Student> student) {
+        int exit;
+        String id, course, status;
+        int count;
+        boolean findId = false;
+
+        studentUI.titleUI("Manage Student Course");
+        do {
+            count = 0;
+            int select = studentUI.addOrRemoveCourse();
+            if (select == 1) { // register course
+                id = studentUI.inputStudentId();
+                course = studentUI.inputStudentCourse();
+                status = studentUI.inputCourseStatus();
+
+                for (int i = 0; i < student.getSize(); i++) {
+                    if (student.getElements(i).getStudentId().equals(id)) {
+                        count = i;
+                        findId = true;
+                        break;
+                    }
+                }
+                if (findId = true) {
+                    student.getElements(count).addStudentCourse(new StudentCourse(id, course, status));
+                    System.out.println("Added Course to this Student Successful........");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+                exit = studentUI.inputExitPage();
+                return exit;
+            } else { // remove course
+                id = studentUI.inputStudentId();
+                course = studentUI.inputStudentCourse();
+                status = studentUI.inputCourseStatus();
+
+                for (int i = 0; i < student.getSize(); i++) {
+                    if (student.getElements(i).getStudentId().equals(id)) {
+                        count = i;
+                        findId = true;
+                        break;
+                    }
+                }
+                if (findId = true) {
+                    student.getElements(count).removeStudentCourse(new StudentCourse(id, course, status));
+                    System.out.println("Removed Course from this Student Successful........");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+                exit = studentUI.inputExitPage();
+                return exit;
+            }
         } while (exit == 0);
+    }
 
+    private int registration(SetInterface<Student> student) {
+        int exit;
+        studentUI.titleUI("Add New Student");
+        do {
+            Student newStudent = studentUI.inputStudentDetails();
+            if (studentUI.inputConfirmation("add new student") == true) {
+                student.add(newStudent);
+                System.out.println("Successful Registered !!!!");
+            } else {
+                System.out.println("Cancelled Registration !!!!");
+            }
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
+    private int updateStudent(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Update Student Details");
+        do {
+
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
+    private int removeStudent(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Remove Student");
+        do {
+
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
     }
 
     private int displayStudentList(SetInterface<Student> student) {
         int exit;
         int count = 0;
 
-        studentUI.headerUI("View Student List");
-        studentUI.printLine(1, 150);
+        studentUI.titleUI("View Student List");
         studentUI.studentListHeader();
-        studentUI.printLine(1, 150);
         if (student.isEmpty()) {
             System.out.println("Oops !!! Student List is Empty............");
         } else {
@@ -83,35 +173,28 @@ public class StudentController {
                         count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
                         student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
                         student.getElements(i).getStudentProgremme(), student.getElements(i).getStudentCourse());
-
             }
         }
-        
+
         exit = studentUI.studentListExit();
         return exit;
     }
 
-    private int manageStudentCourse(SetInterface<Student> student) {
+    private int displayTotalCost(SetInterface<Student> student) {
         int exit;
-        studentUI.headerUI("Manage Student Course");
-        
-        exit = studentUI.inputExitPage();
+
+        studentUI.titleUI("Calculate Total Cost of Registed Course");
+        studentUI.totalCostListHeader();
+        exit = studentUI.studentListExit();
         return exit;
     }
 
-    private int registration(SetInterface<Student> student) {
+    private int displayReport(SetInterface<Student> student) {
         int exit;
-        studentUI.headerUI("Add New Student");
-        do {
-            Student newStudent = studentUI.inputStudentDetails();
-            if (studentUI.inputConfirmation() == true) {
-                student.add(newStudent);
-                System.out.println("Successful Registered !!!!");
-            } else {
-                System.out.println("Cancelled Registration !!!!");
-            }
-            exit = studentUI.inputExitPage();
-        } while (exit == 1);
+
+        studentUI.titleUI("Generate Report");
+        studentUI.summaryReportHeader();
+        exit = studentUI.studentListExit();
         return exit;
     }
 }

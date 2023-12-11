@@ -17,6 +17,11 @@ public class StudentCourse {
     public StudentCourse() {
     }
 
+    public StudentCourse(String id, String course) {
+        this.studentId = id;
+        this.course = course;
+    }
+
     public StudentCourse(String id, String course, String status) {
         this.studentId = id;
         this.course = course;
