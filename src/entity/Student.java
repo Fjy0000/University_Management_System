@@ -9,7 +9,7 @@ import adt.SetInterface;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class Student extends StudentCourse {
 
@@ -30,6 +30,15 @@ public class Student extends StudentCourse {
         this.contactNo = contactNo;
         this.studentIc = ic;
         this.studentProgremme = progremme;
+    }
+    
+    public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
+        this.studentId = id;
+        this.studentName = name;
+        this.contactNo = contactNo;
+        this.studentIc = ic;
+        this.studentProgremme = progremme;
+        this.studentCourse = courses;
     }
 
     public String getStudentId() {

@@ -4,10 +4,7 @@
  */
 package control;
 
-import adt.SetInterface;
 import control.StudentController;
-import dao.TutorInitializer;
-import entity.Tutor;
 import java.util.Scanner;
 
 /**
@@ -24,9 +21,6 @@ public class Main {
     }
 
     public static void homepage() {
-        TutorInitializer t = new TutorInitializer();
-        SetInterface<Tutor> tutorList = t.initializeTutor();
-
         int countInvalidInput;
         int option;
 
@@ -38,7 +32,6 @@ public class Main {
 
         do {
             countInvalidInput = 0;
-
             System.out.printf("%2s %-10s\n", "1)", "Student Registration Management");
             System.out.printf("%2s %-10s\n", "2)", "Course Management");
             System.out.printf("%2s %-10s\n", "3)", "Progremme Management");

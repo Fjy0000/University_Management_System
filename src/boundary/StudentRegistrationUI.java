@@ -4,13 +4,11 @@
  */
 package boundary;
 
-import entity.Student;
-import entity.StudentCourse;
 import java.util.Scanner;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class StudentRegistrationUI {
 
@@ -18,7 +16,7 @@ public class StudentRegistrationUI {
 
     public void titleUI(String header) {
         System.out.println();
-        System.out.printf("%-20s\n", header);
+        System.out.println(header);
         printLine(1, 35);
     }
 
@@ -40,7 +38,7 @@ public class StudentRegistrationUI {
         System.out.printf("%2s %-5s\n", "8)", "Exit");
         printLine(1, 35);
 
-        System.out.printf("%-10s", "Enter Number(1-8): ");
+        System.out.print("Enter Number(1-8): ");
         option = input.nextInt();
 
         while (option < 1 || option > 8) {
@@ -56,7 +54,8 @@ public class StudentRegistrationUI {
         String name;
 
         do {
-            System.out.printf("%-20s", "Enter Student Name : ");
+            input.nextLine();
+            System.out.print("Enter Student Name : ");
             name = input.nextLine();
             if (name.length() < 4) {
                 System.out.println("Student Name must more than 4 letter...");
@@ -69,7 +68,7 @@ public class StudentRegistrationUI {
         String contactNo;
 
         do {
-            System.out.printf("%-20s", "Enter Student Contact No : ");
+            System.out.print("Enter Student Contact No : ");
             contactNo = input.nextLine();
             if (contactNo.length() < 10) {
                 System.out.println("Please enter correct and real contact no...");
@@ -82,7 +81,7 @@ public class StudentRegistrationUI {
         String ic;
 
         do {
-            System.out.printf("%-20s", "Enter Student IC : ");
+            System.out.print("Enter Student IC : ");
             ic = input.nextLine();
             if (ic.length() != 12 || ic.matches("\\d+") == false) {
                 System.out.println("Student IC must be real...");
@@ -95,7 +94,7 @@ public class StudentRegistrationUI {
         String progremme;
 
         do {
-            System.out.printf("%-20s", "Enter Student Progremme (exp: RSD): ");
+            System.out.print("Enter Student Progremme (exp: RSD): ");
             progremme = input.nextLine();
             if (progremme.isEmpty()) {
                 System.out.println("Student Progremme cannot leave empty...");
@@ -104,16 +103,76 @@ public class StudentRegistrationUI {
         return progremme;
     }
 
-    public Student inputStudentDetails() {
-        input.nextLine();
-        String name = inputStudentName();
-        String contactNo = inputStudentContactNo();
-        String ic = inputStudentIc();
-        String progremme = inputStudentProgremme();
+    // Update Student UI -------------------------------------------------------------------------------------------------------------------------
+    public int updateMenu() {
+        int option;
         System.out.println();
+        System.out.println("1) Student Name");
+        System.out.println("2) Student Contact No");
+        System.out.println("3) Student IC");
+        System.out.println("4) Student Progremme");
+        System.out.print("Choose one to update (1-4): ");
+        option = input.nextInt();
 
-        String id = name.substring(0, 3) + "1";
-        return new Student(id, name, contactNo, ic, progremme);
+        while (option < 1 || option > 8) {
+            System.out.print("Invalid option! Please select a number between 1 and 4 : ");
+            option = input.nextInt();
+        }
+
+        return option;
+    }
+
+    public String inputStuNewName() {
+        String name;
+
+        do {
+            input.nextLine();
+            System.out.print("Enter New Student Name : ");
+            name = input.nextLine();
+            if (name.length() < 4) {
+                System.out.println("Student Name must more than 4 letter...");
+            }
+        } while (name.length() < 4);
+        return name;
+    }
+
+    public String inputStuNewContactNo() {
+        String contactNo;
+
+        do {
+            System.out.print("Enter New Student Contact No : ");
+            contactNo = input.nextLine();
+            if (contactNo.length() < 10) {
+                System.out.println("Please enter correct and real contact no...");
+            }
+        } while (contactNo.length() < 10);
+        return contactNo;
+    }
+
+    public String inputStuNewIC() {
+        String ic;
+
+        do {
+            System.out.print("Enter New Student IC : ");
+            ic = input.nextLine();
+            if (ic.length() != 12 || ic.matches("\\d+") == false) {
+                System.out.println("Student IC must be real...");
+            }
+        } while (ic.length() != 12 || ic.matches("\\d+") == false);
+        return ic;
+    }
+
+    public String inputStuNewProgremme() {
+        String progremme;
+
+        do {
+            System.out.print("Enter New Student Progremme : ");
+            progremme = input.nextLine();
+            if (progremme.isEmpty()) {
+                System.out.println("Student Progremme cannot leave empty...");
+            }
+        } while (progremme.isEmpty());
+        return progremme;
     }
 
     // Student Course UI -------------------------------------------------------------------------------------------------------------------------

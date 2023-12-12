@@ -6,7 +6,7 @@ package entity;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class StudentCourse {
 
