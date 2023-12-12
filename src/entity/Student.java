@@ -9,7 +9,7 @@ import adt.SetInterface;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class Student extends StudentCourse {
 
@@ -30,6 +30,15 @@ public class Student extends StudentCourse {
         this.contactNo = contactNo;
         this.studentIc = ic;
         this.studentProgremme = progremme;
+    }
+    
+    public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
+        this.studentId = id;
+        this.studentName = name;
+        this.contactNo = contactNo;
+        this.studentIc = ic;
+        this.studentProgremme = progremme;
+        this.studentCourse = courses;
     }
 
     public String getStudentId() {
@@ -76,23 +85,23 @@ public class Student extends StudentCourse {
     public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
     }
-    
-    public int getStudentCourseSize(){
+
+    public int getStudentCourseSize() {
         return this.studentCourse.getSize();
     }
 
     public void addStudentCourse(StudentCourse courses) {
         this.studentCourse.add(courses);
     }
-    
+
     public void removeStudentCourse(StudentCourse courses) {
         this.studentCourse.remove(courses);
     }
-    
+
     // ToString -----------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return studentId + contactNo + studentName + studentIc + studentProgremme;
+        return studentId + "\t" + contactNo + "\t" + studentName + "\t" + studentIc + "\t" + studentProgremme;
     }
 
 }

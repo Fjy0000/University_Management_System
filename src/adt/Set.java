@@ -4,6 +4,8 @@
  */
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
  * @author fongj
@@ -43,7 +45,7 @@ public class Set<T> implements SetInterface<T> {
 
     public boolean update(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
-            setArray[position] = newObject;
+            setArray[position - 1] = newObject;
             return true;
         } else {
             return false;
@@ -66,14 +68,33 @@ public class Set<T> implements SetInterface<T> {
 
     }
 
-    public T getElements(int position) {
-        T result = null;
+    @Override
+    public Iterator<T> getIterator() {
+        return new IteratorForArraySet();
+    }
 
-        if (position <= numberOfElements || position >= 0) {
-            result = setArray[position];
+    private class IteratorForArraySet implements Iterator<T> {
+
+        private int nextIndex;
+
+        public IteratorForArraySet() {
+            nextIndex = 0;
         }
 
-        return result;
+        @Override
+        public boolean hasNext() {
+            return nextIndex < numberOfElements;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T nextElement = (T) setArray[nextIndex++];
+                return nextElement;
+            } else {
+                return null;
+            }
+        }
     }
 
     public int getSize() {
