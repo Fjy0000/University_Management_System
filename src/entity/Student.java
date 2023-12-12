@@ -4,6 +4,9 @@
  */
 package entity;
 
+import adt.Set;
+import adt.SetInterface;
+
 /**
  *
  * @author fongj
@@ -11,10 +14,23 @@ package entity;
 public class Student extends StudentCourse {
 
     private String studentId;
+    private String contactNo;
     private String studentName;
-    private String studentPassword;
+    private String studentIc;
     private String studentProgremme;
-    private StudentCourse studentCourse;
+    private SetInterface<StudentCourse> studentCourse = new Set<>();
+
+    // Student ------------------------------------------------------------------------------
+    public Student() {
+    }
+
+    public Student(String id, String name, String contactNo, String ic, String progremme) {
+        this.studentId = id;
+        this.studentName = name;
+        this.contactNo = contactNo;
+        this.studentIc = ic;
+        this.studentProgremme = progremme;
+    }
 
     public String getStudentId() {
         return studentId;
@@ -22,6 +38,14 @@ public class Student extends StudentCourse {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public String getStudentName() {
@@ -32,12 +56,12 @@ public class Student extends StudentCourse {
         this.studentName = studentName;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public String getStudentIc() {
+        return studentIc;
     }
 
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
+    public void setStudentIc(String studentIc) {
+        this.studentIc = studentIc;
     }
 
     public String getStudentProgremme() {
@@ -48,17 +72,27 @@ public class Student extends StudentCourse {
         this.studentProgremme = studentProgremme;
     }
 
-    public StudentCourse getStudentCourse() {
+    // Student Course ------------------------------------------------------------------------------
+    public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
     }
-
-    public void setStudentCourse(StudentCourse studentCourse) {
-        this.studentCourse = studentCourse;
+    
+    public int getStudentCourseSize(){
+        return this.studentCourse.getSize();
     }
 
+    public void addStudentCourse(StudentCourse courses) {
+        this.studentCourse.add(courses);
+    }
+    
+    public void removeStudentCourse(StudentCourse courses) {
+        this.studentCourse.remove(courses);
+    }
+    
+    // ToString -----------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return studentId + "\t" + studentName + "\t" + studentPassword + "\t" + studentProgremme + "\t" + studentCourse;
+        return studentId + contactNo + studentName + studentIc + studentProgremme;
     }
 
 }

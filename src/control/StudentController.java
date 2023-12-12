@@ -4,6 +4,12 @@
  */
 package control;
 
+import adt.Set;
+import adt.SetInterface;
+import boundary.StudentRegistrationUI;
+import static control.Main.homepage;
+import entity.Student;
+import entity.StudentCourse;
 import java.util.Scanner;
 
 /**
@@ -12,64 +18,209 @@ import java.util.Scanner;
  */
 public class StudentController {
 
-    public static void studentManagement() {
+    private StudentRegistrationUI studentUI = new StudentRegistrationUI();
+    private SetInterface<Student> student = new Set<>();
 
-        Scanner input = new Scanner(System.in);
-        int option;
+    Scanner input = new Scanner(System.in);
 
-        System.out.println("======================================");
-        System.out.printf("%-10s\n", "Student Management");
-        System.out.println("======================================");
-        System.out.printf("%2s %-10s\n", "1)", "Add Student");
-        System.out.printf("%2s %-10s\n", "2)", "View Student List");
-        System.out.printf("%2s %-10s\n", "3)", "Update Student Details");
-        System.out.printf("%2s %-10s\n", "4)", "Manage Student Course ");
-        System.out.printf("%2s %-10s\n", "5)", "Remove Student");
-        System.out.printf("%2s %-10s\n", "6)", "Calculate Total Cost of Registed Course");
-        System.out.printf("%2s %-10s\n", "7)", "Generate Report");
-        System.out.printf("%2s %-5s\n", "8)", "Exit");
-        System.out.println("======================================");
+    public void studentManagement() {
+        int result, exit;
+
         do {
-            System.out.printf("%-10s", "Enter Number(1-8): ");
-            option = input.nextInt();
+            exit = -1;
+            result = studentUI.studentManageMenu();
 
-            if (option < 1 || option > 8) {
-                System.out.println("Invalid option !!! Please try again....!");
+            switch (result) {
+                case 1: {
+                    exit = registration(student);
+                    break;
+                }
+                case 2: {
+                    exit = displayStudentList(student);
+                    break;
+                }
+                case 3: {
+                    exit = updateStudent(student);
+                    break;
+                }
+                case 4: {
+                    exit = manageStudentCourse(student);
+                    break;
+                }
+                case 5: {
+                    exit = removeStudent(student);
+                    break;
+                }
+                case 6: {
+                    exit = displayTotalCost(student);
+                    break;
+                }
+                case 7: {
+                    exit = displayReport(student);
+                    break;
+                }
+                case 8:
+                    homepage();
+                    break;
             }
-        } while (option < 1 || option > 8);
-
-        switch (option) {
-            case 1 -> {
-                System.out.printf("%-10s\n", "Add New Student");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 2 -> {
-                System.out.printf("%-10s\n", "View Student List");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 3 -> {
-                System.out.printf("%-10s\n", "Add New Student");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 4 -> {
-                System.out.printf("%-10s\n", "View Student List");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 5 -> {
-                System.out.printf("%-10s\n", "Add New Student");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 6 -> {
-                System.out.printf("%-10s\n", "View Student List");
-                System.out.printf("%10s\n", "====================================");
-            }
-            case 7 -> {
-                System.out.printf("%-10s\n", "Add New Student");
-                System.out.printf("%10s\n", "====================================");
-            }
-        }
-        // Exit Student Management
-        // page----------------------------------------------------------------
+        } while (exit == 1);
     }
 
+    private int registration(SetInterface<Student> student) {
+        int exit;
+        studentUI.titleUI("Add New Student");
+        do {
+            Student newStudent = studentUI.inputStudentDetails();
+            if (studentUI.inputConfirmation("add new student") == true) {
+                student.add(newStudent);
+                System.out.println("Successful Registered !!!!");
+            } else {
+                System.out.println("Cancelled Registration !!!!");
+            }
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
+    private int manageStudentCourse(SetInterface<Student> student) {
+        int exit;
+        String id, course, status;
+        int count;
+        boolean findId = false;
+
+        studentUI.titleUI("Manage Student Course");
+        do {
+            count = 0;
+            int select = studentUI.addOrRemoveCourse();
+            if (select == 1) { // register course
+                id = studentUI.inputStudentId();
+                course = studentUI.inputStudentCourse();
+                status = studentUI.inputCourseStatus();
+
+                for (int i = 0; i < student.getSize(); i++) {
+                    if (student.getElements(i).getStudentId().equals(id)) {
+                        count = i;
+                        findId = true;
+                        break;
+                    }
+                }
+                if (findId = true) {
+                    student.getElements(count).addStudentCourse(new StudentCourse(id, course, status));
+                    System.out.println("Added Course to this Student Successful........");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+                exit = studentUI.inputExitPage();
+                return exit;
+            } else { // remove course
+                id = studentUI.inputStudentId();
+                course = studentUI.inputStudentCourse();
+                status = studentUI.inputCourseStatus();
+
+                for (int i = 0; i < student.getSize(); i++) {
+                    if (student.getElements(i).getStudentId().equals(id)) {
+                        count = i;
+                        findId = true;
+                        break;
+                    }
+                }
+                if (findId = true) {
+                    student.getElements(count).removeStudentCourse(new StudentCourse(id, course, status));
+                    System.out.println("Removed Course from this Student Successful........");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+                exit = studentUI.inputExitPage();
+                return exit;
+            }
+        } while (exit == 0);
+    }
+
+    private int updateStudent(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Update Student Details");
+        do {
+            studentUI.inputStudentId();
+            System.out.println("1) Student Name");
+            System.out.println("2) Student Contact No");
+            System.out.println("3) Student IC");
+            System.out.println("4) Student Progremme");
+            System.out.print("Choose one to update : ");
+            System.out.print("Enter New Student Name : ");
+            System.out.print("Enter New Student Contact No : ");
+            System.out.print("Enter New Student IC : ");
+            System.out.print("Enter New Student Progremme : ");
+            studentUI.inputConfirmation("update the student info");
+            
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
+    private int removeStudent(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Remove Student");
+        do {
+
+            exit = studentUI.inputExitPage();
+        } while (exit == 0);
+        return exit;
+    }
+
+    private int displayStudentList(SetInterface<Student> student) {
+        int exit;
+        int count = 0;
+
+        studentUI.titleUI("View Student List");
+        studentUI.studentListHeader();
+        if (student.isEmpty()) {
+            System.out.println("Oops !!! Student List is Empty............");
+        } else {
+            for (int i = 0; i < student.getSize(); i++) {
+                ++count;
+                if (student.getElements(i).getStudentCourseSize() != 0) {
+                    for (int j = 0; j < student.getElements(i).getStudentCourseSize(); j++) {
+                        if (j > 0) {
+                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    "", "", "", "", "", "",
+                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                        } else {
+                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
+                                    student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
+                                    student.getElements(i).getStudentProgremme(),
+                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                        }
+                    }
+                } else {
+                    System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
+                            count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
+                            student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
+                            student.getElements(i).getStudentProgremme());
+                }
+            }
+        }
+        exit = studentUI.studentListExit();
+        return exit;
+    }
+
+    private int displayTotalCost(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Calculate Total Cost of Registed Course");
+        studentUI.totalCostListHeader();
+        exit = studentUI.studentListExit();
+        return exit;
+    }
+
+    private int displayReport(SetInterface<Student> student) {
+        int exit;
+
+        studentUI.titleUI("Generate Report");
+        studentUI.summaryReportHeader();
+        exit = studentUI.studentListExit();
+        return exit;
+    }
 }
