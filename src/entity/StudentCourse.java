@@ -10,7 +10,7 @@ package entity;
  */
 public class StudentCourse {
 
-    private String studentId;
+    private String courseId;
     private String course;
     private String status;
 
@@ -18,22 +18,22 @@ public class StudentCourse {
     }
 
     public StudentCourse(String id, String course) {
-        this.studentId = id;
+        this.courseId = id;
         this.course = course;
     }
 
     public StudentCourse(String id, String course, String status) {
-        this.studentId = id;
+        this.courseId = id;
         this.course = course;
         this.status = status;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getCourseId() {
+        return courseId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     public String getCourse() {
@@ -54,7 +54,7 @@ public class StudentCourse {
 
     @Override
     public String toString() {
-        return studentId + "\t" + course + "\t" + status;
+        return courseId + "\t" + course + "\t" + status;
     }
 
 }

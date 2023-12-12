@@ -76,23 +76,23 @@ public class Student extends StudentCourse {
     public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
     }
-    
-    public int getStudentCourseSize(){
+
+    public int getStudentCourseSize() {
         return this.studentCourse.getSize();
     }
 
     public void addStudentCourse(StudentCourse courses) {
         this.studentCourse.add(courses);
     }
-    
+
     public void removeStudentCourse(StudentCourse courses) {
         this.studentCourse.remove(courses);
     }
-    
+
     // ToString -----------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return studentId + contactNo + studentName + studentIc + studentProgremme;
+        return studentId + "\t" + contactNo + "\t" + studentName + "\t" + studentIc + "\t" + studentProgremme;
     }
 
 }

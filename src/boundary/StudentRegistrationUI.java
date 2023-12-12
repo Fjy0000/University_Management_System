@@ -199,8 +199,15 @@ public class StudentRegistrationUI {
 
     // Confirmation Page UI ------------------------------------------------------------------------------------------------------------------------------
     public boolean inputConfirmation(String str) {
+        System.out.println();
         System.out.printf("%-20s", "Confirm to " + str + "? (Y/N): ");
         String confirm = input.nextLine();
+        while (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")
+                && !confirm.toLowerCase().equals("n") && !confirm.toUpperCase().equals("N")) {
+            System.out.printf("%-20s", "Invalid Input !!! Please try agian do you confirm to " + str + "? (Y/N): ");
+            confirm = input.nextLine();
+        }
+        System.out.println();
         if (confirm.toLowerCase().equals("y") || confirm.toUpperCase().equals("Y")) {
             return true;
         } else {
@@ -212,12 +219,14 @@ public class StudentRegistrationUI {
     public int inputExitPage() {
         int exit;
 
-        System.out.printf("%-30s", "Do you want to EXIT this page? (Yes=1/No=0) :");
+        System.out.println();
+        System.out.printf("%-30s", "Do you want to EXIT this page? (Yes=1/No=0) : ");
         exit = input.nextInt();
         while (exit < 0 || exit > 1) {
-            System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=1/No=0) :");
+            System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");
             exit = input.nextInt();
         }
+        System.out.println();
         return exit;
     }
 
