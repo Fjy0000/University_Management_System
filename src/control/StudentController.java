@@ -141,7 +141,18 @@ public class StudentController {
 
         studentUI.titleUI("Update Student Details");
         do {
-
+            studentUI.inputStudentId();
+            System.out.println("1) Student Name");
+            System.out.println("2) Student Contact No");
+            System.out.println("3) Student IC");
+            System.out.println("4) Student Progremme");
+            System.out.print("Choose one to update : ");
+            System.out.print("Enter New Student Name : ");
+            System.out.print("Enter New Student Contact No : ");
+            System.out.print("Enter New Student IC : ");
+            System.out.print("Enter New Student Progremme : ");
+            studentUI.inputConfirmation("update the student info");
+            
             exit = studentUI.inputExitPage();
         } while (exit == 0);
         return exit;
@@ -173,7 +184,7 @@ public class StudentController {
                     for (int j = 0; j < student.getElements(i).getStudentCourseSize(); j++) {
                         if (j > 0) {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                                    "", "", "", "", "", "", 
+                                    "", "", "", "", "", "",
                                     student.getElements(i).getStudentCourse().getElements(j).getCourse());
                         } else {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
@@ -189,10 +200,8 @@ public class StudentController {
                             student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
                             student.getElements(i).getStudentProgremme());
                 }
-
             }
         }
-
         exit = studentUI.studentListExit();
         return exit;
     }

@@ -41,6 +41,15 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
+    public boolean update(T newObject, int position) {
+        if (position >= 0 && position <= numberOfElements) {
+            setArray[position] = newObject;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean remove(T object) {
         int index = getElementIndex(object);
@@ -59,15 +68,13 @@ public class Set<T> implements SetInterface<T> {
 
     public T getElements(int position) {
         T result = null;
-        
-        if(position <= numberOfElements || position >= 0){
+
+        if (position <= numberOfElements || position >= 0) {
             result = setArray[position];
         }
-       
+
         return result;
     }
-    
-    
 
     public int getSize() {
         return numberOfElements;

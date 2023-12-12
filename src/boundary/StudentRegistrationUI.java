@@ -119,13 +119,13 @@ public class StudentRegistrationUI {
     // Student Course UI -------------------------------------------------------------------------------------------------------------------------
     public String inputStudentId() {
         input.nextLine();
-        System.out.print("Enter the Student ID:");
+        System.out.print("Enter the Student ID : ");
         String id = input.nextLine();
         return id;
     }
 
     public String inputStudentCourse() {
-        System.out.print("Enter the Course :");
+        System.out.print("Enter the Course : ");
         String course = input.nextLine();
         return course;
     }
@@ -133,10 +133,10 @@ public class StudentRegistrationUI {
     public String inputCourseStatus() {
         int select;
 
-        System.out.print("Enter the number of Course Status (Main = 1/Resit = 2/Repeat = 3):");
+        System.out.print("Enter the number of Course Status (Main = 1/Resit = 2/Repeat = 3) : ");
         select = input.nextInt();
         while (select < 0 || select > 3) {
-            System.out.print("Invalid Enter! Please select a number between 1 and 3 (Main = 1/Resit = 2/Repeat = 3):");
+            System.out.print("Invalid Enter! Please select a number between 1 and 3 (Main = 1/Resit = 2/Repeat = 3) : ");
             select = input.nextInt();
         }
         if (select == 1) {

@@ -10,6 +10,7 @@ package adt;
  */
 public interface SetInterface<T> {
     public boolean add(T newElement);
+    public boolean update(T newObject, int position);
     public boolean remove(T newElement);
     public T getElements(int position);
     public int getSize();
