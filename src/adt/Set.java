@@ -11,19 +11,19 @@ import java.util.Iterator;
  *
  * @author 60111
  */
-public class arraySet<T extends Comparable<T>> implements SetInterface<T>{
+public class Set<T> implements SetInterface<T>{
     T[] setArray;
     int numberOfElements;
     private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
     
-    public arraySet(){
+    public Set(){
         this(DEFAULT_INITIAL_CAPACITY);
     }
     
-    public arraySet(int initialCapacity){
+    public Set(int initialCapacity){
         numberOfElements=0;
-        setArray = (T[]) new Comparable[initialCapacity];
+        setArray = (T[]) new Object[initialCapacity];
     }
     
     @Override
@@ -41,6 +41,86 @@ public class arraySet<T extends Comparable<T>> implements SetInterface<T>{
         numberOfElements++;
         return true;
     }
+
+
+
+
+    public boolean update(T newObject, int position) {
+        if (position >= 0 && position <= numberOfElements) {
+            setArray[position] = newObject;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean remove(T object) {
+        int index = getElementIndex(object);
+        if (index != -1) {
+            // Shift elements to fill the gap
+            for (int i = index; i < numberOfElements; i++) {
+                setArray[i] = setArray[i + 1];
+            }
+            numberOfElements--;
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public T getElements(int position) {
+        T result = null;
+
+        if (position <= numberOfElements || position >= 0) {
+            result = setArray[position];
+        }
+
+        return result;
+    }
+
+    public int getSize() {
+        return numberOfElements;
+    }
+
+    public boolean isEmpty() {
+        return numberOfElements == 0;
+    }
+
+    private int getElementIndex(T object) {
+        for (int i = 0; i < numberOfElements; i++) {
+            if (setArray[i].equals(object)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean isArrayFull() {
+        return numberOfElements == setArray.length;
+    }
+
+    private void doubleArray() {
+        T[] oldArray = setArray;
+
+        setArray = (T[]) new Object[2 * oldArray.length];
+        for (int index = 0; index < oldArray.length; index++) {
+            setArray[index] = oldArray[index];
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        String outputStr = "";
+        for (int i = 0; i < numberOfElements; ++i) {
+            outputStr += setArray[i] + "\n";
+        }
+        return outputStr;
+    }
+
+
 //    @Override
 //    public boolean addAll(SetInterface<T> otherSet) {
 //        Iterator<T> iterator = otherSet.getIterator();
@@ -51,21 +131,9 @@ public class arraySet<T extends Comparable<T>> implements SetInterface<T>{
 //    }
     
 
-    public boolean isArrayFull(){
-        return numberOfElements == setArray.length;
-    }
-    
 
-    public void doubleArray(){
-        T[] oldArray = setArray;
-        int oldSize = oldArray.length;
-        
-        setArray =(T[]) new Object[2 * oldSize];
-        for (int index=0; index<oldSize; index++){
-            setArray[index] = oldArray[index];
-        }
-        
-    }
+
+
     @Override
     public Iterator<T> getIterator(){
         return new IteratorForArraySet();
@@ -93,66 +161,65 @@ public class arraySet<T extends Comparable<T>> implements SetInterface<T>{
             }
         }
     }
-    
-    @Override
-    public String toString(){
-        String outputStr = "";
-        for (int i = 0; i<numberOfElements; ++i ){
-            outputStr += setArray[i] + "\n";
-        }
-        return outputStr;
-    }
 
-    @Override
-    public int getTotalEntries() {
-        return numberOfElements;
-    }
+
+//    @Override
+//    public int getTotalEntries() {
+//        return numberOfElements;
+//    }
     @Override
     public boolean contains(T anEntry) {
-
-    int i = 0;
-    while (i < numberOfElements && setArray[i].compareTo(anEntry) < 0) {
-      i++;
-    }// linear search
-        if (anEntry.equals(setArray[i])){
-            return true;
-        }
-     return false;
-  }
-    
-    @Override
-    public boolean remove(T object) {
-        int index = indexOf(object);
-        if (index != -1) {
-            for (int i = index; i < numberOfElements - 1; i++) {
-                setArray[i] = setArray[i + 1];
-            }
-            setArray[numberOfElements - 1] = null;
-            numberOfElements--;
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    private int indexOf(T object) {
-        for (int i = 0; i < numberOfElements; i++) {
-            if (setArray[i].equals(object)) {
-                return i;
+        boolean found = false;
+        for (int index = 0; index < numberOfElements; index++) {
+            if (anEntry.equals(setArray[index])) {
+                found = true;
+                break; // exit the loop since the target is found
             }
         }
-        return -1;
+        return found;
     }
+//    @Override
+//    public boolean contains(T anEntry) {
+//
+//    int i = 0;
+//    while (i < numberOfElements && setArray[i].compareTo(anEntry) < 0) {
+//      i++;
+//    }// linear search
+//        if (anEntry.equals(setArray[i])){
+//            return true;
+//        }
+//     return false;
+//  }
     
-    @Override
-    public boolean isEmpty(){
-        return numberOfElements == 0;
-    }
+//    @Override
+//    public boolean remove(T object) {
+//        int index = indexOf(object);
+//        if (index != -1) {
+//            for (int i = index; i < numberOfElements - 1; i++) {
+//                setArray[i] = setArray[i + 1];
+//            }
+//            setArray[numberOfElements - 1] = null;
+//            numberOfElements--;
+//            return true;
+//        } else {
+//            return false;
+//        }
+//
+//    }
+
+//    private int indexOf(T object) {
+//        for (int i = 0; i < numberOfElements; i++) {
+//            if (setArray[i].equals(object)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+    
     @Override
     public void union (SetInterface anotherSet){
-        if(anotherSet instanceof arraySet){
-            arraySet aSet = (arraySet) anotherSet;
+        if(anotherSet instanceof Set){
+            Set aSet = (Set) anotherSet;
             for(int i=0; i<aSet.numberOfElements; ++i){
                 add((T) aSet.setArray[i]);
             }

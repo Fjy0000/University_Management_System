@@ -4,7 +4,7 @@
  */
 package entity;
 
-import adt.arraySet;
+import adt.Set;
 import adt.SetInterface;
 import java.util.Iterator;
 
@@ -12,11 +12,12 @@ import java.util.Iterator;
  *
  * @author 60111
  */
-public class TutorialGroup implements Comparable<TutorialGroup>{
+//public class TutorialGroup implements Comparable<TutorialGroup>{
+public class TutorialGroup{
     private String groupName;
     private static int groupNum = 1;
     private boolean assigned;
-    private SetInterface<Student> students = new arraySet<>();
+    private SetInterface<Student> students = new Set<>();
     
     public TutorialGroup() {
         this.groupName = "G" + groupNum;
@@ -83,8 +84,12 @@ public class TutorialGroup implements Comparable<TutorialGroup>{
 //        return null; // Student not found in the group
 //    }
     
-    public int getTotalEntries() {
-        return students.getTotalEntries();
+//    public int getTotalEntries() {
+//        return students.getTotalEntries();
+//    }
+    
+    public int getSize() {
+        return students.getSize();
     }
 
     public String getGroupName() {
@@ -110,10 +115,10 @@ public class TutorialGroup implements Comparable<TutorialGroup>{
     public void setAssigned(boolean assigned) {
         this.assigned = assigned;
     }
-    @Override
-    public int compareTo(TutorialGroup o) {
-      return groupName.compareTo(o.groupName);
-    }
+//    @Override
+//    public int compareTo(TutorialGroup o) {
+//      return groupName.compareTo(o.groupName);
+//    }
     
     @Override
     public String toString() {
@@ -122,3 +127,21 @@ public class TutorialGroup implements Comparable<TutorialGroup>{
                 + "\nIs Assigned: " + assigned;
     }
 }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("Tutorial Group\n");
+//        stringBuilder.append("Group Name: ").append(groupName).append("\n");
+//        stringBuilder.append("Is Assigned: ").append(assigned).append("\n");
+//        stringBuilder.append("Students in Group:\n");
+//
+//        SetInterface<Student> students = getStudentsInGroup();
+//        Iterator<Student> iterator = students.getIterator();
+//        while (iterator.hasNext()) {
+//            Student student = iterator.next();
+//            stringBuilder.append(student.toString()).append("\n");
+//        }
+//
+//        return stringBuilder.toString();
+//    }

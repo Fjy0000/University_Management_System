@@ -16,7 +16,14 @@ public interface SetInterface<T> {
     public boolean remove(T newElement);
     public boolean contains(T anEntry);
     public Iterator<T> getIterator();
-    public int getTotalEntries();
+//    public int getTotalEntries();
     public boolean isEmpty();
     public void union(SetInterface anotherSet);
+    
+//    public boolean add(T newElement);
+    public boolean update(T newObject, int position);
+//    public boolean remove(T newElement);
+    public T getElements(int position);
+    public int getSize();
+//    public boolean isEmpty();
 }

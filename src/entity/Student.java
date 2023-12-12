@@ -4,56 +4,112 @@
  */
 package entity;
 
+import adt.SetInterface;
+import adt.Set;
 import java.util.Objects;
 
-/**
- *
- * @author 60111
- */
-public class Student implements Comparable<Student>{
-    private String id;
-    private String name;
-    public Student(String id, String name) {
-        this.id = id;
-        this.name = name;
+public class Student extends StudentCourse {
+
+    private String studentId;
+    private String contactNo;
+    private String studentName;
+    private String studentIc;
+    private String studentProgremme;
+    private SetInterface<StudentCourse> studentCourse = new Set<>();
+
+    // Student ------------------------------------------------------------------------------
+    public Student() {
     }
 
-    public String getId() {
-        return id;
+    public Student(String id, String name, String contactNo, String ic, String progremme) {
+        this.studentId = id;
+        this.studentName = name;
+        this.contactNo = contactNo;
+        this.studentIc = ic;
+        this.studentProgremme = progremme;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public String getName() {
-        return name;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentIc() {
+        return studentIc;
+    }
+
+    public void setStudentIc(String studentIc) {
+        this.studentIc = studentIc;
+    }
+
+    public String getStudentProgremme() {
+        return studentProgremme;
+    }
+
+    public void setStudentProgremme(String studentProgremme) {
+        this.studentProgremme = studentProgremme;
+    }
+
+    // Student Course ------------------------------------------------------------------------------
+    public SetInterface<StudentCourse> getStudentCourse() {
+        return studentCourse;
     }
     
-    @Override
-    public int compareTo(Student o) {
-      return id.compareTo(o.id);
+    public int getStudentCourseSize(){
+        return this.studentCourse.getSize();
     }
 
+    public void addStudentCourse(StudentCourse courses) {
+        this.studentCourse.add(courses);
+    }
+    
+    public void removeStudentCourse(StudentCourse courses) {
+        this.studentCourse.remove(courses);
+    }
+    
+    // ori ToString -----------------------------------------------------------------------------------
+//    @Override
+//    public String toString() {
+//        return studentId + contactNo + studentName + studentIc + studentProgremme;
+//    }
+    
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", name=" + name + '}';
+        return "Student ID: " + studentId + "\nContactNo: "+ contactNo + "\nCName: " + studentName+ "\nIC: " + studentIc+ "\nProgremme: " + studentProgremme;
+//        return "Student{" + "id=" + id + ", name=" + name + '}';
     }
-    
-   @Override
+ // add by hongli  -----------------------------------------------------------------------------------   
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Student student = (Student) obj;
-        return id.equals(student.id); // Use equals for content equality
+        return studentId.equals(student.studentId); // Use equals for content equality
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(studentId);
     }
 }
+   
+//}
