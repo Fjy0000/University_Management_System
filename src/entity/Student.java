@@ -6,6 +6,7 @@ package entity;
 
 import adt.Set;
 import adt.SetInterface;
+import java.util.Objects;
 
 /**
  *
@@ -31,7 +32,7 @@ public class Student extends StudentCourse {
         this.studentIc = ic;
         this.studentProgremme = progremme;
     }
-    
+
     public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
         this.studentId = id;
         this.studentName = name;
@@ -98,10 +99,27 @@ public class Student extends StudentCourse {
         this.studentCourse.remove(courses);
     }
 
-    // ToString -----------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return studentId + "\t" + contactNo + "\t" + studentName + "\t" + studentIc + "\t" + studentProgremme;
+        return "Student ID: " + studentId + "\nContactNo: " + contactNo + "\nCName: " + studentName + "\nIC: " + studentIc + "\nProgremme: " + studentProgremme;
+//        return "Student{" + "id=" + id + ", name=" + name + '}';
     }
 
+    // add by hongli  -----------------------------------------------------------------------------------   
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Student student = (Student) obj;
+        return studentId.equals(student.studentId); // Use equals for content equality
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentId);
+    }
 }

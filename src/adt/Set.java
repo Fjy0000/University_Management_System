@@ -9,12 +9,12 @@ import java.util.Iterator;
 /**
  *
  * @author fongj
- * @param <T>
  */
 public class Set<T> implements SetInterface<T> {
 
     T[] setArray;
     int numberOfElements;
+    private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
 
     public Set() {
@@ -28,7 +28,6 @@ public class Set<T> implements SetInterface<T> {
 
     @Override
     public boolean add(T newEntry) {
-
         for (int i = 0; i < numberOfElements; ++i) {
             if (setArray[i].equals(newEntry)) {
                 return false;
@@ -66,35 +65,6 @@ public class Set<T> implements SetInterface<T> {
             return false;
         }
 
-    }
-
-    @Override
-    public Iterator<T> getIterator() {
-        return new IteratorForArraySet();
-    }
-
-    private class IteratorForArraySet implements Iterator<T> {
-
-        private int nextIndex;
-
-        public IteratorForArraySet() {
-            nextIndex = 0;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return nextIndex < numberOfElements;
-        }
-
-        @Override
-        public T next() {
-            if (hasNext()) {
-                T nextElement = (T) setArray[nextIndex++];
-                return nextElement;
-            } else {
-                return null;
-            }
-        }
     }
 
     public int getSize() {
@@ -135,6 +105,81 @@ public class Set<T> implements SetInterface<T> {
             outputStr += setArray[i] + "\n";
         }
         return outputStr;
+    }
+
+//    @Override
+//    public boolean addAll(SetInterface<T> otherSet) {
+//        Iterator<T> iterator = otherSet.getIterator();
+//        while (iterator.hasNext()) {
+//            add(iterator.next());
+//        }
+//        return true;
+//    }
+    @Override
+    public Iterator<T> getIterator() {
+        return new IteratorForArraySet();
+    }
+
+    private class IteratorForArraySet implements Iterator<T> {
+
+        private int nextIndex;
+
+        public IteratorForArraySet() {
+            nextIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < numberOfElements;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T nextElement = (T) setArray[nextIndex++];
+                return nextElement;
+            } else {
+                return null;
+            }
+        }
+    }
+
+//    @Override
+//    public int getTotalEntries() {
+//        return numberOfElements;
+//    }
+    @Override
+    public boolean contains(T anEntry) {
+        boolean found = false;
+        for (int index = 0; index < numberOfElements; index++) {
+            if (anEntry.equals(setArray[index])) {
+                found = true;
+                break; // exit the loop since the target is found
+            }
+        }
+        return found;
+    }
+//    @Override
+//    public boolean contains(T anEntry) {
+//
+//    int i = 0;
+//    while (i < numberOfElements && setArray[i].compareTo(anEntry) < 0) {
+//      i++;
+//    }// linear search
+//        if (anEntry.equals(setArray[i])){
+//            return true;
+//        }
+//     return false;
+//  }
+
+    @Override
+    public void union(SetInterface anotherSet) {
+        if (anotherSet instanceof Set) {
+            Set aSet = (Set) anotherSet;
+            for (int i = 0; i < aSet.numberOfElements; ++i) {
+                add((T) aSet.setArray[i]);
+            }
+        }
     }
 
 }
