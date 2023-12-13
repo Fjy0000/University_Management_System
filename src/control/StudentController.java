@@ -186,28 +186,28 @@ public class StudentController {
                     Student object = getStudent.next();
                     if (object.getStudentId().equals(id)) {
                         if (option == 1) {
-                            isSuccess = student.update(new Student(object.getStudentId(), name,
+                            isSuccess = student.replace(new Student(object.getStudentId(), name,
                                     object.getContactNo(), object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 2) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                     contactNo, object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 3) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                     object.getContactNo(), gender,
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 4) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                     object.getContactNo(), object.getGender(),
                                     progremme, object.getStudentCourse()),
                                     count);

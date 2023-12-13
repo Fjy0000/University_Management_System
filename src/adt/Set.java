@@ -38,7 +38,7 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
-    public boolean update(T newObject, int position) {
+    public boolean replace(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
             setArray[position - 1] = newObject;
             return true;

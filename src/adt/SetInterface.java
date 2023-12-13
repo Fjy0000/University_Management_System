@@ -20,7 +20,7 @@ public interface SetInterface<T> {
 
     public void union(SetInterface anotherSet);
 
-    public boolean update(T newObject, int position);
+    public boolean replace(T newObject, int position);
 
     public int getSize();
 
