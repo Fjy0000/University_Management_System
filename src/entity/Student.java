@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import adt.Set;
@@ -101,11 +97,11 @@ public class Student extends StudentCourse {
 
     @Override
     public String toString() {
-        return "Student ID: " + studentId + 
-                "\nContactNo: " + contactNo + 
-                "\nName: " + studentName + 
-                "\nIC: " + studentIc + 
-                "\nProgremme: " + studentProgremme + "\n";
+        return "Student ID: " + studentId
+                + "\nContactNo: " + contactNo
+                + "\nName: " + studentName
+                + "\nIC: " + studentIc
+                + "\nProgremme: " + studentProgremme + "\n";
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   

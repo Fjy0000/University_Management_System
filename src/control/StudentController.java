@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 import adt.Set;
@@ -22,14 +18,9 @@ import java.util.Iterator;
 public class StudentController {
 
     private StudentRegistrationUI studentUI = new StudentRegistrationUI();
-//    private SetInterface<Student> student = new Set<>();
-//    private StudentInitializer stu = new StudentInitializer();
-    
+
     public void studentManagement() {
         int result, exit;
-        
-        //Dummy Data
-        stu.initializeStudent(student);
 
         do {
             exit = 0;

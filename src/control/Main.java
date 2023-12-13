@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package control;
 
 import adt.Set;
@@ -21,10 +17,15 @@ public class Main {
     private static final int MAX_INVALID_ATTEMPTS = 3;
     private static StudentController studentPage = new StudentController();
     private static TutorialGroupUI tutorialPage = new TutorialGroupUI();
-    
+
     static SetInterface<Student> student = new Set<>();
     static StudentInitializer stu = new StudentInitializer();
+
     public static void main(String[] args) {
+
+        //Initialize Data
+        stu.initializeStudent(student);
+
         homepage();
     }
 

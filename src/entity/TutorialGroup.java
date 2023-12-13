@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import adt.Set;
@@ -13,56 +9,57 @@ import java.util.Iterator;
  * @author 60111
  */
 //public class TutorialGroup implements Comparable<TutorialGroup>{
-public class TutorialGroup{
+public class TutorialGroup {
+
     private String groupName;
     private static int groupNum = 1;
     private boolean assigned;
     private SetInterface<Student> students = new Set<>();
-    
+
     public TutorialGroup() {
         this.groupName = "G" + groupNum;
         assigned = false;
         groupNum++;
     }
 
-    
     public TutorialGroup(String name) {
         this.groupName = name;
         assigned = false;
         groupNum++;
     }
-   public void addStudent(Student student) {
+
+    public void addStudent(Student student) {
         if (student != null) {
             students.add(student);
         }
     }
-    
+
     public void removeStudent(Student student) {
         if (student != null) {
             students.remove(student);
         }
     }
-    
+
     public boolean containsStudent(Student student) {
         return students.contains(student);
     }
+
     public SetInterface<Student> getStudentsSet() {
         return students;
     }
 
     public void listStudents() {
         System.out.print("\n");
-            if (students.isEmpty()) {
-                System.out.println("No students in this group.");
-            } else {
-                Iterator<Student> iterator = students.getIterator();
-                while (iterator.hasNext()) {
-                    System.out.println(iterator.next());
-                }
+        if (students.isEmpty()) {
+            System.out.println("No students in this group.");
+        } else {
+            Iterator<Student> iterator = students.getIterator();
+            while (iterator.hasNext()) {
+                System.out.println(iterator.next());
             }
+        }
     }
-    
-    
+
     public int getSize() {
         return students.getSize();
     }
@@ -94,10 +91,10 @@ public class TutorialGroup{
 //    public int compareTo(TutorialGroup o) {
 //      return groupName.compareTo(o.groupName);
 //    }
-    
+
     @Override
     public String toString() {
-        return "Tutorial Group\n" 
+        return "Tutorial Group\n"
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
     }

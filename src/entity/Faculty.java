@@ -1,19 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 /**
  *
  * @author User
  */
-public class Faculty extends Course{
-    
+public class Faculty extends Course {
+
     private String facultyId;
     private String facultyName;
     private String programmeId;
-    
+
     public String getprogrammeId() {
         return programmeId;
     }
@@ -29,7 +25,7 @@ public class Faculty extends Course{
     public void setfacultyId(String facultyId) {
         this.facultyId = facultyId;
     }
-    
+
     public String getfacultyName() {
         return facultyName;
     }
@@ -38,11 +34,9 @@ public class Faculty extends Course{
         this.facultyName = facultyName;
     }
 
-    
     @Override
     public String toString() {
         return facultyId + "\t" + facultyName + "\t" + programmeId;
     }
-    
-   
+
 }

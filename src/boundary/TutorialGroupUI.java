@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package boundary;
 
 import static control.Main.homepage;
@@ -10,6 +6,7 @@ import java.util.Scanner;
 
 public class TutorialGroupUI {
 //    private TutorialControl controller = new TutorialControl();
+
     private TutorialControl controller = new TutorialControl();
     private Scanner scanner = new Scanner(System.in);
 
@@ -83,12 +80,14 @@ public class TutorialGroupUI {
             break;
         }
     }
-    public void listStudentsOfTutorialGroup(){
+
+    public void listStudentsOfTutorialGroup() {
         System.out.print("Enter tutorial group name to list students: ");
         String groupName = scanner.nextLine().trim();
         System.out.print("\n");
         controller.listStudentsInGroup(groupName);
     }
+
     public void searchStudent() {
         System.out.print("Enter student ID to search: ");
         String studentId = scanner.nextLine().trim();
@@ -98,23 +97,22 @@ public class TutorialGroupUI {
         System.out.print("\n");
         controller.searchStudentInGroup(studentId, groupName);
     }
-    
+
     private void removeStudentFromGroup() {
         System.out.print("Enter student ID to remove: ");
         String studentId = scanner.nextLine().trim();
 
-         System.out.print("Enter tutorial group name for student removal: ");
+        System.out.print("Enter tutorial group name for student removal: ");
         String groupName = scanner.nextLine().trim();
         System.out.print("\n");
         controller.removeStudentFromGroup(studentId, groupName);
 
     }
-    
 
     private void changeStudentOfTutorialGroup() {
         System.out.print("Enter student ID: ");
         String studentId = scanner.nextLine().trim();
-        
+
         System.out.print("Enter current tutorial group name: ");
         String currentGroupName = scanner.nextLine().trim();
 
@@ -123,9 +121,9 @@ public class TutorialGroupUI {
 
         System.out.print("\n");
         controller.changeStudentGroup(studentId, currentGroupName, newGroupName);
-        
-        
+
     }
+
     private void filterGroupsByNumberOfStudents() {
         System.out.print("Enter the number of students to filter tutorial groups: ");
         int numberOfStudents = scanner.nextInt();
@@ -133,6 +131,7 @@ public class TutorialGroupUI {
         System.out.print("\n");
         controller.filterGroupsByNumberOfStudents(numberOfStudents);
     }
+
     private void MergeGroup() {
         System.out.print("Enter the name of the first tutorial group: ");
         String groupName1 = scanner.nextLine().trim();
@@ -142,7 +141,7 @@ public class TutorialGroupUI {
         System.out.print("\n");
         controller.mergeGroups(groupName1, groupName2);
     }
-    
+
     private void Report() {
         System.out.print("\n");
         System.out.println("Summary Report:");
@@ -153,8 +152,4 @@ public class TutorialGroupUI {
 //        TutorialGroupUI tutorialGroupUI = new TutorialGroupUI();
 //        tutorialGroupUI.tutorialtManagement();
 //    }
-
-
-    
 }
-
