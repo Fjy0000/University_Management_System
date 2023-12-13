@@ -8,9 +8,10 @@ import adt.Set;
 import adt.SetInterface;
 import boundary.StudentRegistrationUI;
 import static control.Main.homepage;
+import dao.StudentInitializer;
 import entity.Student;
 import entity.StudentCourse;
-import java.util.Scanner;
+import java.util.Iterator;
 
 /**
  *
@@ -20,14 +21,16 @@ public class StudentController {
 
     private StudentRegistrationUI studentUI = new StudentRegistrationUI();
     private SetInterface<Student> student = new Set<>();
-
-    Scanner input = new Scanner(System.in);
-
+    private StudentInitializer stu = new StudentInitializer();
+    
     public void studentManagement() {
         int result, exit;
+        
+        //Dummy Data
+        stu.initializeStudent(student);
 
         do {
-            exit = -1;
+            exit = 0;
             result = studentUI.studentManageMenu();
 
             switch (result) {
@@ -70,10 +73,15 @@ public class StudentController {
         int exit;
         studentUI.titleUI("Add New Student");
         do {
-            Student newStudent = studentUI.inputStudentDetails();
+            String name = studentUI.inputStudentName();
+            String contactNo = studentUI.inputStudentContactNo();
+            String ic = studentUI.inputStudentIc();
+            String progremme = studentUI.inputStudentProgremme();
+
+            String id = name.substring(0, 3) + "1";
             if (studentUI.inputConfirmation("add new student") == true) {
-                student.add(newStudent);
-                System.out.println("Successful Registered !!!!");
+                student.add(new Student(id, name, contactNo, ic, progremme));
+                System.out.println("Successful Registered New Student !!!!");
             } else {
                 System.out.println("Cancelled Registration !!!!");
             }
@@ -85,74 +93,146 @@ public class StudentController {
     private int manageStudentCourse(SetInterface<Student> student) {
         int exit;
         String id, course, status;
-        int count;
-        boolean findId = false;
+        boolean isSuccess = false;
 
         studentUI.titleUI("Manage Student Course");
         do {
-            count = 0;
             int select = studentUI.addOrRemoveCourse();
-            if (select == 1) { // register course
-                id = studentUI.inputStudentId();
-                course = studentUI.inputStudentCourse();
-                status = studentUI.inputCourseStatus();
 
-                for (int i = 0; i < student.getSize(); i++) {
-                    if (student.getElements(i).getStudentId().equals(id)) {
-                        count = i;
-                        findId = true;
-                        break;
-                    }
-                }
-                if (findId = true) {
-                    student.getElements(count).addStudentCourse(new StudentCourse(id, course, status));
-                    System.out.println("Added Course to this Student Successful........");
-                } else {
-                    System.out.println("The Student ID no inside the list...");
-                }
-                exit = studentUI.inputExitPage();
-                return exit;
-            } else { // remove course
-                id = studentUI.inputStudentId();
-                course = studentUI.inputStudentCourse();
-                status = studentUI.inputCourseStatus();
+            switch (select) {
+                case 1: {
+                    id = studentUI.inputStudentId();
+                    course = studentUI.inputStudentCourse();
+                    status = studentUI.inputCourseStatus();
+                    if (studentUI.inputConfirmation("add this Course") == true) {
+                        Iterator<Student> getStudent = student.getIterator();
+                        while (getStudent.hasNext()) {
+                            Student object = getStudent.next();
+                            if (object.getStudentId().equals(id)) {
+                                object.addStudentCourse(new StudentCourse("courseid", course, status));
+                                isSuccess = true;
+                                break;
+                            }
+                        }
 
-                for (int i = 0; i < student.getSize(); i++) {
-                    if (student.getElements(i).getStudentId().equals(id)) {
-                        count = i;
-                        findId = true;
-                        break;
+                        if (isSuccess == true) {
+                            System.out.println("Added Course to this Student Successful........");
+
+                        } else {
+                            System.out.println("The Student ID no inside the list...");
+                        }
+                    } else {
+                        System.out.println("Cancelled Adding the Course !!!!");
                     }
+                    break;
                 }
-                if (findId = true) {
-                    student.getElements(count).removeStudentCourse(new StudentCourse(id, course, status));
-                    System.out.println("Removed Course from this Student Successful........");
-                } else {
-                    System.out.println("The Student ID no inside the list...");
+                case 2: {
+                    id = studentUI.inputStudentId();
+                    course = studentUI.inputStudentCourse();
+                    if (studentUI.inputConfirmation("remove this Course") == true) {
+                        Iterator<Student> getStudent = student.getIterator();
+                        while (getStudent.hasNext()) {
+                            Student object1 = getStudent.next();
+                            if (object1.getStudentId().equals(id)) {
+                                Iterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
+                                while (getStudentCourse.hasNext()) {
+                                    StudentCourse object2 = getStudentCourse.next();
+                                    if (object2.getCourse().equals(course)) {
+                                        object1.removeStudentCourse(object2);
+                                        isSuccess = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (isSuccess == true) {
+                            System.out.println("Removed Course from this Student Successful........");
+                        } else {
+                            System.out.println("The Student ID no inside the list...");
+                        }
+                    } else {
+                        System.out.println("Cancelled Removing the Course !!!!");
+                    }
+                    break;
                 }
-                exit = studentUI.inputExitPage();
-                return exit;
             }
+            exit = studentUI.inputExitPage();
         } while (exit == 0);
+        return exit;
     }
 
     private int updateStudent(SetInterface<Student> student) {
-        int exit;
+        int exit, option, count;
+        String id, name = "", ic = "", contactNo = "", progremme = "";
+        boolean isSuccess = false;
 
         studentUI.titleUI("Update Student Details");
         do {
-            studentUI.inputStudentId();
-            System.out.println("1) Student Name");
-            System.out.println("2) Student Contact No");
-            System.out.println("3) Student IC");
-            System.out.println("4) Student Progremme");
-            System.out.print("Choose one to update : ");
-            System.out.print("Enter New Student Name : ");
-            System.out.print("Enter New Student Contact No : ");
-            System.out.print("Enter New Student IC : ");
-            System.out.print("Enter New Student Progremme : ");
-            studentUI.inputConfirmation("update the student info");
-            
+            id = studentUI.inputStudentId();
+            option = studentUI.updateMenu();
+            switch (option) {
+                case 1: {
+                    name = studentUI.inputStuNewName();
+                    break;
+                }
+                case 2: {
+                    contactNo = studentUI.inputStuNewContactNo();
+                    break;
+                }
+                case 3: {
+                    ic = studentUI.inputStuNewIC();
+                    break;
+                }
+                case 4: {
+                    progremme = studentUI.inputStuNewProgremme();
+                    break;
+                }
+            }
+            if (studentUI.inputConfirmation("update the student detail") == true) {
+                Iterator<Student> getStudent = student.getIterator();
+                count = 0;
+                while (getStudent.hasNext()) {
+                    count++;
+                    Student object = getStudent.next();
+                    if (object.getStudentId().equals(id)) {
+                        if (option == 1) {
+                            isSuccess = student.update(new Student(object.getStudentId(), name,
+                                    object.getContactNo(), object.getStudentIc(),
+                                    object.getStudentProgremme(), object.getStudentCourse()),
+                                    count);
+                            break;
+                        }
+                        if (option == 2) {
+                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                                    contactNo, object.getStudentIc(),
+                                    object.getStudentProgremme(), object.getStudentCourse()),
+                                    count);
+                            break;
+                        }
+                        if (option == 3) {
+                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                                    object.getContactNo(), ic,
+                                    object.getStudentProgremme(), object.getStudentCourse()),
+                                    count);
+                            break;
+                        }
+                        if (option == 4) {
+                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
+                                    object.getContactNo(), object.getStudentIc(),
+                                    progremme, object.getStudentCourse()),
+                                    count);
+                            break;
+                        }
+                    }
+                }
+                if (isSuccess == true) {
+                    System.out.println("Successful Updated Student Detail.....");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+            } else {
+                System.out.println("Cancelled Updating Student Detail !!!!");
+            }
             exit = studentUI.inputExitPage();
         } while (exit == 0);
         return exit;
@@ -160,9 +240,31 @@ public class StudentController {
 
     private int removeStudent(SetInterface<Student> student) {
         int exit;
+        String id;
+        boolean isSuccess = false;
 
         studentUI.titleUI("Remove Student");
         do {
+            id = studentUI.inputStudentId();
+
+            if (studentUI.inputConfirmation("remove this Student") == true) {
+                Iterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    Student object = getStudent.next();
+                    if (object.getStudentId().equals(id)) {
+                        student.remove(object);
+                        isSuccess = true;
+                        break;
+                    }
+                }
+                if (isSuccess == true) {
+                    System.out.println("Removed the Student Successful........");
+                } else {
+                    System.out.println("The Student ID no inside the list...");
+                }
+            } else {
+                System.out.println("Cancelled Removing the Student !!!!");
+            }
 
             exit = studentUI.inputExitPage();
         } while (exit == 0);
@@ -171,34 +273,39 @@ public class StudentController {
 
     private int displayStudentList(SetInterface<Student> student) {
         int exit;
-        int count = 0;
+        int count1 = 0, count2;
 
         studentUI.titleUI("View Student List");
         studentUI.studentListHeader();
         if (student.isEmpty()) {
             System.out.println("Oops !!! Student List is Empty............");
         } else {
-            for (int i = 0; i < student.getSize(); i++) {
-                ++count;
-                if (student.getElements(i).getStudentCourseSize() != 0) {
-                    for (int j = 0; j < student.getElements(i).getStudentCourseSize(); j++) {
-                        if (j > 0) {
+            Iterator<Student> getStudent = student.getIterator();
+            while (getStudent.hasNext()) {
+                ++count1;
+                Student studentObject = getStudent.next();
+                if (studentObject.getStudentCourseSize() != 0) {
+                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                    count2 = 0;
+                    while (getStudentCourse.hasNext()) {
+                        StudentCourse courseObject = getStudentCourse.next();
+                        if (count2 == 0) {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                                    "", "", "", "", "", "",
-                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                                    count1, studentObject.getStudentId(), studentObject.getStudentName(),
+                                    studentObject.getContactNo(), studentObject.getStudentIc(),
+                                    studentObject.getStudentProgremme(), courseObject.getCourse());
+                            count2++;
                         } else {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                                    count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
-                                    student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
-                                    student.getElements(i).getStudentProgremme(),
-                                    student.getElements(i).getStudentCourse().getElements(j).getCourse());
+                                    "", "", "", "", "", "", courseObject.getCourse());
+                            count2++;
                         }
                     }
                 } else {
                     System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
-                            count, student.getElements(i).getStudentId(), student.getElements(i).getStudentName(),
-                            student.getElements(i).getContactNo(), student.getElements(i).getStudentIc(),
-                            student.getElements(i).getStudentProgremme());
+                            count1, studentObject.getStudentId(), studentObject.getStudentName(),
+                            studentObject.getContactNo(), studentObject.getStudentIc(),
+                            studentObject.getStudentProgremme());
                 }
             }
         }

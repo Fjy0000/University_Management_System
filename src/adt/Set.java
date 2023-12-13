@@ -6,35 +6,35 @@ package adt;
 
 import java.util.Iterator;
 
-
 /**
  *
- * @author 60111
+ * @author fongj
  */
-public class Set<T> implements SetInterface<T>{
+public class Set<T> implements SetInterface<T> {
+
     T[] setArray;
     int numberOfElements;
     private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
-    
-    public Set(){
+
+    public Set() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
-    
-    public Set(int initialCapacity){
-        numberOfElements=0;
+
+    public Set(int initialCapacity) {
+        numberOfElements = 0;
         setArray = (T[]) new Object[initialCapacity];
     }
-    
+
     @Override
-    public boolean add(T newEntry){
-        for(int i=0; i<numberOfElements; ++i){
-            if(setArray[i].equals(newEntry)){
+    public boolean add(T newEntry) {
+        for (int i = 0; i < numberOfElements; ++i) {
+            if (setArray[i].equals(newEntry)) {
                 return false;
             }
         }
-        
-        if(isArrayFull()){
+
+        if (isArrayFull()) {
             doubleArray();
         }
         setArray[numberOfElements] = newEntry;
@@ -42,12 +42,9 @@ public class Set<T> implements SetInterface<T>{
         return true;
     }
 
-
-
-
     public boolean update(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
-            setArray[position] = newObject;
+            setArray[position - 1] = newObject;
             return true;
         } else {
             return false;
@@ -68,16 +65,6 @@ public class Set<T> implements SetInterface<T>{
             return false;
         }
 
-    }
-
-    public T getElements(int position) {
-        T result = null;
-
-        if (position <= numberOfElements || position >= 0) {
-            result = setArray[position];
-        }
-
-        return result;
     }
 
     public int getSize() {
@@ -120,7 +107,6 @@ public class Set<T> implements SetInterface<T>{
         return outputStr;
     }
 
-
 //    @Override
 //    public boolean addAll(SetInterface<T> otherSet) {
 //        Iterator<T> iterator = otherSet.getIterator();
@@ -129,39 +115,34 @@ public class Set<T> implements SetInterface<T>{
 //        }
 //        return true;
 //    }
-    
-
-
-
-
     @Override
-    public Iterator<T> getIterator(){
+    public Iterator<T> getIterator() {
         return new IteratorForArraySet();
     }
-    
-    private class IteratorForArraySet implements Iterator<T>{
-        
+
+    private class IteratorForArraySet implements Iterator<T> {
+
         private int nextIndex;
-        public IteratorForArraySet(){
-            nextIndex=0;     
-        } 
-        
-      @Override 
-      public boolean hasNext(){
-      return nextIndex<numberOfElements;
-      }
-      
-      @Override 
-        public T next(){
-            if(hasNext()){
-            T nextElement = (T) setArray[nextIndex++];
-            return nextElement;
-            }else{
-            return null;
+
+        public IteratorForArraySet() {
+            nextIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < numberOfElements;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T nextElement = (T) setArray[nextIndex++];
+                return nextElement;
+            } else {
+                return null;
             }
         }
     }
-
 
 //    @Override
 //    public int getTotalEntries() {
@@ -190,40 +171,15 @@ public class Set<T> implements SetInterface<T>{
 //        }
 //     return false;
 //  }
-    
-//    @Override
-//    public boolean remove(T object) {
-//        int index = indexOf(object);
-//        if (index != -1) {
-//            for (int i = index; i < numberOfElements - 1; i++) {
-//                setArray[i] = setArray[i + 1];
-//            }
-//            setArray[numberOfElements - 1] = null;
-//            numberOfElements--;
-//            return true;
-//        } else {
-//            return false;
-//        }
-//
-//    }
 
-//    private int indexOf(T object) {
-//        for (int i = 0; i < numberOfElements; i++) {
-//            if (setArray[i].equals(object)) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-    
     @Override
-    public void union (SetInterface anotherSet){
-        if(anotherSet instanceof Set){
+    public void union(SetInterface anotherSet) {
+        if (anotherSet instanceof Set) {
             Set aSet = (Set) anotherSet;
-            for(int i=0; i<aSet.numberOfElements; ++i){
+            for (int i = 0; i < aSet.numberOfElements; ++i) {
                 add((T) aSet.setArray[i]);
             }
         }
     }
-    
+
 }

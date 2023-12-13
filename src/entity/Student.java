@@ -4,10 +4,14 @@
  */
 package entity;
 
-import adt.SetInterface;
 import adt.Set;
+import adt.SetInterface;
 import java.util.Objects;
 
+/**
+ *
+ * @author Fong Jun Yi
+ */
 public class Student extends StudentCourse {
 
     private String studentId;
@@ -27,6 +31,15 @@ public class Student extends StudentCourse {
         this.contactNo = contactNo;
         this.studentIc = ic;
         this.studentProgremme = progremme;
+    }
+
+    public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
+        this.studentId = id;
+        this.studentName = name;
+        this.contactNo = contactNo;
+        this.studentIc = ic;
+        this.studentProgremme = progremme;
+        this.studentCourse = courses;
     }
 
     public String getStudentId() {
@@ -73,35 +86,34 @@ public class Student extends StudentCourse {
     public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
     }
-    
-    public int getStudentCourseSize(){
+
+    public int getStudentCourseSize() {
         return this.studentCourse.getSize();
     }
 
     public void addStudentCourse(StudentCourse courses) {
         this.studentCourse.add(courses);
     }
-    
+
     public void removeStudentCourse(StudentCourse courses) {
         this.studentCourse.remove(courses);
     }
-    
-    // ori ToString -----------------------------------------------------------------------------------
-//    @Override
-//    public String toString() {
-//        return studentId + contactNo + studentName + studentIc + studentProgremme;
-//    }
-    
+
     @Override
     public String toString() {
-        return "Student ID: " + studentId + "\nContactNo: "+ contactNo + "\nCName: " + studentName+ "\nIC: " + studentIc+ "\nProgremme: " + studentProgremme;
+        return "Student ID: " + studentId + "\nContactNo: " + contactNo + "\nCName: " + studentName + "\nIC: " + studentIc + "\nProgremme: " + studentProgremme;
 //        return "Student{" + "id=" + id + ", name=" + name + '}';
     }
- // add by hongli  -----------------------------------------------------------------------------------   
+
+    // add by hongli  -----------------------------------------------------------------------------------   
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Student student = (Student) obj;
         return studentId.equals(student.studentId); // Use equals for content equality
     }
@@ -111,5 +123,3 @@ public class Student extends StudentCourse {
         return Objects.hash(studentId);
     }
 }
-   
-//}
