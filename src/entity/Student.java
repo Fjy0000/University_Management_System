@@ -101,8 +101,11 @@ public class Student extends StudentCourse {
 
     @Override
     public String toString() {
-        return "Student ID: " + studentId + "\nContactNo: " + contactNo + "\nCName: " + studentName + "\nIC: " + studentIc + "\nProgremme: " + studentProgremme;
-//        return "Student{" + "id=" + id + ", name=" + name + '}';
+        return "Student ID: " + studentId + 
+                "\nContactNo: " + contactNo + 
+                "\nName: " + studentName + 
+                "\nIC: " + studentIc + 
+                "\nProgremme: " + studentProgremme + "\n";
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   
@@ -115,7 +118,7 @@ public class Student extends StudentCourse {
             return false;
         }
         Student student = (Student) obj;
-        return studentId.equals(student.studentId); // Use equals for content equality
+        return Objects.equals(studentId, student.studentId);
     }
 
     @Override

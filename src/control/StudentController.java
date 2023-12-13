@@ -8,6 +8,8 @@ import adt.Set;
 import adt.SetInterface;
 import boundary.StudentRegistrationUI;
 import static control.Main.homepage;
+import static control.Main.stu;
+import static control.Main.student;
 import dao.StudentInitializer;
 import entity.Student;
 import entity.StudentCourse;
@@ -20,8 +22,8 @@ import java.util.Iterator;
 public class StudentController {
 
     private StudentRegistrationUI studentUI = new StudentRegistrationUI();
-    private SetInterface<Student> student = new Set<>();
-    private StudentInitializer stu = new StudentInitializer();
+//    private SetInterface<Student> student = new Set<>();
+//    private StudentInitializer stu = new StudentInitializer();
     
     public void studentManagement() {
         int result, exit;

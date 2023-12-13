@@ -107,14 +107,6 @@ public class Set<T> implements SetInterface<T> {
         return outputStr;
     }
 
-//    @Override
-//    public boolean addAll(SetInterface<T> otherSet) {
-//        Iterator<T> iterator = otherSet.getIterator();
-//        while (iterator.hasNext()) {
-//            add(iterator.next());
-//        }
-//        return true;
-//    }
     @Override
     public Iterator<T> getIterator() {
         return new IteratorForArraySet();
@@ -144,10 +136,6 @@ public class Set<T> implements SetInterface<T> {
         }
     }
 
-//    @Override
-//    public int getTotalEntries() {
-//        return numberOfElements;
-//    }
     @Override
     public boolean contains(T anEntry) {
         boolean found = false;
@@ -159,18 +147,6 @@ public class Set<T> implements SetInterface<T> {
         }
         return found;
     }
-//    @Override
-//    public boolean contains(T anEntry) {
-//
-//    int i = 0;
-//    while (i < numberOfElements && setArray[i].compareTo(anEntry) < 0) {
-//      i++;
-//    }// linear search
-//        if (anEntry.equals(setArray[i])){
-//            return true;
-//        }
-//     return false;
-//  }
 
     @Override
     public void union(SetInterface anotherSet) {
