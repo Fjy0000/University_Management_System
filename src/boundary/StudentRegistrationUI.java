@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package boundary;
 
 import java.util.Scanner;
@@ -77,17 +73,21 @@ public class StudentRegistrationUI {
         return contactNo;
     }
 
-    public String inputStudentIc() {
-        String ic;
+    public String inputStudentGender() {
+        int gender;
 
         do {
-            System.out.print("Enter Student IC : ");
-            ic = input.nextLine();
-            if (ic.length() != 12 || ic.matches("\\d+") == false) {
-                System.out.println("Student IC must be real...");
+            System.out.print("Enter Student Gender (1 = Male/2 = Female) : ");
+            gender = input.nextInt();
+            if (gender < 1 || gender > 2) {
+                System.out.println("Please select the option 1 or 2...");
             }
-        } while (ic.length() != 12 || ic.matches("\\d+") == false);
-        return ic;
+        } while (gender < 1 || gender > 2);
+        if (gender == 1) {
+            return "Male";
+        } else {
+            return "Female";
+        }
     }
 
     public String inputStudentProgremme() {
@@ -109,7 +109,7 @@ public class StudentRegistrationUI {
         System.out.println();
         System.out.println("1) Student Name");
         System.out.println("2) Student Contact No");
-        System.out.println("3) Student IC");
+        System.out.println("3) Student Gender");
         System.out.println("4) Student Progremme");
         System.out.print("Choose one to update (1-4): ");
         option = input.nextInt();
@@ -149,17 +149,21 @@ public class StudentRegistrationUI {
         return contactNo;
     }
 
-    public String inputStuNewIC() {
-        String ic;
+    public String inputStuNewGender() {
+        int gender;
 
         do {
-            System.out.print("Enter New Student IC : ");
-            ic = input.nextLine();
-            if (ic.length() != 12 || ic.matches("\\d+") == false) {
-                System.out.println("Student IC must be real...");
+            System.out.print("Enter New Student Gender (1 = Male/2 = Female) : ");
+            gender = input.nextInt();
+            if (gender < 1 || gender > 2) {
+                System.out.println("Invalid ! Please select 1 = Male or 2 = Female");
             }
-        } while (ic.length() != 12 || ic.matches("\\d+") == false);
-        return ic;
+        } while (gender < 1 || gender > 2);
+        if (gender == 1) {
+            return "Male";
+        } else {
+            return "Female";
+        }
     }
 
     public String inputStuNewProgremme() {
@@ -223,7 +227,7 @@ public class StudentRegistrationUI {
     public void studentListHeader() {
         printLine(1, 150);
         System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                "NO", "Student ID", "Student Name", "Contact No", "Student IC", "Programme", "Courses");
+                "NO", "Student ID", "Student Name", "Contact No", "Gender", "Programme", "Courses");
         printLine(1, 150);
     }
 
@@ -239,7 +243,7 @@ public class StudentRegistrationUI {
     public void summaryReportHeader() {
         printLine(1, 180);
         System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
-                "Student ID", "Student Name", "Contact No", "Student IC",
+                "Student ID", "Student Name", "Contact No", "Gender",
                 "Programme", "Courses", "Total Main", "Total Resit", "Total Repeat");
         printLine(1, 180);
     }

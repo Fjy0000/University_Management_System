@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
 
 /**
  *
- * @author fongj
+ * @author 
  */
 public class Set<T> implements SetInterface<T> {
 
@@ -42,7 +38,7 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
-    public boolean update(T newObject, int position) {
+    public boolean replace(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
             setArray[position - 1] = newObject;
             return true;
@@ -107,14 +103,6 @@ public class Set<T> implements SetInterface<T> {
         return outputStr;
     }
 
-//    @Override
-//    public boolean addAll(SetInterface<T> otherSet) {
-//        Iterator<T> iterator = otherSet.getIterator();
-//        while (iterator.hasNext()) {
-//            add(iterator.next());
-//        }
-//        return true;
-//    }
     @Override
     public Iterator<T> getIterator() {
         return new IteratorForArraySet();
@@ -144,10 +132,6 @@ public class Set<T> implements SetInterface<T> {
         }
     }
 
-//    @Override
-//    public int getTotalEntries() {
-//        return numberOfElements;
-//    }
     @Override
     public boolean contains(T anEntry) {
         boolean found = false;
@@ -159,18 +143,6 @@ public class Set<T> implements SetInterface<T> {
         }
         return found;
     }
-//    @Override
-//    public boolean contains(T anEntry) {
-//
-//    int i = 0;
-//    while (i < numberOfElements && setArray[i].compareTo(anEntry) < 0) {
-//      i++;
-//    }// linear search
-//        if (anEntry.equals(setArray[i])){
-//            return true;
-//        }
-//     return false;
-//  }
 
     @Override
     public void union(SetInterface anotherSet) {

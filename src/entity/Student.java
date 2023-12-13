@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import adt.Set;
@@ -17,7 +13,7 @@ public class Student extends StudentCourse {
     private String studentId;
     private String contactNo;
     private String studentName;
-    private String studentIc;
+    private String gender;
     private String studentProgremme;
     private SetInterface<StudentCourse> studentCourse = new Set<>();
 
@@ -25,19 +21,19 @@ public class Student extends StudentCourse {
     public Student() {
     }
 
-    public Student(String id, String name, String contactNo, String ic, String progremme) {
+    public Student(String id, String name, String contactNo, String gender, String progremme) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
-        this.studentIc = ic;
+        this.gender = gender;
         this.studentProgremme = progremme;
     }
 
-    public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
+    public Student(String id, String name, String contactNo, String gender, String progremme, SetInterface<StudentCourse> courses) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
-        this.studentIc = ic;
+        this.gender = gender;
         this.studentProgremme = progremme;
         this.studentCourse = courses;
     }
@@ -66,12 +62,12 @@ public class Student extends StudentCourse {
         this.studentName = studentName;
     }
 
-    public String getStudentIc() {
-        return studentIc;
+    public String getGender() {
+        return gender;
     }
 
-    public void setStudentIc(String studentIc) {
-        this.studentIc = studentIc;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getStudentProgremme() {
@@ -101,8 +97,11 @@ public class Student extends StudentCourse {
 
     @Override
     public String toString() {
-        return "Student ID: " + studentId + "\nContactNo: " + contactNo + "\nCName: " + studentName + "\nIC: " + studentIc + "\nProgremme: " + studentProgremme;
-//        return "Student{" + "id=" + id + ", name=" + name + '}';
+        return "Student ID: " + studentId
+                + "\nContactNo: " + contactNo
+                + "\nName: " + studentName
+                + "\nGender: " + gender
+                + "\nProgremme: " + studentProgremme + "\n";
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   
@@ -115,7 +114,7 @@ public class Student extends StudentCourse {
             return false;
         }
         Student student = (Student) obj;
-        return studentId.equals(student.studentId); // Use equals for content equality
+        return Objects.equals(studentId, student.studentId);
     }
 
     @Override
