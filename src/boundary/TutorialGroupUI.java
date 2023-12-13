@@ -4,15 +4,12 @@
  */
 package boundary;
 
-import adt.SetInterface;
 import static control.Main.homepage;
 import control.TutorialControl;
-import entity.TutorialGroup;
-import entity.Student;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TutorialGroupUI {
+//    private TutorialControl controller = new TutorialControl();
     private TutorialControl controller = new TutorialControl();
     private Scanner scanner = new Scanner(System.in);
 
@@ -78,29 +75,18 @@ public class TutorialGroupUI {
             System.out.print("Student ID: ");
             String studentId = scanner.nextLine().trim();
 
-            System.out.print("Student Name: ");
-            String studentName = scanner.nextLine().trim();
-            
-            System.out.print("Student contactNo: ");
-            String contactNo = scanner.nextLine().trim();
-            
-            System.out.print("Student ic: ");
-            String ic = scanner.nextLine().trim();
-            
-            System.out.print("Student progremme: ");
-            String progremme = scanner.nextLine().trim();
-
             System.out.print("Assigned Group: ");
             String groupName = scanner.nextLine().trim();
-
-//            controller.addStudentToGroup(studentId, studentName, groupName);
-            controller.addStudentToGroup(studentId, studentName, contactNo, ic, progremme, groupName);
+            System.out.print("\n");
+            controller.addStudentToGroup(studentId, groupName);
+//            controller.addStudentToGroup(studentId, studentName, contactNo, ic, progremme, groupName);
             break;
         }
     }
     public void listStudentsOfTutorialGroup(){
         System.out.print("Enter tutorial group name to list students: ");
         String groupName = scanner.nextLine().trim();
+        System.out.print("\n");
         controller.listStudentsInGroup(groupName);
     }
     public void searchStudent() {
@@ -109,7 +95,7 @@ public class TutorialGroupUI {
 
         System.out.print("Enter tutorial group name: ");
         String groupName = scanner.nextLine().trim();
-
+        System.out.print("\n");
         controller.searchStudentInGroup(studentId, groupName);
     }
     
@@ -119,7 +105,7 @@ public class TutorialGroupUI {
 
          System.out.print("Enter tutorial group name for student removal: ");
         String groupName = scanner.nextLine().trim();
-     
+        System.out.print("\n");
         controller.removeStudentFromGroup(studentId, groupName);
 
     }
@@ -135,7 +121,7 @@ public class TutorialGroupUI {
         System.out.print("Enter new tutorial group name: ");
         String newGroupName = scanner.nextLine().trim();
 
-
+        System.out.print("\n");
         controller.changeStudentGroup(studentId, currentGroupName, newGroupName);
         
         
@@ -144,6 +130,7 @@ public class TutorialGroupUI {
         System.out.print("Enter the number of students to filter tutorial groups: ");
         int numberOfStudents = scanner.nextInt();
         scanner.nextLine(); // consume the newline character
+        System.out.print("\n");
         controller.filterGroupsByNumberOfStudents(numberOfStudents);
     }
     private void MergeGroup() {
@@ -152,11 +139,12 @@ public class TutorialGroupUI {
 
         System.out.print("Enter the name of the second tutorial group: ");
         String groupName2 = scanner.nextLine().trim();
-
+        System.out.print("\n");
         controller.mergeGroups(groupName1, groupName2);
     }
     
     private void Report() {
+        System.out.print("\n");
         System.out.println("Summary Report:");
         controller.generateSummaryReport();
     }
