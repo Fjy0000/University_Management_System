@@ -13,7 +13,7 @@ public class Student extends StudentCourse {
     private String studentId;
     private String contactNo;
     private String studentName;
-    private String studentIc;
+    private String gender;
     private String studentProgremme;
     private SetInterface<StudentCourse> studentCourse = new Set<>();
 
@@ -21,19 +21,19 @@ public class Student extends StudentCourse {
     public Student() {
     }
 
-    public Student(String id, String name, String contactNo, String ic, String progremme) {
+    public Student(String id, String name, String contactNo, String gender, String progremme) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
-        this.studentIc = ic;
+        this.gender = gender;
         this.studentProgremme = progremme;
     }
 
-    public Student(String id, String name, String contactNo, String ic, String progremme, SetInterface<StudentCourse> courses) {
+    public Student(String id, String name, String contactNo, String gender, String progremme, SetInterface<StudentCourse> courses) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
-        this.studentIc = ic;
+        this.gender = gender;
         this.studentProgremme = progremme;
         this.studentCourse = courses;
     }
@@ -62,12 +62,12 @@ public class Student extends StudentCourse {
         this.studentName = studentName;
     }
 
-    public String getStudentIc() {
-        return studentIc;
+    public String getGender() {
+        return gender;
     }
 
-    public void setStudentIc(String studentIc) {
-        this.studentIc = studentIc;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getStudentProgremme() {
@@ -100,7 +100,7 @@ public class Student extends StudentCourse {
         return "Student ID: " + studentId
                 + "\nContactNo: " + contactNo
                 + "\nName: " + studentName
-                + "\nIC: " + studentIc
+                + "\nGender: " + gender
                 + "\nProgremme: " + studentProgremme + "\n";
     }
 

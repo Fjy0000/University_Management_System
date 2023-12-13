@@ -1,12 +1,9 @@
 package control;
 
-import adt.Set;
 import adt.SetInterface;
 import boundary.StudentRegistrationUI;
 import static control.Main.homepage;
-import static control.Main.stu;
 import static control.Main.student;
-import dao.StudentInitializer;
 import entity.Student;
 import entity.StudentCourse;
 import java.util.Iterator;
@@ -68,12 +65,12 @@ public class StudentController {
         do {
             String name = studentUI.inputStudentName();
             String contactNo = studentUI.inputStudentContactNo();
-            String ic = studentUI.inputStudentIc();
+            String gender = studentUI.inputStudentGender();
             String progremme = studentUI.inputStudentProgremme();
 
             String id = name.substring(0, 3) + "1";
             if (studentUI.inputConfirmation("add new student") == true) {
-                student.add(new Student(id, name, contactNo, ic, progremme));
+                student.add(new Student(id, name, contactNo, gender, progremme));
                 System.out.println("Successful Registered New Student !!!!");
             } else {
                 System.out.println("Cancelled Registration !!!!");
@@ -156,7 +153,7 @@ public class StudentController {
 
     private int updateStudent(SetInterface<Student> student) {
         int exit, option, count;
-        String id, name = "", ic = "", contactNo = "", progremme = "";
+        String id, name = "", gender = "", contactNo = "", progremme = "";
         boolean isSuccess = false;
 
         studentUI.titleUI("Update Student Details");
@@ -173,7 +170,7 @@ public class StudentController {
                     break;
                 }
                 case 3: {
-                    ic = studentUI.inputStuNewIC();
+                    gender = studentUI.inputStuNewGender();
                     break;
                 }
                 case 4: {
@@ -190,28 +187,28 @@ public class StudentController {
                     if (object.getStudentId().equals(id)) {
                         if (option == 1) {
                             isSuccess = student.update(new Student(object.getStudentId(), name,
-                                    object.getContactNo(), object.getStudentIc(),
+                                    object.getContactNo(), object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 2) {
                             isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    contactNo, object.getStudentIc(),
+                                    contactNo, object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 3) {
                             isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    object.getContactNo(), ic,
+                                    object.getContactNo(), gender,
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 4) {
                             isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    object.getContactNo(), object.getStudentIc(),
+                                    object.getContactNo(), object.getGender(),
                                     progremme, object.getStudentCourse()),
                                     count);
                             break;
@@ -285,7 +282,7 @@ public class StudentController {
                         if (count2 == 0) {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
                                     count1, studentObject.getStudentId(), studentObject.getStudentName(),
-                                    studentObject.getContactNo(), studentObject.getStudentIc(),
+                                    studentObject.getContactNo(), studentObject.getGender(),
                                     studentObject.getStudentProgremme(), courseObject.getCourse());
                             count2++;
                         } else {
@@ -297,7 +294,7 @@ public class StudentController {
                 } else {
                     System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
                             count1, studentObject.getStudentId(), studentObject.getStudentName(),
-                            studentObject.getContactNo(), studentObject.getStudentIc(),
+                            studentObject.getContactNo(), studentObject.getGender(),
                             studentObject.getStudentProgremme());
                 }
             }

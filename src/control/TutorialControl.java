@@ -81,7 +81,7 @@ public class TutorialControl {
                 newStudent = new Student(studentId,
                         student.getStudentName(),
                         student.getContactNo(),
-                        student.getStudentIc(),
+                        student.getGender(),
                         student.getStudentProgremme());
                 found = true;
                 break;
@@ -139,7 +139,7 @@ public class TutorialControl {
             System.out.println("Student ID: " + student.getStudentId());
             System.out.println("Student Name: " + student.getStudentName());
             System.out.println("Student Progremme: " + student.getStudentProgremme());
-            System.out.println("Student IC: " + student.getStudentIc());
+            System.out.println("Student Gender: " + student.getGender());
             System.out.println("Student ContactNo: " + student.getContactNo());
         } else {
             System.out.println("Student not found in the specified tutorial group.");
