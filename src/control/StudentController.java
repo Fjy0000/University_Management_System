@@ -60,7 +60,9 @@ public class StudentController {
     }
 
     private int registration(SetInterface<Student> student) {
-        int exit;
+        int exit, randomNum;
+        String id;
+        boolean isSuccess = false;
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();
@@ -68,9 +70,14 @@ public class StudentController {
             String gender = studentUI.inputStudentGender();
             String progremme = studentUI.inputStudentProgremme();
 
-            String id = name.substring(0, 3) + "1";
+            randomNum = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
+            id = name.substring(0, 1).toUpperCase() + randomNum;
             if (studentUI.inputConfirmation("add new student") == true) {
-                student.add(new Student(id, name, contactNo, gender, progremme));
+                do {
+                    randomNum = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
+                    id = name.substring(0, 1).toUpperCase() + randomNum;
+                    isSuccess = student.add(new Student(id, name, contactNo, gender, progremme));
+                } while (isSuccess == false);
                 System.out.println("Successful Registered New Student !!!!");
             } else {
                 System.out.println("Cancelled Registration !!!!");
