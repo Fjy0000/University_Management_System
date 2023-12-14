@@ -4,7 +4,7 @@ package entity;
  *
  * @author Fong Jun Yi
  */
-public class StudentCourse {
+public class StudentCourse implements Comparable<StudentCourse> {
 
     private String courseId;
     private String course;
@@ -49,8 +49,12 @@ public class StudentCourse {
     }
 
     @Override
+    public int compareTo(StudentCourse object) {
+        return this.courseId.compareTo(object.courseId);
+    }
+
+    @Override
     public String toString() {
         return courseId + "\t" + course + "\t" + status;
     }
-
 }

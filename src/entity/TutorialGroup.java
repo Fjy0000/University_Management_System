@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @author 60111
  */
 //public class TutorialGroup implements Comparable<TutorialGroup>{
-public class TutorialGroup {
+public class TutorialGroup implements Comparable<TutorialGroup> {
 
     private String groupName;
     private static int groupNum = 1;
@@ -97,5 +97,10 @@ public class TutorialGroup {
         return "Tutorial Group\n"
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
+    }
+
+    @Override
+    public int compareTo(TutorialGroup object) {
+        return this.groupName.compareTo(object.getGroupName());
     }
 }
