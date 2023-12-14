@@ -100,7 +100,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     }
 
     @Override
-    public int compareTo(TutorialGroup o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int compareTo(TutorialGroup object) {
+        return this.groupName.compareTo(object.getGroupName());
     }
 }
