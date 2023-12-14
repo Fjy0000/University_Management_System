@@ -10,7 +10,6 @@ public class Set<T> implements SetInterface<T> {
 
     T[] setArray;
     int numberOfElements;
-    private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
 
     public Set() {
@@ -129,6 +128,25 @@ public class Set<T> implements SetInterface<T> {
             }
         }
     }
+    
+    
+//    public void selectionSort() {
+//        for (int i = 0; i < numberOfElements - 1; i++) {
+//            int minIndex = i; // Save the current object index
+//
+//            // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
+//            for (int j = i + 1; j < numberOfElements; j++) {
+//                if (setArray[j].compareTo(setArray[minIndex]) < 0) {
+//                    minIndex = j;
+//                }
+//            }
+//
+//            // Swap the found minimum element with the first element
+//            T object = setArray[i];
+//            setArray[i] = setArray[minIndex];
+//            setArray[minIndex] = object;
+//        }
+//    }
 
     private int getElementIndex(T object) {
         for (int i = 0; i < numberOfElements; i++) {
