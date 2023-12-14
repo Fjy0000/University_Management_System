@@ -304,11 +304,9 @@ public class StudentRegistrationUI {
         return exit;
     }
 
-    // Confirmation Page UI ------------------------------------------------------------------------------------------------------------------------------
+    // Confirmation process UI ------------------------------------------------------------------------------------------------------------------------------
     public boolean inputConfirmation(String str) {
         System.out.println();
-
-        input.nextLine();
         System.out.printf("%-20s", "Confirm to " + str + "? (Y/N): ");
         String confirm = input.nextLine();
         while (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")
