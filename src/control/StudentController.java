@@ -145,7 +145,7 @@ public class StudentController {
                         if (isSuccess == true) {
                             System.out.println("Removed Course from this Student Successful........");
                         } else {
-                            System.out.println("The Student ID no inside the list...");
+                            System.out.println("Invalid Removing ! This Student no pick this course...");
                         }
                     } else {
                         System.out.println("Cancelled Removing the Course !!!!");
@@ -315,6 +315,7 @@ public class StudentController {
 
         studentUI.titleUI("Calculate Total Cost of Registed Course");
         studentUI.totalCostListHeader();
+        
         exit = studentUI.studentListExit();
         return exit;
     }
@@ -324,6 +325,8 @@ public class StudentController {
 
         studentUI.titleUI("Generate Report");
         studentUI.summaryReportHeader();
+        
+        studentUI.summaryReportFooter(1, 1);
         exit = studentUI.studentListExit();
         return exit;
     }

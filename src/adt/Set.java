@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author 
+ * @author
  */
 public class Set<T> implements SetInterface<T> {
 
@@ -71,29 +71,6 @@ public class Set<T> implements SetInterface<T> {
         return numberOfElements == 0;
     }
 
-    private int getElementIndex(T object) {
-        for (int i = 0; i < numberOfElements; i++) {
-            if (setArray[i].equals(object)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private boolean isArrayFull() {
-        return numberOfElements == setArray.length;
-    }
-
-    private void doubleArray() {
-        T[] oldArray = setArray;
-
-        setArray = (T[]) new Object[2 * oldArray.length];
-        for (int index = 0; index < oldArray.length; index++) {
-            setArray[index] = oldArray[index];
-        }
-
-    }
-
     @Override
     public String toString() {
         String outputStr = "";
@@ -137,8 +114,7 @@ public class Set<T> implements SetInterface<T> {
         boolean found = false;
         for (int index = 0; index < numberOfElements; index++) {
             if (anEntry.equals(setArray[index])) {
-                found = true;
-                break; // exit the loop since the target is found
+                return found = true;
             }
         }
         return found;
@@ -152,6 +128,29 @@ public class Set<T> implements SetInterface<T> {
                 add((T) aSet.setArray[i]);
             }
         }
+    }
+
+    private int getElementIndex(T object) {
+        for (int i = 0; i < numberOfElements; i++) {
+            if (setArray[i].equals(object)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean isArrayFull() {
+        return numberOfElements == setArray.length;
+    }
+
+    private void doubleArray() {
+        T[] oldArray = setArray;
+
+        setArray = (T[]) new Object[2 * oldArray.length];
+        for (int index = 0; index < oldArray.length; index++) {
+            setArray[index] = oldArray[index];
+        }
+
     }
 
 }

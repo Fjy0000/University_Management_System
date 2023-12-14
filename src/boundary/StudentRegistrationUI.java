@@ -1,5 +1,7 @@
 package boundary;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -94,6 +96,7 @@ public class StudentRegistrationUI {
         String progremme;
 
         do {
+            input.nextLine();
             System.out.print("Enter Student Progremme (exp: RSD): ");
             progremme = input.nextLine();
             if (progremme.isEmpty()) {
@@ -239,13 +242,29 @@ public class StudentRegistrationUI {
         printLine(1, 100);
     }
 
-    // Display Summary Report UI ---------------------------------------------------------------------------------------------------------------------
+    // Display Summary Report Header & Footer UI ---------------------------------------------------------------------------------------------------------------------
     public void summaryReportHeader() {
-        printLine(1, 180);
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = date.format(formatter);
+
+        System.out.printf("\t \t \t \t \t \t \t \t \t \t    %30s %1s%-4d%1s \n", "Student Registration Annual Report", "(", date.getYear(), ")");
+        System.out.printf("\t \t \t \t \t \t \t \t \t \t \t %10s %-15s \n", "As on: ", formattedDate);
+
+        printLine(1, 205);
         System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
                 "Student ID", "Student Name", "Contact No", "Gender",
                 "Programme", "Courses", "Total Main", "Total Resit", "Total Repeat");
-        printLine(1, 180);
+        printLine(1, 205);
+    }
+
+    public void summaryReportFooter(int totalStudent, int totalPaidFees) {
+        LocalDate date = LocalDate.now();
+
+        printLine(1, 205);
+        System.out.println("This Year(" + date.getYear() + ") Total Student Registered : " + totalStudent);
+        System.out.println("This Year(" + date.getYear() + ") Total Student Registered Paid Course Fees : " + totalPaidFees);
+        printLine(1, 205);
     }
 
     // Display List Exit UI ---------------------------------------------------------------------------------------------------------------------
