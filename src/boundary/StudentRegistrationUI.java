@@ -27,20 +27,21 @@ public class StudentRegistrationUI {
         System.out.printf("%-10s\n", "Student Management");
         printLine(1, 35);
         System.out.printf("%2s %-10s\n", "1)", "Add Student");
-        System.out.printf("%2s %-10s\n", "2)", "View Student List");
-        System.out.printf("%2s %-10s\n", "3)", "Update Student Details");
-        System.out.printf("%2s %-10s\n", "4)", "Manage Student Course");
+        System.out.printf("%2s %-10s\n", "2)", "Manage Student Course");
+        System.out.printf("%2s %-10s\n", "3)", "Search Student");
+        System.out.printf("%2s %-10s\n", "4)", "Update Student Details");
         System.out.printf("%2s %-10s\n", "5)", "Remove Student");
-        System.out.printf("%2s %-10s\n", "6)", "Calculate Total Cost of Registed Course");
-        System.out.printf("%2s %-10s\n", "7)", "Generate Report");
-        System.out.printf("%2s %-5s\n", "8)", "Exit");
+        System.out.printf("%2s %-10s\n", "6)", "View Student List");
+        System.out.printf("%2s %-10s\n", "7)", "Calculate Total Cost of Registed Course");
+        System.out.printf("%2s %-10s\n", "8)", "Generate Report");
+        System.out.printf("%2s %-10s\n", "9)", "Exit");
         printLine(1, 35);
 
-        System.out.print("Enter Number(1-8): ");
+        System.out.print("Enter Number(1-9): ");
         option = input.nextInt();
 
-        while (option < 1 || option > 8) {
-            System.out.print("Invalid option! Please select a number between 1 and 8 : ");
+        while (option < 1 || option > 9) {
+            System.out.print("Invalid option! Please select a number between 1 and 9 : ");
             option = input.nextInt();
         }
 
@@ -217,13 +218,37 @@ public class StudentRegistrationUI {
     public int addOrRemoveCourse() {
         int select;
 
-        System.out.printf("%-20s", "Do you want to Register or Remove a student's course? (Register = 1/Remove = 2) : ");
+        System.out.print("Do you want to Register or Remove a student's course? (Register = 1/Remove = 2) : ");
         select = input.nextInt();
         while (select < 0 || select > 2) {
             System.out.print("Invalid Enter! Please select a number between 1 and 2 (Register = 1/Remove = 2) : ");
             select = input.nextInt();
         }
         return select;
+    }
+
+    // Searching Student UI ---------------------------------------------------------------------------------------------------------------------
+    public String inputStuSearch() {
+        String key;
+
+        do {
+            input.nextLine();
+            System.out.print("Enter Student Name / ID / Progremme for search the student : ");
+            key = input.nextLine();
+            if (key.isEmpty()) {
+                System.out.println("Please do not leave empty...");
+            }
+        } while (key.isEmpty());
+        return key;
+    }
+
+    // Display Student List for Searching UI ---------------------------------------------------------------------------------------------------------------------
+    public void searchStudenHeader() {
+        System.out.println();
+        printLine(1, 180);
+        System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                "Student ID", "Student Name", "Contact No", "Gender", "Programme", "Courses", "Status");
+        printLine(1, 180);
     }
 
     // Display Student List UI ---------------------------------------------------------------------------------------------------------------------
@@ -282,6 +307,8 @@ public class StudentRegistrationUI {
     // Confirmation Page UI ------------------------------------------------------------------------------------------------------------------------------
     public boolean inputConfirmation(String str) {
         System.out.println();
+
+        input.nextLine();
         System.out.printf("%-20s", "Confirm to " + str + "? (Y/N): ");
         String confirm = input.nextLine();
         while (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")

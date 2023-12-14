@@ -29,15 +29,15 @@ public class StudentController {
                     break;
                 }
                 case 2: {
-                    exit = displayStudentList(student);
+                    exit = manageStudentCourse(student);
                     break;
                 }
                 case 3: {
-                    exit = updateStudent(student);
+                    exit = searchStudent(student);
                     break;
                 }
                 case 4: {
-                    exit = manageStudentCourse(student);
+                    exit = updateStudent(student);
                     break;
                 }
                 case 5: {
@@ -45,14 +45,18 @@ public class StudentController {
                     break;
                 }
                 case 6: {
-                    exit = displayTotalCost(student);
+                    exit = displayStudentList(student);
                     break;
                 }
                 case 7: {
+                    exit = displayTotalCost(student);
+                    break;
+                }
+                case 8: {
                     exit = displayReport(student);
                     break;
                 }
-                case 8:
+                case 9:
                     homepage();
                     break;
             }
@@ -158,6 +162,50 @@ public class StudentController {
         return exit;
     }
 
+    private int searchStudent(SetInterface<Student> student) {
+        int exit, count = 0, foundObject = 0;
+        String key;
+
+        key = studentUI.inputStuSearch();
+
+        studentUI.searchStudenHeader();
+        Iterator<Student> getStudent = student.getIterator();
+        while (getStudent.hasNext()) {
+            Student studentObject = getStudent.next();
+            if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgremme().equals(key)) {
+                ++foundObject;
+                if (studentObject.getStudentCourseSize() != 0) {
+                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                    count = 0;
+                    while (getStudentCourse.hasNext()) {
+                        StudentCourse courseObject = getStudentCourse.next();
+                        if (count == 0) {
+                            System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    studentObject.getStudentId(), studentObject.getStudentName(),
+                                    studentObject.getContactNo(), studentObject.getGender(),
+                                    studentObject.getStudentProgremme(), courseObject.getCourse(), courseObject.getStatus());
+                            count++;
+                        } else {
+                            System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    "", "", "", "", "", courseObject.getCourse(), courseObject.getStatus());
+                            count++;
+                        }
+                    }
+                } else {
+                    System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
+                            studentObject.getStudentId(), studentObject.getStudentName(),
+                            studentObject.getContactNo(), studentObject.getGender(),
+                            studentObject.getStudentProgremme());
+                }
+            }
+        }
+        if (foundObject == 0) {
+            System.out.println("No Found the Student.......");
+        }
+        exit = studentUI.inputExitPage();
+        return exit;
+    }
+
     private int updateStudent(SetInterface<Student> student) {
         int exit, option, count;
         String id, name = "", gender = "", contactNo = "", progremme = "";
@@ -243,7 +291,6 @@ public class StudentController {
         studentUI.titleUI("Remove Student");
         do {
             id = studentUI.inputStudentId();
-
             if (studentUI.inputConfirmation("remove this Student") == true) {
                 Iterator<Student> getStudent = student.getIterator();
                 while (getStudent.hasNext()) {
@@ -315,7 +362,7 @@ public class StudentController {
 
         studentUI.titleUI("Calculate Total Cost of Registed Course");
         studentUI.totalCostListHeader();
-        
+
         exit = studentUI.studentListExit();
         return exit;
     }
@@ -325,7 +372,7 @@ public class StudentController {
 
         studentUI.titleUI("Generate Report");
         studentUI.summaryReportHeader();
-        
+
         studentUI.summaryReportFooter(1, 1);
         exit = studentUI.studentListExit();
         return exit;
