@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author 
+ * @author
  */
 public interface SetInterface<T> {
 
@@ -13,6 +13,8 @@ public interface SetInterface<T> {
     public boolean remove(T newElement);
 
     public boolean contains(T anEntry);
+
+    public void selectionSort();
 
     public Iterator<T> getIterator();
 

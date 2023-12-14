@@ -6,7 +6,7 @@ import java.util.Iterator;
  *
  * @author
  */
-public class Set<T> implements SetInterface<T> {
+public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     T[] setArray;
     int numberOfElements;
@@ -18,7 +18,7 @@ public class Set<T> implements SetInterface<T> {
 
     public Set(int initialCapacity) {
         numberOfElements = 0;
-        setArray = (T[]) new Object[initialCapacity];
+        setArray = (T[]) new Comparable[initialCapacity];
     }
 
     @Override
@@ -128,25 +128,24 @@ public class Set<T> implements SetInterface<T> {
             }
         }
     }
-    
-    
-//    public void selectionSort() {
-//        for (int i = 0; i < numberOfElements - 1; i++) {
-//            int minIndex = i; // Save the current object index
-//
-//            // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
-//            for (int j = i + 1; j < numberOfElements; j++) {
-//                if (setArray[j].compareTo(setArray[minIndex]) < 0) {
-//                    minIndex = j;
-//                }
-//            }
-//
-//            // Swap the found minimum element with the first element
-//            T object = setArray[i];
-//            setArray[i] = setArray[minIndex];
-//            setArray[minIndex] = object;
-//        }
-//    }
+
+    public void selectionSort() {
+        for (int i = 0; i < numberOfElements - 1; i++) {
+            int minIndex = i; // Save the current object index
+
+            // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
+            for (int j = i + 1; j < numberOfElements; j++) {
+                if (setArray[j].compareTo(setArray[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap the found minimum element with the first element
+            T object = setArray[i];
+            setArray[i] = setArray[minIndex];
+            setArray[minIndex] = object;
+        }
+    }
 
     private int getElementIndex(T object) {
         for (int i = 0; i < numberOfElements; i++) {

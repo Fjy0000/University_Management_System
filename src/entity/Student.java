@@ -8,7 +8,7 @@ import java.util.Objects;
  *
  * @author Fong Jun Yi
  */
-public class Student extends StudentCourse {
+public class Student implements Comparable<Student> {
 
     private String studentId;
     private String contactNo;
@@ -93,6 +93,11 @@ public class Student extends StudentCourse {
 
     public void removeStudentCourse(StudentCourse courses) {
         this.studentCourse.remove(courses);
+    }
+
+    @Override
+    public int compareTo(Student object) {
+        return this.studentId.compareTo(object.getStudentId());
     }
 
     @Override

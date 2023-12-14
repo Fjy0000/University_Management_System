@@ -319,6 +319,7 @@ public class StudentController {
         int exit;
         int count1 = 0, count2;
 
+        student.selectionSort();
         studentUI.titleUI("View Student List");
         studentUI.studentListHeader();
         if (student.isEmpty()) {
