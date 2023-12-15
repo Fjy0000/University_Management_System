@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
-import adt.Set;
 import adt.SetInterface;
 import boundary.StudentRegistrationUI;
 import static control.Main.homepage;
-import static control.Main.stu;
 import static control.Main.student;
-import dao.StudentInitializer;
 import entity.Student;
 import entity.StudentCourse;
 import java.util.Iterator;
@@ -22,14 +15,9 @@ import java.util.Iterator;
 public class StudentController {
 
     private StudentRegistrationUI studentUI = new StudentRegistrationUI();
-//    private SetInterface<Student> student = new Set<>();
-//    private StudentInitializer stu = new StudentInitializer();
-    
+
     public void studentManagement() {
         int result, exit;
-        
-        //Dummy Data
-        stu.initializeStudent(student);
 
         do {
             exit = 0;
@@ -41,15 +29,15 @@ public class StudentController {
                     break;
                 }
                 case 2: {
-                    exit = displayStudentList(student);
+                    exit = manageStudentCourse(student);
                     break;
                 }
                 case 3: {
-                    exit = updateStudent(student);
+                    exit = searchStudent(student);
                     break;
                 }
                 case 4: {
-                    exit = manageStudentCourse(student);
+                    exit = updateStudent(student);
                     break;
                 }
                 case 5: {
@@ -57,14 +45,18 @@ public class StudentController {
                     break;
                 }
                 case 6: {
-                    exit = displayTotalCost(student);
+                    exit = displayStudentList(student);
                     break;
                 }
                 case 7: {
+                    exit = displayTotalCost(student);
+                    break;
+                }
+                case 8: {
                     exit = displayReport(student);
                     break;
                 }
-                case 8:
+                case 9:
                     homepage();
                     break;
             }
@@ -72,17 +64,24 @@ public class StudentController {
     }
 
     private int registration(SetInterface<Student> student) {
-        int exit;
+        int exit, randomNum;
+        String id;
+        boolean isSuccess = false;
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();
             String contactNo = studentUI.inputStudentContactNo();
-            String ic = studentUI.inputStudentIc();
+            String gender = studentUI.inputStudentGender();
             String progremme = studentUI.inputStudentProgremme();
 
-            String id = name.substring(0, 3) + "1";
+            randomNum = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
+            id = name.substring(0, 1).toUpperCase() + randomNum;
             if (studentUI.inputConfirmation("add new student") == true) {
-                student.add(new Student(id, name, contactNo, ic, progremme));
+                do {
+                    randomNum = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
+                    id = name.substring(0, 1).toUpperCase() + randomNum;
+                    isSuccess = student.add(new Student(id, name, contactNo, gender, progremme));
+                } while (isSuccess == false);
                 System.out.println("Successful Registered New Student !!!!");
             } else {
                 System.out.println("Cancelled Registration !!!!");
@@ -150,7 +149,7 @@ public class StudentController {
                         if (isSuccess == true) {
                             System.out.println("Removed Course from this Student Successful........");
                         } else {
-                            System.out.println("The Student ID no inside the list...");
+                            System.out.println("Invalid Removing ! This Student no pick this course...");
                         }
                     } else {
                         System.out.println("Cancelled Removing the Course !!!!");
@@ -163,9 +162,53 @@ public class StudentController {
         return exit;
     }
 
+    private int searchStudent(SetInterface<Student> student) {
+        int exit, count = 0, foundObject = 0;
+        String key;
+
+        key = studentUI.inputStuSearch();
+
+        studentUI.searchStudenHeader();
+        Iterator<Student> getStudent = student.getIterator();
+        while (getStudent.hasNext()) {
+            Student studentObject = getStudent.next();
+            if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgremme().equals(key)) {
+                ++foundObject;
+                if (studentObject.getStudentCourseSize() != 0) {
+                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                    count = 0;
+                    while (getStudentCourse.hasNext()) {
+                        StudentCourse courseObject = getStudentCourse.next();
+                        if (count == 0) {
+                            System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    studentObject.getStudentId(), studentObject.getStudentName(),
+                                    studentObject.getContactNo(), studentObject.getGender(),
+                                    studentObject.getStudentProgremme(), courseObject.getCourse(), courseObject.getStatus());
+                            count++;
+                        } else {
+                            System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+                                    "", "", "", "", "", courseObject.getCourse(), courseObject.getStatus());
+                            count++;
+                        }
+                    }
+                } else {
+                    System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
+                            studentObject.getStudentId(), studentObject.getStudentName(),
+                            studentObject.getContactNo(), studentObject.getGender(),
+                            studentObject.getStudentProgremme());
+                }
+            }
+        }
+        if (foundObject == 0) {
+            System.out.println("No Found the Student.......");
+        }
+        exit = studentUI.inputExitPage();
+        return exit;
+    }
+
     private int updateStudent(SetInterface<Student> student) {
         int exit, option, count;
-        String id, name = "", ic = "", contactNo = "", progremme = "";
+        String id, name = "", gender = "", contactNo = "", progremme = "";
         boolean isSuccess = false;
 
         studentUI.titleUI("Update Student Details");
@@ -182,7 +225,7 @@ public class StudentController {
                     break;
                 }
                 case 3: {
-                    ic = studentUI.inputStuNewIC();
+                    gender = studentUI.inputStuNewGender();
                     break;
                 }
                 case 4: {
@@ -198,29 +241,29 @@ public class StudentController {
                     Student object = getStudent.next();
                     if (object.getStudentId().equals(id)) {
                         if (option == 1) {
-                            isSuccess = student.update(new Student(object.getStudentId(), name,
-                                    object.getContactNo(), object.getStudentIc(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), name,
+                                    object.getContactNo(), object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 2) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    contactNo, object.getStudentIc(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
+                                    contactNo, object.getGender(),
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 3) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    object.getContactNo(), ic,
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
+                                    object.getContactNo(), gender,
                                     object.getStudentProgremme(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 4) {
-                            isSuccess = student.update(new Student(object.getStudentId(), object.getStudentName(),
-                                    object.getContactNo(), object.getStudentIc(),
+                            isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
+                                    object.getContactNo(), object.getGender(),
                                     progremme, object.getStudentCourse()),
                                     count);
                             break;
@@ -248,7 +291,6 @@ public class StudentController {
         studentUI.titleUI("Remove Student");
         do {
             id = studentUI.inputStudentId();
-
             if (studentUI.inputConfirmation("remove this Student") == true) {
                 Iterator<Student> getStudent = student.getIterator();
                 while (getStudent.hasNext()) {
@@ -277,6 +319,7 @@ public class StudentController {
         int exit;
         int count1 = 0, count2;
 
+        student.selectionSort();
         studentUI.titleUI("View Student List");
         studentUI.studentListHeader();
         if (student.isEmpty()) {
@@ -294,7 +337,7 @@ public class StudentController {
                         if (count2 == 0) {
                             System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
                                     count1, studentObject.getStudentId(), studentObject.getStudentName(),
-                                    studentObject.getContactNo(), studentObject.getStudentIc(),
+                                    studentObject.getContactNo(), studentObject.getGender(),
                                     studentObject.getStudentProgremme(), courseObject.getCourse());
                             count2++;
                         } else {
@@ -306,7 +349,7 @@ public class StudentController {
                 } else {
                     System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t \n",
                             count1, studentObject.getStudentId(), studentObject.getStudentName(),
-                            studentObject.getContactNo(), studentObject.getStudentIc(),
+                            studentObject.getContactNo(), studentObject.getGender(),
                             studentObject.getStudentProgremme());
                 }
             }
@@ -320,6 +363,7 @@ public class StudentController {
 
         studentUI.titleUI("Calculate Total Cost of Registed Course");
         studentUI.totalCostListHeader();
+
         exit = studentUI.studentListExit();
         return exit;
     }
@@ -329,6 +373,8 @@ public class StudentController {
 
         studentUI.titleUI("Generate Report");
         studentUI.summaryReportHeader();
+
+        studentUI.summaryReportFooter(1, 1);
         exit = studentUI.studentListExit();
         return exit;
     }

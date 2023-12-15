@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
 
 /**
  *
- * @author fongj
+ * @author
  */
-public class Set<T> implements SetInterface<T> {
+public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     T[] setArray;
     int numberOfElements;
-    private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
 
     public Set() {
@@ -23,7 +18,7 @@ public class Set<T> implements SetInterface<T> {
 
     public Set(int initialCapacity) {
         numberOfElements = 0;
-        setArray = (T[]) new Object[initialCapacity];
+        setArray = (T[]) new Comparable[initialCapacity];
     }
 
     @Override
@@ -42,7 +37,7 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
-    public boolean update(T newObject, int position) {
+    public boolean replace(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
             setArray[position - 1] = newObject;
             return true;
@@ -73,29 +68,6 @@ public class Set<T> implements SetInterface<T> {
 
     public boolean isEmpty() {
         return numberOfElements == 0;
-    }
-
-    private int getElementIndex(T object) {
-        for (int i = 0; i < numberOfElements; i++) {
-            if (setArray[i].equals(object)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private boolean isArrayFull() {
-        return numberOfElements == setArray.length;
-    }
-
-    private void doubleArray() {
-        T[] oldArray = setArray;
-
-        setArray = (T[]) new Object[2 * oldArray.length];
-        for (int index = 0; index < oldArray.length; index++) {
-            setArray[index] = oldArray[index];
-        }
-
     }
 
     @Override
@@ -141,8 +113,7 @@ public class Set<T> implements SetInterface<T> {
         boolean found = false;
         for (int index = 0; index < numberOfElements; index++) {
             if (anEntry.equals(setArray[index])) {
-                found = true;
-                break; // exit the loop since the target is found
+                return found = true;
             }
         }
         return found;
@@ -156,6 +127,48 @@ public class Set<T> implements SetInterface<T> {
                 add((T) aSet.setArray[i]);
             }
         }
+    }
+
+    @Override
+    public void selectionSort() {
+        for (int i = 0; i < numberOfElements - 1; i++) {
+            int minIndex = i; // Save the current object index
+
+            // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
+            for (int j = i + 1; j < numberOfElements; j++) {
+                if (setArray[j].compareTo(setArray[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap the found minimum element with the first element
+            T object = setArray[i];
+            setArray[i] = setArray[minIndex];
+            setArray[minIndex] = object;
+        }
+    }
+
+    private int getElementIndex(T object) {
+        for (int i = 0; i < numberOfElements; i++) {
+            if (setArray[i].equals(object)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean isArrayFull() {
+        return numberOfElements == setArray.length;
+    }
+
+    private void doubleArray() {
+        T[] oldArray = setArray;
+
+        setArray = (T[]) new Object[2 * oldArray.length];
+        for (int index = 0; index < oldArray.length; index++) {
+            setArray[index] = oldArray[index];
+        }
+
     }
 
 }

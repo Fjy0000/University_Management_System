@@ -1,14 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package control;
 
 import adt.Set;
 import adt.SetInterface;
 import boundary.TutorialGroupUI;
-import control.StudentController;
 import dao.StudentInitializer;
+import entity.Course;
+import entity.Faculty;
+import entity.Programme;
 import entity.Student;
 import java.util.Scanner;
 
@@ -19,12 +17,25 @@ import java.util.Scanner;
 public class Main {
 
     private static final int MAX_INVALID_ATTEMPTS = 3;
+
+    // Page ------------------------------------------------------------------------
     private static StudentController studentPage = new StudentController();
     private static TutorialGroupUI tutorialPage = new TutorialGroupUI();
-    
+    private static ProgrammeController programmePage = new ProgrammeController();
+
+    // Set Array List --------------------------------------------------------------
+    static SetInterface<Course> courseSet = new Set<>();
+    static SetInterface<Faculty> facultySet = new Set<>();
     static SetInterface<Student> student = new Set<>();
+    static SetInterface<Programme> programmeSet = new Set<>();
+
     static StudentInitializer stu = new StudentInitializer();
+
     public static void main(String[] args) {
+
+        //Initialize Data
+        stu.initializeStudent(student);
+
         homepage();
     }
 
@@ -68,6 +79,7 @@ public class Main {
                 case 2: //Course Management
                     break;
                 case 3: // Progremme Management
+                    programmePage.ProgrammeManagement();
                     break;
                 case 4: // Tutorial Group Management
                     tutorialPage.tutorialtManagement();

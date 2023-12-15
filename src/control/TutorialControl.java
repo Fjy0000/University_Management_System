@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 /**
@@ -17,6 +13,7 @@ import entity.TutorialGroup;
 import java.util.Iterator;
 
 public class TutorialControl {
+
     private SetInterface<TutorialGroup> tutorialGroups = initializeTutorialGroups();
     private SetInterface<Student> assignedStudents = new Set<>();
 
@@ -81,10 +78,10 @@ public class TutorialControl {
         while (iterator.hasNext()) {
             Student student = iterator.next();
             if (student.getStudentId().equals(studentId)) {
-                newStudent = new Student(studentId, 
-                        student.getStudentName(), 
-                        student.getContactNo(), 
-                        student.getStudentIc(), 
+                newStudent = new Student(studentId,
+                        student.getStudentName(),
+                        student.getContactNo(),
+                        student.getGender(),
                         student.getStudentProgremme());
                 found = true;
                 break;
@@ -142,7 +139,7 @@ public class TutorialControl {
             System.out.println("Student ID: " + student.getStudentId());
             System.out.println("Student Name: " + student.getStudentName());
             System.out.println("Student Progremme: " + student.getStudentProgremme());
-            System.out.println("Student IC: " + student.getStudentIc());
+            System.out.println("Student Gender: " + student.getGender());
             System.out.println("Student ContactNo: " + student.getContactNo());
         } else {
             System.out.println("Student not found in the specified tutorial group.");
@@ -248,9 +245,9 @@ public class TutorialControl {
                 Iterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
-                    System.out.println("Student ID: " + student.getStudentId() + 
-                            "\nName: " + student.getStudentName()+ 
-                            "\nProgramme: " + student.getStudentProgremme());
+                    System.out.println("Student ID: " + student.getStudentId()
+                            + "\nName: " + student.getStudentName()
+                            + "\nProgramme: " + student.getStudentProgremme());
                 }
             }
         }

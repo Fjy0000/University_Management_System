@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
 
 /**
  *
- * @author 60111
+ * @author
  */
 public interface SetInterface<T> {
 
@@ -18,13 +14,15 @@ public interface SetInterface<T> {
 
     public boolean contains(T anEntry);
 
+    public void selectionSort();
+
     public Iterator<T> getIterator();
 
     public boolean isEmpty();
 
     public void union(SetInterface anotherSet);
 
-    public boolean update(T newObject, int position);
+    public boolean replace(T newObject, int position);
 
     public int getSize();
 

@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 /**
  *
  * @author Fong Jun Yi
  */
-public class StudentCourse {
+public class StudentCourse implements Comparable<StudentCourse> {
 
     private String courseId;
     private String course;
@@ -53,8 +49,12 @@ public class StudentCourse {
     }
 
     @Override
+    public int compareTo(StudentCourse object) {
+        return this.courseId.compareTo(object.courseId);
+    }
+
+    @Override
     public String toString() {
         return courseId + "\t" + course + "\t" + status;
     }
-
 }

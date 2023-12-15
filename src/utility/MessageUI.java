@@ -1,19 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utility;
 
 /**
  *
- * @author 60111
+ * @author Kat Tan
  */
 public class MessageUI {
+  
+  
   public static void displayInvalidChoiceMessage() {
-    System.out.println("\nInvalid choice");
+    System.out.println("\nInvalid choice.Please try again.");
   }
 
   public static void displayExitMessage() {
-    System.out.println("\nExiting system");
+    System.out.println("\nThank you. For using the system.");
   }
+  
 }
