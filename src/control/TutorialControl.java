@@ -18,9 +18,6 @@ import java.util.Iterator;
 
 public class TutorialControl {
     
-    //assign initializeTutorialGroups set into tutorialGroups set
-
-    
     private TutorialGroupUI tutorialUI = new TutorialGroupUI();
 
     public void tutorialtManagement() {
