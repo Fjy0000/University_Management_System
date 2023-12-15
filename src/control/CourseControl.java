@@ -23,16 +23,6 @@ public class CourseControl {
         CourseControl course = new CourseControl();
         Scanner scanner = new Scanner(System.in);
 
-        // Initialization
-        //course
-        courseSet.add(new Course("1001", "Object-Oriented Programming", 800));
-        courseSet.add(new Course("1002", "Cloud Computing", 700));
-        courseSet.add(new Course("1003", "Web Design and Development", 800));
-
-        facultySet.add(new Faculty("FOCS1", "Demo2 Faculty"));
-        facultySet.add(new Faculty("FOCS2", "Demo1 Faculty"));
-        facultySet.add(new Faculty("FOCS3", "Demo3 Faculty"));
-
         // Main Menu
         System.out.println("Menu:");
         System.out.println("1. Add Course");
@@ -110,13 +100,10 @@ public class CourseControl {
             System.out.println("Enter Faculty:");
             String faculty = scanner.next();
 
-            System.out.println("Enter Course Fee:");
-            int courseFee = scanner.nextInt();
-
             System.out.println("Confirm Add Course? (yes =1 / no =2)");
             int enter = scanner.nextInt();
             if (enter == 1) {
-                Course newCourse = new Course(courseId, courseName, courseFee);
+                Course newCourse = new Course(courseId, courseName);
                 courseSet.add(newCourse);
 
                 // Display Faculty List
@@ -204,15 +191,7 @@ public class CourseControl {
             if (!newCourseName.isEmpty()) {
                 courseToEdit.setCourseName(newCourseName);
             }
-
-            System.out.println("Enter new Course Fee (or press Enter to keep the current fee):");
-            String newCourseFeeStr = scanner.nextLine();  // Consume the newline left by next()
-
-            if (!newCourseFeeStr.isEmpty()) {
-                int newCourseFee = Integer.parseInt(newCourseFeeStr);
-                courseToEdit.setCourseFee(newCourseFee);
-            }
-
+            
             System.out.println("Course details updated successfully: " + courseToEdit);
         } else {
             System.out.println("Course with ID " + courseId + " not found.");

@@ -27,9 +27,11 @@ public class Main {
     // Set Array List --------------------------------------------------------------
     static SetInterface<Course> courseSet = new Set<>();
     static SetInterface<Faculty> facultySet = new Set<>();
-    static SetInterface<Student> student = new Set<>();
-    static SetInterface<Programme> programmeSet = new Set<>();
     
+    static SetInterface<Student> student = new Set<>();
+    
+    static SetInterface<Programme> programmeSet = new Set<>();
+
     //take student from student register set into assignedStudents
     static SetInterface<Student> assignedStudents = new Set<>();
     static SetInterface<TutorialGroup> tutorialGroups = new Set<>();
@@ -38,8 +40,25 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Initialize Data
+        //Initialize Data --------------------------------------------------------------------------------------------------
+        // Student 
         stu.initializeStudent(student);
+
+        // Course & Faculty
+        courseSet.add(new Course("1001", "Object-Oriented Programming"));
+        courseSet.add(new Course("1002", "Cloud Computing"));
+        courseSet.add(new Course("1003", "Web Design and Development"));
+
+        facultySet.add(new Faculty("FAFB", "Faculty of Accountancy,Finance and Business"));
+        facultySet.add(new Faculty("FOAS", "Faculty of Applied Sciences"));
+        facultySet.add(new Faculty("FOCS", "Faculty of Computing and Information Technology"));
+        facultySet.add(new Faculty("FAFB", "Faculty of Built Environment"));
+        facultySet.add(new Faculty("FOET", "Faculty of Engineering and Technology"));
+        facultySet.add(new Faculty("FCCI", "Faculty of Communication and Creative Industries"));
+        facultySet.add(new Faculty("FSSH", "Faculty of Social Science and Humanities"));
+
+        // Programme
+        programmeSet.add(new Programme("RSD", "DEGREE", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS", "June", 1));
 
         homepage();
     }

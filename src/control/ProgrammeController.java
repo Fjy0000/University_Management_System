@@ -3,6 +3,7 @@ package control;
 import adt.Set;
 import adt.SetInterface;
 import boundary.ProgrammeMaintenanceUI;
+import static control.Main.homepage;
 import entity.Programme;
 import java.util.Iterator;
 import utility.MessageUI;
@@ -26,6 +27,7 @@ public class ProgrammeController {
             switch (choice) {
                 case 0:
                     MessageUI.displayExitMessage();
+                    homepage();
                     break;
                 case 1:
                     addNewProgramme();

@@ -77,7 +77,7 @@ public class TutorialControl {
                         student.getStudentName(),
                         student.getContactNo(),
                         student.getGender(),
-                        student.getStudentProgremme());
+                        student.getStudentProgramme());
                 found = true;
                 break;
             }
@@ -162,7 +162,7 @@ public class TutorialControl {
             System.out.println("Student found in group " + group.getGroupName());
             System.out.println("Student ID: " + student.getStudentId());
             System.out.println("Student Name: " + student.getStudentName());
-            System.out.println("Student Progremme: " + student.getStudentProgremme());
+            System.out.println("Student Programme: " + student.getStudentProgramme());
             System.out.println("Student Gender: " + student.getGender());
             System.out.println("Student ContactNo: " + student.getContactNo());
         } else {
@@ -308,7 +308,7 @@ public class TutorialControl {
                     Student student = studentIterator.next();
                     System.out.println("Student ID: " + student.getStudentId()
                             + "\nName: " + student.getStudentName()
-                            + "\nProgramme: " + student.getStudentProgremme());
+                            + "\nProgramme: " + student.getStudentProgramme());
                 }
             }
         }

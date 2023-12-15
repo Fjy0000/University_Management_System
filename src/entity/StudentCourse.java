@@ -9,19 +9,24 @@ public class StudentCourse implements Comparable<StudentCourse> {
     private String courseId;
     private String course;
     private String status;
+    private double fees;
 
     public StudentCourse() {
     }
 
-    public StudentCourse(String id, String course) {
-        this.courseId = id;
-        this.course = course;
-    }
-
-    public StudentCourse(String id, String course, String status) {
+    public StudentCourse(String id, String course, String status, double fees) {
         this.courseId = id;
         this.course = course;
         this.status = status;
+        this.fees = fees;
+    }
+
+    public double getFees() {
+        return fees;
+    }
+
+    public void setFees(double fees) {
+        this.fees = fees;
     }
 
     public String getCourseId() {
@@ -55,6 +60,6 @@ public class StudentCourse implements Comparable<StudentCourse> {
 
     @Override
     public String toString() {
-        return courseId + "\t" + course + "\t" + status;
+        return courseId + "\t" + course + "\t" + status + "\t" + fees;
     }
 }
