@@ -129,6 +129,7 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
         }
     }
 
+    @Override
     public void selectionSort() {
         for (int i = 0; i < numberOfElements - 1; i++) {
             int minIndex = i; // Save the current object index
