@@ -4,18 +4,15 @@ package entity;
  *
  * @author User
  */
-public class Faculty extends Course {
+public class Faculty implements Comparable<Faculty> {
 
     private String facultyId;
     private String facultyName;
-    private String programmeId;
 
-    public String getprogrammeId() {
-        return programmeId;
-    }
+    public Faculty(String facultyId, String facultyName) {
+        this.facultyId = facultyId;
+        this.facultyName = facultyName;
 
-    public void setprogrammeId(String programmeId) {
-        this.programmeId = programmeId;
     }
 
     public String getfacultyId() {
@@ -35,8 +32,12 @@ public class Faculty extends Course {
     }
 
     @Override
-    public String toString() {
-        return facultyId + "\t" + facultyName + "\t" + programmeId;
+    public int compareTo(Faculty object) {
+        return this.facultyId.compareTo(object.getfacultyId());
     }
 
+    @Override
+    public String toString() {
+        return facultyId + "\t" + facultyName;
+    }
 }

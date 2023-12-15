@@ -5,6 +5,9 @@ import adt.SetInterface;
 import boundary.TutorialGroupUI;
 import control.StudentController;
 import dao.StudentInitializer;
+import entity.Course;
+import entity.Faculty;
+import entity.Programme;
 import entity.Student;
 import java.util.Scanner;
 
@@ -18,6 +21,9 @@ public class Main {
     private static StudentController studentPage = new StudentController();
     private static TutorialGroupUI tutorialPage = new TutorialGroupUI();
 
+    static SetInterface<Course> courseSet = new Set<>();
+    static SetInterface<Faculty> facultySet = new Set<>();
+    static SetInterface<Programme> programmeSet = new Set<>();
     static SetInterface<Student> student = new Set<>();
     static StudentInitializer stu = new StudentInitializer();
 

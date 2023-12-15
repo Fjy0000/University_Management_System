@@ -4,11 +4,14 @@ package entity;
  *
  * @author User
  */
-public class Programme extends Faculty {
+public class Programme implements Comparable<Programme>{
 
     private String programmeId;
-    private String programmeName;
-
+    
+    public Programme(String programmeId) {
+    this.programmeId = programmeId;
+  }
+    
     public String getprogrammeId() {
         return programmeId;
     }
@@ -17,17 +20,14 @@ public class Programme extends Faculty {
         this.programmeId = programmeId;
     }
 
-    public String getprogrammeName() {
-        return programmeName;
-    }
-
-    public void setprogrammeName(String programmeName) {
-        this.programmeName = programmeName;
+    @Override
+    public String toString() {
+        return programmeId;
     }
 
     @Override
-    public String toString() {
-        return programmeId + "\t" + programmeName;
+    public int compareTo(Programme o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
