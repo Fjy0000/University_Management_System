@@ -15,7 +15,7 @@ public class StudentRegistrationUI {
     public void titleUI(String header) {
         System.out.println();
         System.out.println(header);
-        printLine(1, 35);
+        printLine(1, 45);
     }
 
     // Student Menu UI----------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ public class StudentRegistrationUI {
         System.out.println();
         printLine(1, 45);
         System.out.printf("%-10s\n", "Student Management");
-        printLine(1, 35);
+        printLine(1, 45);
         System.out.printf("%2s %-10s\n", "1)", "Add Student");
         System.out.printf("%2s %-10s\n", "2)", "Manage Student Course");
         System.out.printf("%2s %-10s\n", "3)", "Search Student");
