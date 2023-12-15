@@ -20,7 +20,6 @@ import adt.SetInterface;
     this.CourseId = CourseId;
     this.CourseName = CourseName;
     this.CourseFee = CourseFee;
-    
   }
     
     public Course(String CourseId, String CourseName, int CourseFee, SetInterface<Faculty> faculty) {
