@@ -4,6 +4,8 @@ import adt.Set;
 import adt.SetInterface;
 import boundary.TutorialGroupUI;
 import dao.StudentInitializer;
+import entity.Course;
+import entity.Faculty;
 import entity.Programme;
 import entity.Student;
 import java.util.Scanner;
@@ -22,13 +24,15 @@ public class Main {
     private static ProgrammeController programmePage = new ProgrammeController();
 
     // Set Array List --------------------------------------------------------------
+    static SetInterface<Course> courseSet = new Set<>();
+    static SetInterface<Faculty> facultySet = new Set<>();
     static SetInterface<Student> student = new Set<>();
     static SetInterface<Programme> programmeSet = new Set<>();
-    
+
     static StudentInitializer stu = new StudentInitializer();
 
     public static void main(String[] args) {
-        
+
         //Initialize Data
         stu.initializeStudent(student);
 
