@@ -1,54 +1,13 @@
 package boundary;
 
-import static control.Main.homepage;
-import control.TutorialControl;
 import java.util.Scanner;
 
 public class TutorialGroupUI {
-//    private TutorialControl controller = new TutorialControl();
 
-    private TutorialControl controller = new TutorialControl();
     private Scanner scanner = new Scanner(System.in);
-
-    public void tutorialtManagement() {
-        int choice;
-        do {
-            choice = getMenuChoice();
-            switch (choice) {
-                case 1:
-                    addStudentToTutorialGroup();
-                    break;
-                case 2:
-                    listStudentsOfTutorialGroup();
-                    break;
-                case 3:
-                    searchStudent();
-                    break;
-                case 4:
-                    removeStudentFromGroup();
-                    break;
-                case 5:
-                    changeStudentOfTutorialGroup();
-                    break;
-                case 6:
-                    filterGroupsByNumberOfStudents();
-                    break;
-                case 7:
-                    MergeGroup();
-                    break;
-                case 8:
-                    Report();
-                    break;
-                case 0:
-                    homepage();
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        } while (choice != 0);
-    }
-
+    Scanner input = new Scanner(System.in);
     public int getMenuChoice() {
+        int option;
         System.out.println("\nMAIN MENU");
         System.out.println("1. Add student to tutorial group");
         System.out.println("2. list students of tutorial group");
@@ -58,98 +17,52 @@ public class TutorialGroupUI {
         System.out.println("6. Filter tutorial groups by given number of students");
         System.out.println("7. Merge tutorial groups who less than three students");
         System.out.println("8. Summary Report");
-        System.out.println("0. Quit");
+        System.out.println("9. Quit");
+        System.out.print("\n");
         System.out.print("Enter choice: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // consume the newline character
-        return choice;
-    }
+        option = input.nextInt();
+        System.out.print("\n");
 
-    public void addStudentToTutorialGroup() {
-        System.out.println("Enter student details (ID, Name, Group), or 'exit' to finish:");
-
-        while (true) {
-            System.out.print("Student ID: ");
-            String studentId = scanner.nextLine().trim();
-
-            System.out.print("Assigned Group: ");
-            String groupName = scanner.nextLine().trim();
-            System.out.print("\n");
-            controller.addStudentToGroup(studentId, groupName);
-//            controller.addStudentToGroup(studentId, studentName, contactNo, ic, progremme, groupName);
-            break;
+        while (option < 1 || option > 9) {
+            System.out.print("Invalid option! Please select a number between 1 and 8 : ");
+            option = input.nextInt();
         }
+
+        return option;
     }
 
-    public void listStudentsOfTutorialGroup() {
-        System.out.print("Enter tutorial group name to list students: ");
-        String groupName = scanner.nextLine().trim();
-        System.out.print("\n");
-        controller.listStudentsInGroup(groupName);
+    public String inputstudentId() {
+        System.out.println("Enter student details (ID, Name, Group)");
+        System.out.print("Student ID: ");
+        return scanner.nextLine().trim();
     }
 
-    public void searchStudent() {
-        System.out.print("Enter student ID to search: ");
-        String studentId = scanner.nextLine().trim();
-
-        System.out.print("Enter tutorial group name: ");
-        String groupName = scanner.nextLine().trim();
-        System.out.print("\n");
-        controller.searchStudentInGroup(studentId, groupName);
+    public String inputgroupName() {
+        System.out.print("Group Name: ");
+        return scanner.nextLine().trim();
     }
-
-    private void removeStudentFromGroup() {
-        System.out.print("Enter student ID to remove: ");
-        String studentId = scanner.nextLine().trim();
-
-        System.out.print("Enter tutorial group name for student removal: ");
-        String groupName = scanner.nextLine().trim();
-        System.out.print("\n");
-        controller.removeStudentFromGroup(studentId, groupName);
-
-    }
-
-    private void changeStudentOfTutorialGroup() {
-        System.out.print("Enter student ID: ");
-        String studentId = scanner.nextLine().trim();
-
-        System.out.print("Enter current tutorial group name: ");
-        String currentGroupName = scanner.nextLine().trim();
-
-        System.out.print("Enter new tutorial group name: ");
-        String newGroupName = scanner.nextLine().trim();
-
-        System.out.print("\n");
-        controller.changeStudentGroup(studentId, currentGroupName, newGroupName);
-
-    }
-
-    private void filterGroupsByNumberOfStudents() {
+    
+    public int inputNumberOfStudents() {
         System.out.print("Enter the number of students to filter tutorial groups: ");
-        int numberOfStudents = scanner.nextInt();
-        scanner.nextLine(); // consume the newline character
-        System.out.print("\n");
-        controller.filterGroupsByNumberOfStudents(numberOfStudents);
+        return scanner.nextInt();
     }
-
-    private void MergeGroup() {
-        System.out.print("Enter the name of the first tutorial group: ");
-        String groupName1 = scanner.nextLine().trim();
-
-        System.out.print("Enter the name of the second tutorial group: ");
-        String groupName2 = scanner.nextLine().trim();
-        System.out.print("\n");
-        controller.mergeGroups(groupName1, groupName2);
+    
+    public String inputMergeGroups(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
     }
-
-    private void Report() {
-        System.out.print("\n");
-        System.out.println("Summary Report:");
-        controller.generateSummaryReport();
+    
+    public void titleUI(String header) {
+        System.out.println();
+        System.out.println(header);
+        printLine(1, 35);
     }
-
-//    public static void main(String[] args) {
-//        TutorialGroupUI tutorialGroupUI = new TutorialGroupUI();
-//        tutorialGroupUI.tutorialtManagement();
-//    }
+    public void printLine(int row, int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print("=");
+            }
+        }
+        System.out.println();
+    }
 }

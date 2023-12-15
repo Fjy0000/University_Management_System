@@ -6,72 +6,67 @@ package control;
  */
 import adt.SetInterface;
 import adt.Set;
+import boundary.TutorialGroupUI;
+import static control.Main.assignedStudents;
+import static control.Main.homepage;
 import static control.Main.student;
+import static control.Main.tutorialGroups;
 import entity.Student;
 import entity.TutorialGroup;
 
 import java.util.Iterator;
 
 public class TutorialControl {
+    
+    private TutorialGroupUI tutorialUI = new TutorialGroupUI();
 
-    private SetInterface<TutorialGroup> tutorialGroups = initializeTutorialGroups();
-    private SetInterface<Student> assignedStudents = new Set<>();
-
-    public SetInterface<Student> initializeStudents() {
-        return new Set<>();
-    }
-
-    public SetInterface<TutorialGroup> initializeTutorialGroups() {
-        SetInterface<TutorialGroup> tutorialGroupSet = new Set<>();
-        tutorialGroupSet.add(new TutorialGroup("G1"));
-        tutorialGroupSet.add(new TutorialGroup("G2"));
-        return tutorialGroupSet;
-    }
-
-    public void listStudentsInGroup(String groupName) {
-        TutorialGroup tutorialGroup = findGroupByName(groupName);
-
-        if (tutorialGroup != null) {
-            System.out.println("Students in " + groupName + ":");
-            tutorialGroup.listStudents();
-        } else {
-            System.out.println("Error: Group '" + groupName + "' not found.");
-        }
-    }
-
-    public void removeStudentFromGroup(String studentId, String groupName) {
-        Student student = findStudentById(studentId);
-        TutorialGroup group = findGroupByName(groupName);
-
-        if (student == null) {
-            System.out.println("Error: Student with ID '" + studentId + "' not found.");
-        } else if (group == null) {
-            System.out.println("Error: Tutorial group '" + groupName + "' not found.");
-        } else {
-            if (group.containsStudent(student)) {
-                group.removeStudent(student);
-                assignedStudents.remove(student); // Optional: Remove student from assignedStudents set
-                System.out.println("\nStudent removed from the group successfully.");
-            } else {
-                System.out.println("Error: Student not found in the specified tutorial group.");
+    public void tutorialtManagement() {
+        //initialize TutorialGroups set
+        tutorialGroups.add(new TutorialGroup("G1"));
+        tutorialGroups.add(new TutorialGroup("G2"));
+        tutorialGroups.add(new TutorialGroup("G3"));
+        int choice;
+        do {
+            choice = tutorialUI.getMenuChoice();
+            switch (choice) {
+                case 1:
+                    addStudentToGroup();
+                    break;
+                case 2:
+                    listStudentsInGroup();
+                    break;
+                case 3:
+                    searchStudentInGroup();
+                    break;
+                case 4:
+                    removeStudentFromGroup();
+                    break;
+                case 5:
+                    changeStudentGroup();
+                    break;
+                case 6:
+                    filterGroupsByNumberOfStudents();
+                    break;
+                case 7:
+                    mergeGroups();
+                    break;
+                case 8:
+                    generateSummaryReport();
+                    break;
+                case 9:
+                    homepage();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
-        }
+        } while (choice != 0);
     }
-
-    // Helper method to find a student by ID
-    private Student findStudentById(String studentId) {
-        Iterator<Student> iterator = student.getIterator();
-        while (iterator.hasNext()) {
-            Student student = iterator.next();
-            if (student.getStudentId().equals(studentId)) {
-                return student;
-            }
-        }
-        return null; // Student not found
-    }
-
-    public void addStudentToGroup(String studentId, String groupName) {
-
+    private void addStudentToGroup() {
+        // Call inputstudentId method to get student ID from the user
+        String studentId = tutorialUI.inputstudentId();
+        // Call inputgroupName method to get assigned group from the user
+        String groupName = tutorialUI.inputgroupName();
+        System.out.print("\n");
         Student newStudent = new Student();
         boolean found = false;
         Iterator<Student> iterator = student.getIterator();
@@ -87,13 +82,11 @@ public class TutorialControl {
                 break;
             }
         }
-
         // Check if the student set contains the new student
         if (!student.contains(newStudent) || found == false) {
             System.out.println("\nStudent " + studentId + " does not exist in the student set.");
             return;
         }
-
         // Check if the tutorial group exists
         TutorialGroup existingGroup = findGroupByName(groupName);
         if (existingGroup == null) {
@@ -114,8 +107,8 @@ public class TutorialControl {
 
         System.out.println("Student " + newStudent.getStudentName() + " added to tutorial group " + groupName + ".");
     }
-
-    public TutorialGroup findGroupByName(String groupName) {
+    
+    private TutorialGroup findGroupByName(String groupName) {
         Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
@@ -125,17 +118,48 @@ public class TutorialControl {
         }
         return null;
     }
+    
+    private void listStudentsInGroup() {
+        System.out.println("Enter Group name which you want to list");
+        // Call inputgroupName method to get assigned group from the user
+        String groupName = tutorialUI.inputgroupName();
+        System.out.print("\n");
+        TutorialGroup tutorialGroup = findGroupByName(groupName);
 
-    public void searchStudentInGroup(String studentId, String groupName) {
+        if (tutorialGroup != null) {
+            System.out.println("Students in " + groupName + ":");
+            tutorialGroup.listStudents();
+        } else {
+            System.out.println("Error: Group '" + groupName + "' not found.");
+        }
+    }
+    // Helper method to find a student by ID
+    private Student findStudentById(String studentId) {
+        Iterator<Student> iterator = student.getIterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            if (student.getStudentId().equals(studentId)) {
+                return student;
+            }
+        }
+        return null; // Student not found
+    }
+    
+    private void searchStudentInGroup() {
+        // Call inputstudentId method to get student ID from the user
+        String studentId = tutorialUI.inputstudentId();
+        // Call inputgroupName method to get assigned group from the user
+        String groupName = tutorialUI.inputgroupName();
+        
         // Find the student by ID
         Student student = findStudentById(studentId);
-
         // Find the tutorial group by name
         TutorialGroup group = findGroupByName(groupName);
 
         // If both student and group are found, check if the student is in the group
         if (student != null && group != null && group.containsStudent(student)) {
-            System.out.println("Student found in group:");
+            System.out.print("\n");
+            System.out.println("Student found in group " + group.getGroupName());
             System.out.println("Student ID: " + student.getStudentId());
             System.out.println("Student Name: " + student.getStudentName());
             System.out.println("Student Progremme: " + student.getStudentProgremme());
@@ -145,8 +169,40 @@ public class TutorialControl {
             System.out.println("Student not found in the specified tutorial group.");
         }
     }
+    
+    private void removeStudentFromGroup() {
+        // Call inputstudentId method to get student ID from the user
+        String studentId = tutorialUI.inputstudentId();
+        // Call inputgroupName method to get assigned group from the user
+        String groupName = tutorialUI.inputgroupName();
+        Student student = findStudentById(studentId);
+        TutorialGroup group = findGroupByName(groupName);
 
-    public void changeStudentGroup(String studentId, String currentGroupName, String newGroupName) {
+        if (student == null) {
+            System.out.println("Error: Student with ID '" + studentId + "' not found.");
+        } else if (group == null) {
+            System.out.println("Error: Tutorial group '" + groupName + "' not found.");
+        } else {
+            if (group.containsStudent(student)) {
+                group.removeStudent(student);
+                assignedStudents.remove(student); // Optional: Remove student from assignedStudents set
+                System.out.println("\nStudent removed from the group successfully.");
+            } else {
+                System.out.println("Error: Student not found in the specified tutorial group.");
+            }
+        }
+    }
+    
+    private void changeStudentGroup() {
+        // Call inputstudentId method to get student ID from the user
+        String studentId = tutorialUI.inputstudentId();
+        // Call inputgroupName method to get assigned group from the user
+        System.out.println("Enter student's current tutorial group");
+        String currentGroupName = tutorialUI.inputgroupName();
+        
+        System.out.println("Enter student's new tutorial group");
+        String newGroupName = tutorialUI.inputgroupName();
+        
         // Find the student and both current and new tutorial groups
         Student student = findStudentById(studentId);
         TutorialGroup currentGroup = findGroupByName(currentGroupName);
@@ -186,7 +242,8 @@ public class TutorialControl {
         }
     }
 
-    public void filterGroupsByNumberOfStudents(int numberOfStudents) {
+    private void filterGroupsByNumberOfStudents() {
+        int numberOfStudents = tutorialUI.inputNumberOfStudents();
         boolean groupsFound = false;
 
         Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
@@ -204,8 +261,11 @@ public class TutorialControl {
             System.out.println("No groups found with " + numberOfStudents + " students.");
         }
     }
-
-    public void mergeGroups(String groupName1, String groupName2) {
+    
+    private void mergeGroups() {
+        String groupName1 = tutorialUI.inputMergeGroups("Enter the name of the first tutorial group: ");
+        String groupName2 = tutorialUI.inputMergeGroups("Enter the name of the second tutorial group: ");
+        
         TutorialGroup group1 = findGroupByName(groupName1);
         TutorialGroup group2 = findGroupByName(groupName2);
 
@@ -231,8 +291,9 @@ public class TutorialControl {
             System.out.println("Error: One or both groups not found.");
         }
     }
-
-    public void generateSummaryReport() {
+    
+    private void generateSummaryReport() {
+        tutorialUI.titleUI("Generate Report");
         Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
