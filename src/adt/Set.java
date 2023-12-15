@@ -4,13 +4,17 @@
  */
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
  * @author fongj
  */
 public class Set<T> implements SetInterface<T> {
+
     T[] setArray;
     int numberOfElements;
+    private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
 
     public Set() {
@@ -38,20 +42,23 @@ public class Set<T> implements SetInterface<T> {
         return true;
     }
 
-    // Remove object 
+    public boolean replace(T newObject, int position) {
+        if (position >= 0 && position <= numberOfElements) {
+            setArray[position - 1] = newObject;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean remove(T object) {
-
-        int index = indexOf(object);
+        int index = getElementIndex(object);
         if (index != -1) {
-
             // Shift elements to fill the gap
-            for (int i = index; i < numberOfElements - 1; i++) {
+            for (int i = index; i < numberOfElements; i++) {
                 setArray[i] = setArray[i + 1];
             }
-
-            // Set the last element to null and decrement the size
-            setArray[numberOfElements - 1] = null;
             numberOfElements--;
             return true;
         } else {
@@ -60,8 +67,17 @@ public class Set<T> implements SetInterface<T> {
 
     }
 
-    // Find the index of an object in the array, returns -1 if not found
-    private int indexOf(T object) {
+    @Override
+    public int getSize() {
+        return numberOfElements;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return numberOfElements == 0;
+    }
+
+    private int getElementIndex(T object) {
         for (int i = 0; i < numberOfElements; i++) {
             if (setArray[i].equals(object)) {
                 return i;
@@ -70,12 +86,10 @@ public class Set<T> implements SetInterface<T> {
         return -1;
     }
 
-    // Check Array is Full or not
     private boolean isArrayFull() {
         return numberOfElements == setArray.length;
     }
 
-    // Resize the array size
     private void doubleArray() {
         T[] oldArray = setArray;
 
@@ -93,6 +107,57 @@ public class Set<T> implements SetInterface<T> {
             outputStr += setArray[i] + "\n";
         }
         return outputStr;
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new IteratorForArraySet();
+    }
+
+    private class IteratorForArraySet implements Iterator<T> {
+
+        private int nextIndex;
+
+        public IteratorForArraySet() {
+            nextIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < numberOfElements;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T nextElement = (T) setArray[nextIndex++];
+                return nextElement;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    @Override
+    public boolean contains(T anEntry) {
+        boolean found = false;
+        for (int index = 0; index < numberOfElements; index++) {
+            if (anEntry.equals(setArray[index])) {
+                found = true;
+                break; // exit the loop since the target is found
+            }
+        }
+        return found;
+    }
+
+    @Override
+    public void union(SetInterface anotherSet) {
+        if (anotherSet instanceof Set) {
+            Set aSet = (Set) anotherSet;
+            for (int i = 0; i < aSet.numberOfElements; ++i) {
+                add((T) aSet.setArray[i]);
+            }
+        }
     }
 
 }

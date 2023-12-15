@@ -1,24 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class StudentCourse {
 
-    private String studentId;
+    private String courseId;
     private String course;
+    private String status;
 
-    public String getStudentId() {
-        return studentId;
+    public StudentCourse() {
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public StudentCourse(String id, String course) {
+        this.courseId = id;
+        this.course = course;
+    }
+
+    public StudentCourse(String id, String course, String status) {
+        this.courseId = id;
+        this.course = course;
+        this.status = status;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     public String getCourse() {
@@ -29,9 +40,17 @@ public class StudentCourse {
         this.course = course;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return studentId + "\t" + course;
+        return courseId + "\t" + course + "\t" + status;
     }
 
 }
