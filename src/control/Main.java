@@ -8,6 +8,7 @@ import entity.Course;
 import entity.Faculty;
 import entity.Programme;
 import entity.Student;
+import entity.TutorialGroup;
 import java.util.Scanner;
 
 /**
@@ -20,7 +21,7 @@ public class Main {
 
     // Page ------------------------------------------------------------------------
     private static StudentController studentPage = new StudentController();
-    private static TutorialGroupUI tutorialPage = new TutorialGroupUI();
+    private static TutorialControl tutorialPage = new TutorialControl();
     private static ProgrammeController programmePage = new ProgrammeController();
 
     // Set Array List --------------------------------------------------------------
@@ -28,6 +29,10 @@ public class Main {
     static SetInterface<Faculty> facultySet = new Set<>();
     static SetInterface<Student> student = new Set<>();
     static SetInterface<Programme> programmeSet = new Set<>();
+    
+    //take student from student register set into assignedStudents
+    static SetInterface<Student> assignedStudents = new Set<>();
+    static SetInterface<TutorialGroup> tutorialGroups = new Set<>();
 
     static StudentInitializer stu = new StudentInitializer();
 
