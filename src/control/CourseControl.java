@@ -24,9 +24,6 @@ public class CourseControl {
         Scanner scanner = new Scanner(System.in);
 
         // Initialization
-        // programme
-        programmeSet.add(new Programme("RIS"));
-        programmeSet.add(new Programme("RIS"));
         //course
         courseSet.add(new Course("1001", "Object-Oriented Programming", 800));
         courseSet.add(new Course("1002", "Cloud Computing", 700));
@@ -83,10 +80,10 @@ public class CourseControl {
 //                initializer.displayAllCourses(coursesForProgramme);
                 break;
             case 8:
-                course.addProgramToCourse();
+//                course.addProgramToCourse();
                 break;
             case 9:
-                course.removeProgramFromCourse();
+//                course.removeProgramFromCourse();
                 break;
             case 0:
                 homepage();
@@ -100,6 +97,7 @@ public class CourseControl {
 
     public void addCourseByUserInput() {
         Scanner scanner = new Scanner(System.in);
+        int continueAdd = 0;
 
         System.out.println("Enter Course ID:");
         String courseId = scanner.next();
@@ -115,10 +113,43 @@ public class CourseControl {
             System.out.println("Enter Course Fee:");
             int courseFee = scanner.nextInt();
 
-            Course newCourse = new Course(courseId, courseName, courseFee);
-            courseSet.add(newCourse);
+            System.out.println("Confirm Add Course? (yes =1 / no =2)");
+            int enter = scanner.nextInt();
+            if (enter == 1) {
+                Course newCourse = new Course(courseId, courseName, courseFee);
+                courseSet.add(newCourse);
 
-            System.out.println("Course added successfully: " + newCourse);
+                // Display Faculty List
+                Iterator<Faculty> getFaculty = facultySet.getIterator();
+                while (getFaculty.hasNext()) {
+
+                    Faculty facultyOj = getFaculty.next();
+                    System.out.println("ID \t Faculty Name");
+                    System.out.println(facultyOj.getfacultyId() + ")" + facultyOj.getfacultyName());
+                }
+                do {
+                    System.out.println("Enter Select the Faculty : ");
+                    String facultyID = scanner.nextLine();
+                    Iterator<Course> getCourse = courseSet.getIterator();
+                    while (getCourse.hasNext()) {
+                        Course courseOj = getCourse.next();
+                        if (courseOj.getCourseId().equals(courseId)) {
+                            while (getFaculty.hasNext()) {
+                                Faculty facultyOj = getFaculty.next();
+                                if (facultyOj.getfacultyId().equals(facultyID)) {
+                                    courseOj.addFaculty(facultyOj);
+                                }
+                            }
+                        }
+
+                    }
+                    System.out.println("Do you want to add another more faculty to this course (yes=1/no=2) :");
+                    continueAdd = scanner.nextInt();
+                } while (continueAdd == 1);
+                System.out.println("Course added successfully: " + newCourse);
+            } else {
+                System.out.println("Cancelled !!!!");
+            }
         } else {
             System.out.println("Course with ID " + courseId + " already exists.");
         }
@@ -188,94 +219,92 @@ public class CourseControl {
         }
     }
 
-    public void addProgramToCourse() {
-        Scanner scanner = new Scanner(System.in);
-
-        // Get Course ID from the user
-        System.out.print("Enter Course ID to add a program: ");
-        String courseId = scanner.next();
-
-        // Find the course
-        Course course = findCourseById(courseId);
-
-        if (course != null) {
-            // Display available programs
-            System.out.println("Available Programs:");
-            displayAllPrograms(programmeSet);
-
-            // Get Program ID from the user
-            System.out.print("Enter Program ID to add to the course: ");
-            String programId = scanner.next();
-
-            // Check if the program exists
-            Programme program = findProgramById(programId);
-
-            if (program != null) {
-                // Add the program to the course
-                course.addProgram(program);
-
-                System.out.println("Program added to the course successfully.");
-                System.out.println("Updated Course Details: " + course);
-            } else {
-                System.out.println("Program with ID " + programId + " not found.");
-            }
-        } else {
-            System.out.println("Course with ID " + courseId + " not found.");
-        }
-    }
-
-    public boolean removeProgram(String programId) {
-        Programme programToRemove = findProgramById(programId);
-
-        return programmeSet.remove(programToRemove);
-    }
-
-    private Programme findProgramById(String programId) {
-        Iterator<Programme> iterator = programmeSet.getIterator();
-
-        while (iterator.hasNext()) {
-            Programme program = iterator.next();
-            if (program.getprogrammeId().equals(programId)) {
-                return program;
-            }
-        }
-
-        return null;
-    }
-
-    public void removeProgramFromCourse() {
-        Scanner scanner = new Scanner(System.in);
-
-        // Display all courses and programs for user reference
-        displayAllCourses(courseSet);
-        displayAllPrograms(programmeSet);
-
-        System.out.println("Enter Course ID to remove a program:");
-        String courseId = scanner.next();
-
-        Course courseToRemoveProgram = findCourseById(courseId);
-
-        if (courseToRemoveProgram != null) {
-            System.out.println("Enter Program ID to remove:");
-            String programId = scanner.next();
-
-            if (courseToRemoveProgram.removeProgram(programId)) {
-                System.out.println("Program removed successfully from Course " + courseId + ": " + programId);
-            } else {
-                System.out.println("Program with ID " + programId + " not found in Course " + courseId + ".");
-            }
-        } else {
-            System.out.println("Course with ID " + courseId + " not found.");
-        }
-    }
-
-    private void displayAllPrograms(SetInterface<Programme> programmeSet) {
-        Iterator<Programme> iterator = programmeSet.getIterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
-    }
-
+//    public void addProgramToCourse() {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        // Get Course ID from the user
+//        System.out.print("Enter Course ID to add a program: ");
+//        String courseId = scanner.next();
+//
+//        // Find the course
+//        Course course = findCourseById(courseId);
+//
+//        if (course != null) {
+//            // Display available programs
+//            System.out.println("Available Programs:");
+//            displayAllPrograms(programmeSet);
+//
+//            // Get Program ID from the user
+//            System.out.print("Enter Program ID to add to the course: ");
+//            String programId = scanner.next();
+//
+//            // Check if the program exists
+//            Programme program = findProgramById(programId);
+//
+//            if (program != null) {
+//                // Add the program to the course
+//                course.addProgram(program);
+//
+//                System.out.println("Program added to the course successfully.");
+//                System.out.println("Updated Course Details: " + course);
+//            } else {
+//                System.out.println("Program with ID " + programId + " not found.");
+//            }
+//        } else {
+//            System.out.println("Course with ID " + courseId + " not found.");
+//        }
+//    }
+//    public boolean removeProgram(String programId) {
+//        Programme programToRemove = findProgramById(programId);
+//
+//        return programmeSet.remove(programToRemove);
+//    }
+//
+//    private Programme findProgramById(String programId) {
+//        Iterator<Programme> iterator = programmeSet.getIterator();
+//
+//        while (iterator.hasNext()) {
+//            Programme program = iterator.next();
+//            if (program.getprogrammeId().equals(programId)) {
+//                return program;
+//            }
+//        }
+//
+//        return null;
+//    }
+//
+//    public void removeProgramFromCourse() {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        // Display all courses and programs for user reference
+//        displayAllCourses(courseSet);
+//        displayAllPrograms(programmeSet);
+//
+//        System.out.println("Enter Course ID to remove a program:");
+//        String courseId = scanner.next();
+//
+//        Course courseToRemoveProgram = findCourseById(courseId);
+//
+//        if (courseToRemoveProgram != null) {
+//            System.out.println("Enter Program ID to remove:");
+//            String programId = scanner.next();
+//
+//            if (courseToRemoveProgram.removeProgram(programId)) {
+//                System.out.println("Program removed successfully from Course " + courseId + ": " + programId);
+//            } else {
+//                System.out.println("Program with ID " + programId + " not found in Course " + courseId + ".");
+//            }
+//        } else {
+//            System.out.println("Course with ID " + courseId + " not found.");
+//        }
+//    }
+//
+//    private void displayAllPrograms(SetInterface<Programme> programmeSet) {
+//        Iterator<Programme> iterator = programmeSet.getIterator();
+//        while (iterator.hasNext()) {
+//            System.out.println(iterator.next());
+//        }
+//    }
 //    public SetInterface<Course> getCoursesForProgramme(String programmeId) {
 //    SetInterface<Course> coursesForProgramme = new arraySet<>();
 //
@@ -298,19 +327,18 @@ public class CourseControl {
 //    return coursesForProgramme;
 //}
 // Assuming you have a method to find the programme by ID
-    private Programme findProgrammeById(String programmeId) {
-        Iterator<Programme> iterator = programmeSet.getIterator();
-
-        while (iterator.hasNext()) {
-            Programme programme = iterator.next();
-            if (programme.getprogrammeId().equals(programmeId)) {
-                return programme;
-            }
-        }
-
-        return null;
-    }
-
+//    private Programme findProgrammeById(String programmeId) {
+//        Iterator<Programme> iterator = programmeSet.getIterator();
+//
+//        while (iterator.hasNext()) {
+//            Programme programme = iterator.next();
+//            if (programme.getprogrammeId().equals(programmeId)) {
+//                return programme;
+//            }
+//        }
+//
+//        return null;
+//    }
     public SetInterface<Course> getCourseSet() {
         return courseSet;
     }
