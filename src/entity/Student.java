@@ -14,19 +14,19 @@ public class Student implements Comparable<Student> {
     private String contactNo;
     private String studentName;
     private String gender;
-    private String studentProgremme;
+    private String studentProgramme;
     private SetInterface<StudentCourse> studentCourse = new Set<>();
 
     // Student ------------------------------------------------------------------------------
     public Student() {
     }
 
-    public Student(String id, String name, String contactNo, String gender, String progremme) {
+    public Student(String id, String name, String contactNo, String gender, String programme) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
-        this.studentProgremme = progremme;
+        this.studentProgramme = programme;
     }
 
     public Student(String id, String name, String contactNo, String gender, String progremme, SetInterface<StudentCourse> courses) {
@@ -34,7 +34,7 @@ public class Student implements Comparable<Student> {
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
-        this.studentProgremme = progremme;
+        this.studentProgramme = progremme;
         this.studentCourse = courses;
     }
 
@@ -70,12 +70,12 @@ public class Student implements Comparable<Student> {
         this.gender = gender;
     }
 
-    public String getStudentProgremme() {
-        return studentProgremme;
+    public String getStudentProgramme() {
+        return studentProgramme;
     }
 
-    public void setStudentProgremme(String studentProgremme) {
-        this.studentProgremme = studentProgremme;
+    public void setStudentProgramme(String studentProgramme) {
+        this.studentProgramme = studentProgramme;
     }
 
     // Student Course ------------------------------------------------------------------------------
@@ -87,8 +87,8 @@ public class Student implements Comparable<Student> {
         return this.studentCourse.getSize();
     }
 
-    public void addStudentCourse(StudentCourse courses) {
-        this.studentCourse.add(courses);
+    public boolean addStudentCourse(StudentCourse courses) {
+        return this.studentCourse.add(courses);
     }
 
     public void removeStudentCourse(StudentCourse courses) {
@@ -106,7 +106,7 @@ public class Student implements Comparable<Student> {
                 + "\nContactNo: " + contactNo
                 + "\nName: " + studentName
                 + "\nGender: " + gender
-                + "\nProgremme: " + studentProgremme + "\n";
+                + "\nProgremme: " + studentProgramme + "\n";
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   

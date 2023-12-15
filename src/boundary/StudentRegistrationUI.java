@@ -23,7 +23,7 @@ public class StudentRegistrationUI {
         int option;
 
         System.out.println();
-        printLine(1, 35);
+        printLine(1, 45);
         System.out.printf("%-10s\n", "Student Management");
         printLine(1, 35);
         System.out.printf("%2s %-10s\n", "1)", "Add Student");
@@ -33,15 +33,16 @@ public class StudentRegistrationUI {
         System.out.printf("%2s %-10s\n", "5)", "Remove Student");
         System.out.printf("%2s %-10s\n", "6)", "View Student List");
         System.out.printf("%2s %-10s\n", "7)", "Calculate Total Cost of Registed Course");
-        System.out.printf("%2s %-10s\n", "8)", "Generate Report");
-        System.out.printf("%2s %-10s\n", "9)", "Exit");
-        printLine(1, 35);
+        System.out.printf("%2s %-10s\n", "8)", "Generate A Student Bill");
+        System.out.printf("%2s %-10s\n", "9)", "Generate Summary Student Report");
+        System.out.printf("%2s %-10s\n", "10)", "Exit");
+        printLine(1, 45);
 
-        System.out.print("Enter Number(1-9): ");
+        System.out.print("Enter Number(1-10): ");
         option = input.nextInt();
 
-        while (option < 1 || option > 9) {
-            System.out.print("Invalid option! Please select a number between 1 and 9 : ");
+        while (option < 1 || option > 10) {
+            System.out.print("Invalid option! Please select a number between 1 and 10 : ");
             option = input.nextInt();
         }
 
@@ -93,18 +94,18 @@ public class StudentRegistrationUI {
         }
     }
 
-    public String inputStudentProgremme() {
-        String progremme;
+    public String inputStudentProgramme() {
+        String programme;
 
         do {
             input.nextLine();
-            System.out.print("Enter Student Progremme (exp: RSD): ");
-            progremme = input.nextLine();
-            if (progremme.isEmpty()) {
-                System.out.println("Student Progremme cannot leave empty...");
+            System.out.print("Enter Programme ID (exp: RSD): ");
+            programme = input.nextLine();
+            if (programme.isEmpty()) {
+                System.out.println("Student Programme cannot leave empty...");
             }
-        } while (progremme.isEmpty());
-        return progremme;
+        } while (programme.isEmpty());
+        return programme;
     }
 
     // Update Student UI -------------------------------------------------------------------------------------------------------------------------
@@ -114,11 +115,11 @@ public class StudentRegistrationUI {
         System.out.println("1) Student Name");
         System.out.println("2) Student Contact No");
         System.out.println("3) Student Gender");
-        System.out.println("4) Student Progremme");
+        System.out.println("4) Student Programme");
         System.out.print("Choose one to update (1-4): ");
         option = input.nextInt();
 
-        while (option < 1 || option > 8) {
+        while (option < 1 || option > 4) {
             System.out.print("Invalid option! Please select a number between 1 and 4 : ");
             option = input.nextInt();
         }
@@ -170,17 +171,17 @@ public class StudentRegistrationUI {
         }
     }
 
-    public String inputStuNewProgremme() {
-        String progremme;
+    public String inputStuNewProgramme() {
+        String programme;
 
         do {
-            System.out.print("Enter New Student Progremme : ");
-            progremme = input.nextLine();
-            if (progremme.isEmpty()) {
-                System.out.println("Student Progremme cannot leave empty...");
+            System.out.print("Enter New Student Programme (exp: RSD) : ");
+            programme = input.nextLine();
+            if (programme.isEmpty()) {
+                System.out.println("Student Programme cannot leave empty...");
             }
-        } while (progremme.isEmpty());
-        return progremme;
+        } while (programme.isEmpty());
+        return programme;
     }
 
     // Student Course UI -------------------------------------------------------------------------------------------------------------------------
@@ -192,12 +193,12 @@ public class StudentRegistrationUI {
     }
 
     public String inputStudentCourse() {
-        System.out.print("Enter the Course : ");
+        System.out.print("Enter the Course ID : ");
         String course = input.nextLine();
         return course;
     }
 
-    public String inputCourseStatus() {
+    public int inputCourseStatus() {
         int select;
 
         System.out.print("Enter the number of Course Status (Main = 1/Resit = 2/Repeat = 3) : ");
@@ -206,13 +207,7 @@ public class StudentRegistrationUI {
             System.out.print("Invalid Enter! Please select a number between 1 and 3 (Main = 1/Resit = 2/Repeat = 3) : ");
             select = input.nextInt();
         }
-        if (select == 1) {
-            return "Main";
-        } else if (select == 2) {
-            return "Resit";
-        } else {
-            return "Repeat";
-        }
+        return select;
     }
 
     public int addOrRemoveCourse() {
@@ -242,29 +237,53 @@ public class StudentRegistrationUI {
         return key;
     }
 
+    // Generate Student Bill UI ---------------------------------------------------------------------------------------------------------------------
+    public String inputStuBill() {
+        String id;
+
+        do {
+            input.nextLine();
+            System.out.print("Enter Student ID to generate this Student Bill : ");
+            id = input.nextLine();
+            if (id.isEmpty()) {
+                System.out.println("Please do not leave empty...");
+            }
+        } while (id.isEmpty());
+        return id;
+    }
+
+    // Display Course or Programme Option UI ---------------------------------------------------------------------------------------------------------------------
+    public void optionListHeader(String itemName) {
+        System.out.println();
+        printLine(1, 50);
+        System.out.printf("%-5s \t %-15s\n", "ID", itemName);
+    }
+
     // Display Student List for Searching UI ---------------------------------------------------------------------------------------------------------------------
     public void searchStudenHeader() {
         System.out.println();
-        printLine(1, 180);
-        System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+        printLine(1, 235);
+        System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s \t %-15s\n",
                 "Student ID", "Student Name", "Contact No", "Gender", "Programme", "Courses", "Status");
-        printLine(1, 180);
+        printLine(1, 235);
     }
 
     // Display Student List UI ---------------------------------------------------------------------------------------------------------------------
     public void studentListHeader() {
-        printLine(1, 150);
-        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+        System.out.println();
+        printLine(1, 215);
+        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
                 "NO", "Student ID", "Student Name", "Contact No", "Gender", "Programme", "Courses");
-        printLine(1, 150);
+        printLine(1, 215);
     }
 
     // Display Total Cost of Registered Course UI ---------------------------------------------------------------------------------------------------------------------
     public void totalCostListHeader() {
-        printLine(1, 100);
-        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \n",
+        System.out.println();
+        printLine(1, 120);
+        System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15s \n",
                 "NO", "Student ID", "Student Name", "Courses", "Total Fees");
-        printLine(1, 100);
+        printLine(1, 120);
     }
 
     // Display Summary Report Header & Footer UI ---------------------------------------------------------------------------------------------------------------------
@@ -273,23 +292,46 @@ public class StudentRegistrationUI {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = date.format(formatter);
 
-        System.out.printf("\t \t \t \t \t \t \t \t \t \t    %30s %1s%-4d%1s \n", "Student Registration Annual Report", "(", date.getYear(), ")");
-        System.out.printf("\t \t \t \t \t \t \t \t \t \t \t %10s %-15s \n", "As on: ", formattedDate);
+        System.out.println();
+        System.out.printf("\t \t \t \t \t \t \t \t \t \t \t \t \t   %30s %1s%-4d%1s \n", "Student Registration Annual Report", "(", date.getYear(), ")");
+        System.out.printf("\t \t \t \t \t \t \t \t \t \t \t \t \t \t  %10s %-15s \n", "As on: ", formattedDate);
 
-        printLine(1, 205);
-        System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s \t %-15s\n",
+        printLine(1, 270);
+        System.out.printf("%-14s \t %-14s \t %-14s \t %-7s \t %-75s \t %-45s \t %-15s \t %-15s \t %-15s\n",
                 "Student ID", "Student Name", "Contact No", "Gender",
                 "Programme", "Courses", "Total Main", "Total Resit", "Total Repeat");
-        printLine(1, 205);
+        printLine(1, 270);
     }
 
-    public void summaryReportFooter(int totalStudent, int totalPaidFees) {
+    public void summaryReportFooter(int totalStudent, double totalPaidFees) {
         LocalDate date = LocalDate.now();
 
-        printLine(1, 205);
+        printLine(1, 270);
         System.out.println("This Year(" + date.getYear() + ") Total Student Registered : " + totalStudent);
         System.out.println("This Year(" + date.getYear() + ") Total Student Registered Paid Course Fees : " + totalPaidFees);
-        printLine(1, 205);
+        printLine(1, 270);
+    }
+
+    // Display Student Bill Header & Footer UI ---------------------------------------------------------------------------------------------------------------------
+    public void billHeader(String name, String id, String contactNo, String programme) {
+        System.out.println();
+        System.out.printf("\t \t \t \t%-30s \n", "TUITION PROGRAMME TRANSFER BILL");
+        System.out.println();
+        System.out.printf("%-20s \t \t %-2s %-20s\n", "Name", ":", name);
+        System.out.printf("%-20s \t \t %-2s %-20s\n", "Registration No.", ":", id);
+        System.out.printf("%-20s \t \t %-2s %-20s\n", "Contact No", ":", contactNo);
+        System.out.printf("%-20s \t \t %-2s %-20s\n", "Programme", ":", programme);
+        printLine(1, 110);
+        System.out.printf("%-8s \t \t \t \t \t \t \t \t %-18s\n", "Fees", "Amount(RM)");
+    }
+
+    public void billFooter(double totalFees) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate deadline = currentDate.plusDays(21);
+        System.out.println();
+        System.out.println();
+        printLine(1, 110);
+        System.out.printf("%-25s %-20s \t \t \t \t %-6.2f\n", "PLEASE PAY THIS AMOUNT BY", deadline, totalFees);
     }
 
     // Display List Exit UI ---------------------------------------------------------------------------------------------------------------------
@@ -306,15 +348,20 @@ public class StudentRegistrationUI {
 
     // Confirmation process UI ------------------------------------------------------------------------------------------------------------------------------
     public boolean inputConfirmation(String str) {
+        String confirm;
+
         System.out.println();
-        System.out.printf("%-20s", "Confirm to " + str + "? (Y/N): ");
-        String confirm = input.nextLine();
-        while (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")
-                && !confirm.toLowerCase().equals("n") && !confirm.toUpperCase().equals("N")) {
-            System.out.printf("%-20s", "Invalid Input !!! Please try agian do you confirm to " + str + "? (Y/N): ");
+        do {
+            System.out.printf("%-20s", "Confirm to " + str + "? (Y/N): ");
             confirm = input.nextLine();
-        }
+            if (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")
+                    && !confirm.toLowerCase().equals("n") && !confirm.toUpperCase().equals("N")) {
+                System.out.println("Invalid Input !!! Please try agian Enter Y = Yes / N = No");
+            }
+        } while (!confirm.toLowerCase().equals("y") && !confirm.toUpperCase().equals("Y")
+                && !confirm.toLowerCase().equals("n") && !confirm.toUpperCase().equals("N"));
         System.out.println();
+
         if (confirm.toLowerCase().equals("y") || confirm.toUpperCase().equals("Y")) {
             return true;
         } else {
