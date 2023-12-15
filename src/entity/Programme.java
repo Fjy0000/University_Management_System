@@ -29,6 +29,37 @@ public class Programme implements Comparable<Programme> {
         this.duration = duration;
     }
 
+//    public Programme(String programmeCode, String levelofstudy, String programmeName, String faculty, int yearIntake, int duration, TutorialGroup tutorialgroup) {
+//        this.programmeCode = programmeCode;
+//        this.levelofstudy = levelofstudy;
+//        this.programmeName = programmeName;
+//        this.faculty = faculty;
+//        this.yearIntake = yearIntake;
+//        this.duration = duration;
+//        this.tutorialgroup = tutorialgroup;
+//    }
+    public String getProgrammeCode() {
+        return programmeCode;
+    }
+
+    public void setProgrammeCode(String programmeCode) {
+        this.programmeCode = programmeCode;
+    }
+
+    public String getLevelofstudy() {
+        return levelofstudy;
+    }
+
+    public void setLevelofstudy(String levelofstudy) {
+        this.levelofstudy = levelofstudy;
+    }
+
+    public String getProgrammeName() {
+        return programmeName;
+    }
+
+    public void setProgrammeName(String programmeName) {
+        this.programmeName = programmeName;
     }
 
     public String getFaculty() {
@@ -97,37 +128,8 @@ public class Programme implements Comparable<Programme> {
     }
 
     @Override
-//    public Programme(String programmeCode, String levelofstudy, String programmeName, String faculty, int yearIntake, int duration, TutorialGroup tutorialgroup) {
-//        this.programmeCode = programmeCode;
-//        this.levelofstudy = levelofstudy;
-//        this.programmeName = programmeName;
-//        this.faculty = faculty;
-//        this.yearIntake = yearIntake;
-//        this.duration = duration;
-//        this.tutorialgroup = tutorialgroup;
-//    }
-    public String getProgrammeCode() {
-        return programmeCode;
-    }
-
-    public void setProgrammeCode(String programmeCode) {
-        this.programmeCode = programmeCode;
-    }
-
-    public String getLevelofstudy() {
-        return levelofstudy;
-    }
-
-    public void setLevelofstudy(String levelofstudy) {
-        this.levelofstudy = levelofstudy;
-    }
-
-    public String getProgrammeName() {
-        return programmeName;
-    }
-
-    public void setProgrammeName(String programmeName) {
-        this.programmeName = programmeName;
+    public String toString() {
+        return String.format("%-10s %-15s %-40s %-10s %-25s %-10d", programmeCode, levelofstudy, programmeName, faculty, yearIntake, duration);
 
     }
 }
