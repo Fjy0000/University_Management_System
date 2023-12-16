@@ -57,10 +57,19 @@ public class TutorialGroupUI {
         System.out.println(header);
         printLine(1, 35);
     }
+    
+     public void groupListHeader() {
+        System.out.println();
+        printLine(1, 52);
+        System.out.printf("%-15s \t %-15s \t %-15s\n",
+                "Student ID", "Student Name", "Programme");
+        printLine(1, 52);
+    }
+//    --------------------------------------------------------------------------------------------------------------
     public void printLine(int row, int col) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                System.out.print("=");
+                System.out.print("-");
             }
         }
         System.out.println();

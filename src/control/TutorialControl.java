@@ -68,8 +68,13 @@ public class TutorialControl {
         System.out.print("\n");
         Student newStudent = new Student();
         boolean found = false;
+
+        // Get an iterator to iterate over the students in the existing student set
         SortedIterator<Student> iterator = student.getIterator();
+        // Iterate through the students
+
         while (iterator.hasNext()) {
+            // Retrieve the next student from the iterator
             Student student = iterator.next();
             if (student.getStudentId().equals(studentId)) {
                 newStudent = new Student(studentId,
@@ -79,6 +84,7 @@ public class TutorialControl {
                         student.getStudentProgramme(),
                         student.getStudentProgrammeCode());
                 found = true;
+                // Set the 'found' flag to true to indicate that the student was found
                 break;
             }
         }
@@ -102,6 +108,7 @@ public class TutorialControl {
 
         // Add the student to the group
         existingGroup.addStudent(newStudent);
+        //make sure newStudent from student add into assignedStudents, use to identify student from student set who is in group and not in group
         assignedStudents.add(newStudent);
         student.add(newStudent);
 
@@ -109,9 +116,14 @@ public class TutorialControl {
     }
 
     private TutorialGroup findGroupByName(String groupName) {
+
         SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
+        // Iterate through each TutorialGroup in the collection
+
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
+            
+            // Check if the current TutorialGroup's name matches the specified groupName
             if (tutorialGroup.getGroupName().equalsIgnoreCase(groupName)) {
                 return tutorialGroup;
             }
@@ -124,10 +136,13 @@ public class TutorialControl {
         // Call inputgroupName method to get assigned group from the user
         String groupName = tutorialUI.inputgroupName();
         System.out.print("\n");
+        
         TutorialGroup tutorialGroup = findGroupByName(groupName);
-
+        
+       
         if (tutorialGroup != null) {
             System.out.println("Students in " + groupName + ":");
+            tutorialUI.groupListHeader();
             tutorialGroup.listStudents();
         } else {
             System.out.println("Error: Group '" + groupName + "' not found.");
@@ -163,8 +178,9 @@ public class TutorialControl {
             System.out.println("Student found in group " + group.getGroupName());
             System.out.println("Student ID: " + student.getStudentId());
             System.out.println("Student Name: " + student.getStudentName());
-            System.out.println("Student Programme: " + student.getStudentProgramme());
             System.out.println("Student Gender: " + student.getGender());
+            System.out.println("Programme Code: " + student.getStudentProgrammeCode());
+            System.out.println("Programme Name: " + student.getStudentProgramme());
             System.out.println("Student ContactNo: " + student.getContactNo());
         } else {
             System.out.println("Student not found in the specified tutorial group.");
@@ -247,12 +263,16 @@ public class TutorialControl {
         int numberOfStudents = tutorialUI.inputNumberOfStudents();
         boolean groupsFound = false;
 
+
         SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
+        // Iterate through each tutorial group in the set.
+
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
-
+            
+            // Check if the current tutorial group has the specified number of students.
             if (tutorialGroup.getSize() == numberOfStudents) {
-                System.out.println("Group " + tutorialGroup.getGroupName() + " has " + numberOfStudents + " students:");
+                System.out.println("\nGroup " + tutorialGroup.getGroupName() + " has " + numberOfStudents + " students:");
                 tutorialGroup.listStudents();
                 groupsFound = true;
             }
@@ -298,18 +318,20 @@ public class TutorialControl {
         SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
-
-            System.out.println("\nTutorial Group: " + tutorialGroup.getGroupName());
-
+            System.out.println("\n");
+            System.out.println("Tutorial Group: " + tutorialGroup.getGroupName());
+            System.out.println("Number of student in group: " + tutorialGroup.getSize());
+            tutorialUI.groupListHeader();
             if (tutorialGroup.getSize() == 0) {
                 System.out.println("No students in this group.");
             } else {
                 SortedIterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
-                    System.out.println("Student ID: " + student.getStudentId()
-                            + "\nName: " + student.getStudentName()
-                            + "\nProgramme: " + student.getStudentProgrammeCode());
+                    System.out.printf("%-15s \t %-15s \t %-15s\n" 
+                            , student.getStudentId()
+                            , student.getStudentName()
+                            , student.getStudentProgrammeCode());
                 }
             }
         }

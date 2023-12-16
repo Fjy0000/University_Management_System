@@ -24,6 +24,7 @@ public class Main {
     private static ProgrammeController programmePage = new ProgrammeController();
 
     // Set Array List --------------------------------------------------------------
+    // declare collection ADT object
     static SetInterface<Course> courseSet = new Set<>();
     static SetInterface<Faculty> facultySet = new Set<>();
     
