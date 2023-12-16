@@ -2,10 +2,10 @@ package control;
 
 import adt.Set;
 import adt.SetInterface;
+import adt.SortedIterator;
 import entity.Course;
 import entity.Faculty;
 import entity.Programme;
-import java.util.Iterator;
 import java.util.Scanner;
 import static control.Main.courseSet;
 import static control.Main.facultySet;
@@ -107,7 +107,7 @@ public class CourseControl {
                 courseSet.add(newCourse);
 
                 // Display Faculty List
-                Iterator<Faculty> getFaculty = facultySet.getIterator();
+                SortedIterator<Faculty> getFaculty = facultySet.getIterator();
                 while (getFaculty.hasNext()) {
 
                     Faculty facultyOj = getFaculty.next();
@@ -117,7 +117,7 @@ public class CourseControl {
                 do {
                     System.out.println("Enter Select the Faculty : ");
                     String facultyID = scanner.nextLine();
-                    Iterator<Course> getCourse = courseSet.getIterator();
+                    SortedIterator<Course> getCourse = courseSet.getIterator();
                     while (getCourse.hasNext()) {
                         Course courseOj = getCourse.next();
                         if (courseOj.getCourseId().equals(courseId)) {
@@ -240,7 +240,7 @@ public class CourseControl {
 //    }
 //
 //    private Programme findProgramById(String programId) {
-//        Iterator<Programme> iterator = programmeSet.getIterator();
+//        SortedIterator<Programme> iterator = programmeSet.getIterator();
 //
 //        while (iterator.hasNext()) {
 //            Programme program = iterator.next();
@@ -279,7 +279,7 @@ public class CourseControl {
 //    }
 //
 //    private void displayAllPrograms(SetInterface<Programme> programmeSet) {
-//        Iterator<Programme> iterator = programmeSet.getIterator();
+//        SortedIterator<Programme> iterator = programmeSet.getIterator();
 //        while (iterator.hasNext()) {
 //            System.out.println(iterator.next());
 //        }
@@ -307,7 +307,7 @@ public class CourseControl {
 //}
 // Assuming you have a method to find the programme by ID
 //    private Programme findProgrammeById(String programmeId) {
-//        Iterator<Programme> iterator = programmeSet.getIterator();
+//        SortedIterator<Programme> iterator = programmeSet.getIterator();
 //
 //        while (iterator.hasNext()) {
 //            Programme programme = iterator.next();
@@ -323,14 +323,14 @@ public class CourseControl {
     }
 
     private void displayAllCourses(SetInterface<Course> courseSet) {
-        Iterator<Course> iterator = courseSet.getIterator();
+        SortedIterator<Course> iterator = courseSet.getIterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
     }
 
     private Faculty findFacultyById(String facultyId) {
-        Iterator<Faculty> iterator = facultySet.getIterator();
+        SortedIterator<Faculty> iterator = facultySet.getIterator();
 
         while (iterator.hasNext()) {
             Faculty faculty = iterator.next();
@@ -343,7 +343,7 @@ public class CourseControl {
     }
 
     private Course findCourseById(String courseId) {
-        Iterator<Course> iterator = courseSet.getIterator();
+        SortedIterator<Course> iterator = courseSet.getIterator();
 
         while (iterator.hasNext()) {
             Course course = iterator.next();

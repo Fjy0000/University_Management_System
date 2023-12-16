@@ -12,6 +12,7 @@ public class StudentRegistrationUI {
 
     Scanner input = new Scanner(System.in);
 
+    // Title UI----------------------------------------------------------------------------------------------------------------------------
     public void titleUI(String header) {
         System.out.println();
         System.out.println(header);
@@ -382,6 +383,26 @@ public class StudentRegistrationUI {
         }
         System.out.println();
         return exit;
+    }
+
+    // Sort List UI ------------------------------------------------------------------------------------------------------------------------------
+    public boolean inputSortList() {
+        int option;
+
+        System.out.println();
+        System.out.print("Do you want to Sorting the List? (Yes=1/No=0) : ");
+        option = input.nextInt();
+        while (option < 0 || option > 1) {
+            System.out.printf("%-30s", "Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");
+            option = input.nextInt();
+        }
+        System.out.println();
+
+        if (option == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Print Line UI ------------------------------------------------------------------------------------------------------------------------------
