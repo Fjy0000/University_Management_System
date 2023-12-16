@@ -8,7 +8,6 @@ import java.util.Iterator;
  *
  * @author 60111
  */
-//public class TutorialGroup implements Comparable<TutorialGroup>{
 public class TutorialGroup implements Comparable<TutorialGroup> {
 
     private String groupName;
@@ -29,6 +28,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     }
 
     public void addStudent(Student student) {
+        // Check if the student is not null before adding to the group
         if (student != null) {
             students.add(student);
         }
@@ -43,17 +43,21 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     public boolean containsStudent(Student student) {
         return students.contains(student);
     }
-
+    
+    // Getter method to retrieve the set of students in the tutorial group
     public SetInterface<Student> getStudentsSet() {
         return students;
     }
-
+    
+    // Method to list students in the tutorial group
     public void listStudents() {
         if (students.isEmpty()) {
             System.out.println("No students in this group.");
         } else {
+            // Use an iterator to traverse the set of students
             Iterator<Student> iterator = students.getIterator();
             while (iterator.hasNext()) {
+                // Print each student's information
                 System.out.println(iterator.next());
             }
         }
@@ -86,10 +90,6 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     public void setAssigned(boolean assigned) {
         this.assigned = assigned;
     }
-//    @Override
-//    public int compareTo(TutorialGroup o) {
-//      return groupName.compareTo(o.groupName);
-//    }
 
     @Override
     public String toString() {
@@ -97,7 +97,8 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
     }
-
+    
+    // Override compareTo method for sorting tutorial groups based on group names
     @Override
     public int compareTo(TutorialGroup object) {
         return this.groupName.compareTo(object.getGroupName());

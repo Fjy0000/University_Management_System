@@ -121,17 +121,21 @@ public class Student implements Comparable<Student> {
     // add by hongli  -----------------------------------------------------------------------------------   
     @Override
     public boolean equals(Object obj) {
+        // Check if the objects are the same reference
         if (this == obj) {
             return true;
         }
+        // Check if the object is null or of a different class
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+        // Cast the object to the specific class Student
         Student student = (Student) obj;
         return Objects.equals(studentId, student.studentId);
     }
 
     @Override
+    ////Consistency with equals:  ensures consistency in behavior when using these objects in hash-based collections.
     public int hashCode() {
         return Objects.hash(studentId);
     }
