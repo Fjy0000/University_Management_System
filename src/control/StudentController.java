@@ -93,7 +93,7 @@ public class StudentController {
                         do {
                             randomNum = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
                             id = name.substring(0, 1).toUpperCase() + randomNum;
-                            isSuccess = student.add(new Student(id, name, contactNo, gender, result.getProgrammeName()));
+                            isSuccess = student.add(new Student(id, name, contactNo, gender, result.getProgrammeName(), result.getProgrammeCode()));
                         } while (isSuccess == false);
                         found = true;
                         break;
@@ -168,10 +168,12 @@ public class StudentController {
                         if (found == true) {
                             System.out.println("Added Course to this Student Successful.......");
                         } else {
-                            System.out.print("Unsuccessful Adding Course to Student Reason: \n"
-                                    + "1.Student Already registered this course....\n"
-                                    + "2.Enter Course ID no match with the Course ID inside the Course List....\n"
-                                    + "3.Enter Student ID no found in Student List....\n");
+                            System.out.print("""
+                                             Unsuccessful Adding Course to Student Reason: 
+                                             1.Student Already registered this course....
+                                             2.Enter Course ID no match with the Course ID inside the Course List....
+                                             3.Enter Student ID no found in Student List....
+                                             """);
                         }
                     } else {
                         System.out.println("Cancelled Adding the Course !!!!");
@@ -224,7 +226,7 @@ public class StudentController {
             Iterator<Student> getStudent = student.getIterator();
             while (getStudent.hasNext()) {
                 Student studentObject = getStudent.next();
-                if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgramme().equals(key)) {
+                if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgrammeCode().equals(key)) {
                     ++foundObject;
                     if (studentObject.getStudentCourseSize() != 0) {
                         Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
@@ -232,13 +234,13 @@ public class StudentController {
                         while (getStudentCourse.hasNext()) {
                             StudentCourse courseObject = getStudentCourse.next();
                             if (count == 0) {
-                                System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s \t %-15s\n",
+                                System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s \t %-15s\n",
                                         studentObject.getStudentId(), studentObject.getStudentName(),
                                         studentObject.getContactNo(), studentObject.getGender(),
                                         studentObject.getStudentProgramme(), courseObject.getCourse(), courseObject.getStatus());
                                 count++;
                             } else {
-                                System.out.printf(" %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s \t %-15s\n",
+                                System.out.printf("%-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s \t %-15s\n",
                                         "", "", "", "", "", courseObject.getCourse(), courseObject.getStatus());
                                 count++;
                             }
@@ -249,6 +251,7 @@ public class StudentController {
                                 studentObject.getContactNo(), studentObject.getGender(),
                                 studentObject.getStudentProgramme());
                     }
+                    System.out.println();
                 }
             }
             if (foundObject == 0) {
@@ -297,21 +300,21 @@ public class StudentController {
                         if (option == 1) {
                             isSuccess = student.replace(new Student(object.getStudentId(), name,
                                     object.getContactNo(), object.getGender(),
-                                    object.getStudentProgramme(), object.getStudentCourse()),
+                                    object.getStudentProgramme(), object.getStudentProgrammeCode(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 2) {
                             isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                     contactNo, object.getGender(),
-                                    object.getStudentProgramme(), object.getStudentCourse()),
+                                    object.getStudentProgramme(), object.getStudentProgrammeCode(), object.getStudentCourse()),
                                     count);
                             break;
                         }
                         if (option == 3) {
                             isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                     object.getContactNo(), gender,
-                                    object.getStudentProgramme(), object.getStudentCourse()),
+                                    object.getStudentProgramme(), object.getStudentProgrammeCode(), object.getStudentCourse()),
                                     count);
                             break;
                         }
@@ -322,7 +325,7 @@ public class StudentController {
                                 if (result.getProgrammeCode().equals(programmeID)) {
                                     isSuccess = student.replace(new Student(object.getStudentId(), object.getStudentName(),
                                             object.getContactNo(), object.getGender(),
-                                            result.getProgrammeName(), object.getStudentCourse()),
+                                            result.getProgrammeName(), result.getProgrammeCode(), object.getStudentCourse()),
                                             count);
                                     break;
                                 }

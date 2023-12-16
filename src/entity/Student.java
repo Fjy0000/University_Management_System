@@ -15,26 +15,31 @@ public class Student implements Comparable<Student> {
     private String studentName;
     private String gender;
     private String studentProgramme;
+    private String studentProgrammeCode;
     private SetInterface<StudentCourse> studentCourse = new Set<>();
 
     // Student ------------------------------------------------------------------------------
     public Student() {
     }
 
-    public Student(String id, String name, String contactNo, String gender, String programme) {
+    // For Registration Use
+    public Student(String id, String name, String contactNo, String gender, String programme, String programmeCode) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
         this.studentProgramme = programme;
+        this.studentProgrammeCode = programmeCode;
     }
 
-    public Student(String id, String name, String contactNo, String gender, String progremme, SetInterface<StudentCourse> courses) {
+    // For Update student use
+    public Student(String id, String name, String contactNo, String gender, String programme, String programmeCode, SetInterface<StudentCourse> courses) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
-        this.studentProgramme = progremme;
+        this.studentProgramme = programme;
+        this.studentProgrammeCode = programmeCode;
         this.studentCourse = courses;
     }
 
@@ -78,6 +83,14 @@ public class Student implements Comparable<Student> {
         this.studentProgramme = studentProgramme;
     }
 
+    public String getStudentProgrammeCode() {
+        return studentProgrammeCode;
+    }
+
+    public void setStudentProgrammeCode(String studentProgrammeCode) {
+        this.studentProgrammeCode = studentProgrammeCode;
+    }
+
     // Student Course ------------------------------------------------------------------------------
     public SetInterface<StudentCourse> getStudentCourse() {
         return studentCourse;
@@ -106,7 +119,7 @@ public class Student implements Comparable<Student> {
                 + "\nContactNo: " + contactNo
                 + "\nName: " + studentName
                 + "\nGender: " + gender
-                + "\nProgremme: " + studentProgramme + "\n";
+                + "\nProgremme: " + studentProgrammeCode + "\n";
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   
