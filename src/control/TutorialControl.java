@@ -17,7 +17,7 @@ import entity.TutorialGroup;
 import java.util.Iterator;
 
 public class TutorialControl {
-    
+
     private TutorialGroupUI tutorialUI = new TutorialGroupUI();
 
     public void tutorialtManagement() {
@@ -61,6 +61,7 @@ public class TutorialControl {
             }
         } while (choice != 0);
     }
+
     private void addStudentToGroup() {
         // Call inputstudentId method to get student ID from the user
         String studentId = tutorialUI.inputstudentId();
@@ -77,7 +78,8 @@ public class TutorialControl {
                         student.getStudentName(),
                         student.getContactNo(),
                         student.getGender(),
-                        student.getStudentProgramme());
+                        student.getStudentProgramme(),
+                        student.getStudentProgrammeCode());
                 found = true;
                 break;
             }
@@ -107,7 +109,7 @@ public class TutorialControl {
 
         System.out.println("Student " + newStudent.getStudentName() + " added to tutorial group " + groupName + ".");
     }
-    
+
     private TutorialGroup findGroupByName(String groupName) {
         Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
@@ -118,7 +120,7 @@ public class TutorialControl {
         }
         return null;
     }
-    
+
     private void listStudentsInGroup() {
         System.out.println("Enter Group name which you want to list");
         // Call inputgroupName method to get assigned group from the user
@@ -133,6 +135,7 @@ public class TutorialControl {
             System.out.println("Error: Group '" + groupName + "' not found.");
         }
     }
+
     // Helper method to find a student by ID
     private Student findStudentById(String studentId) {
         Iterator<Student> iterator = student.getIterator();
@@ -144,13 +147,13 @@ public class TutorialControl {
         }
         return null; // Student not found
     }
-    
+
     private void searchStudentInGroup() {
         // Call inputstudentId method to get student ID from the user
         String studentId = tutorialUI.inputstudentId();
         // Call inputgroupName method to get assigned group from the user
         String groupName = tutorialUI.inputgroupName();
-        
+
         // Find the student by ID
         Student student = findStudentById(studentId);
         // Find the tutorial group by name
@@ -169,7 +172,7 @@ public class TutorialControl {
             System.out.println("Student not found in the specified tutorial group.");
         }
     }
-    
+
     private void removeStudentFromGroup() {
         // Call inputstudentId method to get student ID from the user
         String studentId = tutorialUI.inputstudentId();
@@ -192,17 +195,17 @@ public class TutorialControl {
             }
         }
     }
-    
+
     private void changeStudentGroup() {
         // Call inputstudentId method to get student ID from the user
         String studentId = tutorialUI.inputstudentId();
         // Call inputgroupName method to get assigned group from the user
         System.out.println("Enter student's current tutorial group");
         String currentGroupName = tutorialUI.inputgroupName();
-        
+
         System.out.println("Enter student's new tutorial group");
         String newGroupName = tutorialUI.inputgroupName();
-        
+
         // Find the student and both current and new tutorial groups
         Student student = findStudentById(studentId);
         TutorialGroup currentGroup = findGroupByName(currentGroupName);
@@ -261,11 +264,11 @@ public class TutorialControl {
             System.out.println("No groups found with " + numberOfStudents + " students.");
         }
     }
-    
+
     private void mergeGroups() {
         String groupName1 = tutorialUI.inputMergeGroups("Enter the name of the first tutorial group: ");
         String groupName2 = tutorialUI.inputMergeGroups("Enter the name of the second tutorial group: ");
-        
+
         TutorialGroup group1 = findGroupByName(groupName1);
         TutorialGroup group2 = findGroupByName(groupName2);
 
@@ -291,7 +294,7 @@ public class TutorialControl {
             System.out.println("Error: One or both groups not found.");
         }
     }
-    
+
     private void generateSummaryReport() {
         tutorialUI.titleUI("Generate Report");
         Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
@@ -308,7 +311,7 @@ public class TutorialControl {
                     Student student = studentIterator.next();
                     System.out.println("Student ID: " + student.getStudentId()
                             + "\nName: " + student.getStudentName()
-                            + "\nProgramme: " + student.getStudentProgramme());
+                            + "\nProgramme: " + student.getStudentProgrammeCode());
                 }
             }
         }

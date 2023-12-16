@@ -321,7 +321,7 @@ public class StudentRegistrationUI {
         System.out.printf("%-20s \t \t %-2s %-20s\n", "Registration No.", ":", id);
         System.out.printf("%-20s \t \t %-2s %-20s\n", "Contact No", ":", contactNo);
         System.out.printf("%-20s \t \t %-2s %-20s\n", "Programme", ":", programme);
-        printLine(1, 110);
+        printLine(1, 115);
         System.out.printf("%-8s \t \t \t \t \t \t \t \t %-18s\n", "Fees", "Amount(RM)");
     }
 
@@ -330,7 +330,7 @@ public class StudentRegistrationUI {
         LocalDate deadline = currentDate.plusDays(21);
         System.out.println();
         System.out.println();
-        printLine(1, 110);
+        printLine(1, 115);
         System.out.printf("%-25s %-20s \t \t \t \t %-6.2f\n", "PLEASE PAY THIS AMOUNT BY", deadline, totalFees);
     }
 
