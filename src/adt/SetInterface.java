@@ -1,7 +1,5 @@
 package adt;
 
-import java.util.Iterator;
-
 /**
  *
  * @author
@@ -14,9 +12,9 @@ public interface SetInterface<T> {
 
     public boolean contains(T anEntry);
 
-    public void selectionSort();
+    public boolean selectionSort();
 
-    public Iterator<T> getIterator();
+    public SortedIterator<T> getIterator();
 
     public boolean isEmpty();
 
@@ -26,6 +24,4 @@ public interface SetInterface<T> {
 
     public int getSize();
 
-    //    public boolean addAll(SetInterface<T> otherSet);
-    //    public int getTotalEntries();
 }

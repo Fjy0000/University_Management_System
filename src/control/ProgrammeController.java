@@ -2,10 +2,10 @@ package control;
 
 import adt.Set;
 import adt.SetInterface;
+import adt.SortedIterator;
 import boundary.ProgrammeMaintenanceUI;
 import static control.Main.homepage;
 import entity.Programme;
-import java.util.Iterator;
 import utility.MessageUI;
 import static control.Main.programmeSet;
 
@@ -85,7 +85,7 @@ public class ProgrammeController {
             int matchingProgrammesCount = matchingProgrammes.getSize();
             System.out.println("Programmes found with code " + codeToSearch + ":");
 
-            Iterator<Programme> programmeIterator = matchingProgrammes.getIterator();
+            SortedIterator<Programme> programmeIterator = matchingProgrammes.getIterator();
             int index = 1;
             while (programmeIterator.hasNext()) {
                 System.out.println(index + ". " + programmeIterator.next());
@@ -126,7 +126,7 @@ public class ProgrammeController {
     }
 
     private Programme getProgrammeByIndex(SetInterface<Programme> programmes, int index) {
-        Iterator<Programme> iterator = programmes.getIterator();
+        SortedIterator<Programme> iterator = programmes.getIterator();
         int currentIndex = 1;
 
         while (iterator.hasNext()) {
@@ -144,7 +144,7 @@ public class ProgrammeController {
     public Set<Programme> findProgrammesByCode(String programmeCode) {
         Set<Programme> matchingProgrammes = new Set<>();
 
-        Iterator<Programme> iterator = programmeSet.getIterator();
+        SortedIterator<Programme> iterator = programmeSet.getIterator();
 
         while (iterator.hasNext()) {
             Programme currentProgramme = iterator.next();
@@ -160,7 +160,7 @@ public class ProgrammeController {
     private Set<Programme> findProgrammesByCriteria(int searchChoice, String searchKeyword) {
         Set<Programme> matchingProgrammes = new Set<>();
 
-        Iterator<Programme> iterator = programmeSet.getIterator();
+        SortedIterator<Programme> iterator = programmeSet.getIterator();
         while (iterator.hasNext()) {
             Programme programme = iterator.next();
             switch (searchChoice) {
@@ -254,7 +254,7 @@ public class ProgrammeController {
             int matchingProgrammesCount = matchingProgrammes.getSize();
             System.out.println("Programmes found with the specified criteria:");
 
-            Iterator<Programme> programmeIterator = matchingProgrammes.getIterator();
+            SortedIterator<Programme> programmeIterator = matchingProgrammes.getIterator();
             while (programmeIterator.hasNext()) {
                 System.out.println(programmeIterator.next());
             }
@@ -268,7 +268,7 @@ public class ProgrammeController {
 //Update function --------------------------------------------------------------------------------------------------------------------------------
     public void updateProgramme() {
         String codeToSearch = programmeUI.inputProgrammeCode();
-        Iterator<Programme> iterator = programmeSet.getIterator();
+        SortedIterator<Programme> iterator = programmeSet.getIterator();
 
         // List programs with the same code
         System.out.println("Programmes with the code '" + codeToSearch + "':");
@@ -349,7 +349,7 @@ public class ProgrammeController {
 
     public String getAllProgrammes() {
         StringBuilder outputStr = new StringBuilder();
-        Iterator<Programme> iterator = programmeSet.getIterator();
+        SortedIterator<Programme> iterator = programmeSet.getIterator();
 
         while (iterator.hasNext()) {
             outputStr.append(iterator.next()).append("\n");

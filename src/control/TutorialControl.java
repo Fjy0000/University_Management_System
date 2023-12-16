@@ -5,7 +5,7 @@ package control;
  * @author 60111
  */
 import adt.SetInterface;
-import adt.Set;
+import adt.SortedIterator;
 import boundary.TutorialGroupUI;
 import static control.Main.assignedStudents;
 import static control.Main.homepage;
@@ -13,8 +13,6 @@ import static control.Main.student;
 import static control.Main.tutorialGroups;
 import entity.Student;
 import entity.TutorialGroup;
-
-import java.util.Iterator;
 
 public class TutorialControl {
 
@@ -70,7 +68,7 @@ public class TutorialControl {
         System.out.print("\n");
         Student newStudent = new Student();
         boolean found = false;
-        Iterator<Student> iterator = student.getIterator();
+        SortedIterator<Student> iterator = student.getIterator();
         while (iterator.hasNext()) {
             Student student = iterator.next();
             if (student.getStudentId().equals(studentId)) {
@@ -111,7 +109,7 @@ public class TutorialControl {
     }
 
     private TutorialGroup findGroupByName(String groupName) {
-        Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
+        SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
             if (tutorialGroup.getGroupName().equalsIgnoreCase(groupName)) {
@@ -138,7 +136,7 @@ public class TutorialControl {
 
     // Helper method to find a student by ID
     private Student findStudentById(String studentId) {
-        Iterator<Student> iterator = student.getIterator();
+        SortedIterator<Student> iterator = student.getIterator();
         while (iterator.hasNext()) {
             Student student = iterator.next();
             if (student.getStudentId().equals(studentId)) {
@@ -249,7 +247,7 @@ public class TutorialControl {
         int numberOfStudents = tutorialUI.inputNumberOfStudents();
         boolean groupsFound = false;
 
-        Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
+        SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
 
@@ -297,7 +295,7 @@ public class TutorialControl {
 
     private void generateSummaryReport() {
         tutorialUI.titleUI("Generate Report");
-        Iterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
+        SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
 
@@ -306,7 +304,7 @@ public class TutorialControl {
             if (tutorialGroup.getSize() == 0) {
                 System.out.println("No students in this group.");
             } else {
-                Iterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
+                SortedIterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
                     System.out.println("Student ID: " + student.getStudentId()
