@@ -5,7 +5,6 @@ package control;
  * @author 60111
  */
 import adt.SetInterface;
-import adt.Set;
 import boundary.TutorialGroupUI;
 import static control.Main.assignedStudents;
 import static control.Main.homepage;
@@ -325,7 +324,7 @@ public class TutorialControl {
                 Iterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
-                    System.out.printf("%-15s \t %-15s \t %-15s" 
+                    System.out.printf("%-15s \t %-15s \t %-15s\n" 
                             , student.getStudentId()
                             , student.getStudentName()
                             , student.getStudentProgrammeCode());
