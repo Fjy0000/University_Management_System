@@ -115,11 +115,7 @@ public class Student implements Comparable<Student> {
 
     @Override
     public String toString() {
-        return "Student ID: " + studentId
-                + "\nContactNo: " + contactNo
-                + "\nName: " + studentName
-                + "\nGender: " + gender
-                + "\nProgremme: " + studentProgrammeCode + "\n";
+        return String.format("%-15s \t %-15s \t %-15s", studentId, studentName,studentProgrammeCode);
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   

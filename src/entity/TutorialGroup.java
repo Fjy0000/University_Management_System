@@ -49,7 +49,6 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     }
 
     public void listStudents() {
-        System.out.print("\n");
         if (students.isEmpty()) {
             System.out.println("No students in this group.");
         } else {

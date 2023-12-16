@@ -120,7 +120,7 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
     }
 
     @Override
-    public void union(SetInterface anotherSet) {
+    public void union(SetInterface anotherSet) { // use for merge two tutorial group student
         if (anotherSet instanceof Set) {
             Set aSet = (Set) anotherSet;
             for (int i = 0; i < aSet.numberOfElements; ++i) {
