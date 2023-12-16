@@ -1,6 +1,7 @@
 package control;
 
 import adt.SetInterface;
+import adt.SortedIterator;
 import boundary.StudentRegistrationUI;
 import static control.Main.courseSet;
 import static control.Main.homepage;
@@ -409,42 +410,81 @@ public class StudentController {
     private int displayStudentList(SetInterface<Student> student) {
         int exit;
         int count = 0, countCoursePicked;
+        boolean isSort = false;
 
-        student.selectionSort();
         studentUI.titleUI("View Student List");
+        isSort = studentUI.inputSortList();
+
         studentUI.studentListHeader();
-        if (student.isEmpty()) {
-            System.out.println("Oops !!! Student List is Empty............");
-        } else {
-            Iterator<Student> getStudent = student.getIterator();
-            while (getStudent.hasNext()) {
-                ++count;
-                Student studentObject = getStudent.next();
-                if (studentObject.getStudentCourseSize() != 0) {
-                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
-                    countCoursePicked = 0;
-                    while (getStudentCourse.hasNext()) {
-                        StudentCourse courseObject = getStudentCourse.next();
-                        if (countCoursePicked == 0) {
-                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
-                                    count, studentObject.getStudentId(), studentObject.getStudentName(),
-                                    studentObject.getContactNo(), studentObject.getGender(),
-                                    studentObject.getStudentProgramme(), courseObject.getCourse());
-                            countCoursePicked++;
-                        } else {
-                            System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
-                                    "", "", "", "", "", "", courseObject.getCourse());
-                            countCoursePicked++;
+
+        if (isSort == true) {
+            if (student.selectionSort() == false) {
+                System.out.println("Oops !!! Student List is Empty............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++count;
+                    Student studentObject = getStudent.sortedNext();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        countCoursePicked = 0;
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
+                                        count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                        studentObject.getContactNo(), studentObject.getGender(),
+                                        studentObject.getStudentProgramme(), courseObject.getCourse());
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
+                                        "", "", "", "", "", "", courseObject.getCourse());
+                                countCoursePicked++;
+                            }
                         }
+                    } else {
+                        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s\n",
+                                count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                studentObject.getContactNo(), studentObject.getGender(),
+                                studentObject.getStudentProgramme());
                     }
-                } else {
-                    System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s\n",
-                            count, studentObject.getStudentId(), studentObject.getStudentName(),
-                            studentObject.getContactNo(), studentObject.getGender(),
-                            studentObject.getStudentProgramme());
+                }
+            }
+        } else {
+            if (student.isEmpty()) {
+                System.out.println("Oops !!! Student List is Empty............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++count;
+                    Student studentObject = getStudent.next();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        countCoursePicked = 0;
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
+                                        count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                        studentObject.getContactNo(), studentObject.getGender(),
+                                        studentObject.getStudentProgramme(), courseObject.getCourse());
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s \t %-45s\n",
+                                        "", "", "", "", "", "", courseObject.getCourse());
+                                countCoursePicked++;
+                            }
+                        }
+                    } else {
+                        System.out.printf("%-5s \t %-15s \t %-15s \t %-15s \t %-15s \t %-75s\n",
+                                count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                studentObject.getContactNo(), studentObject.getGender(),
+                                studentObject.getStudentProgramme());
+                    }
                 }
             }
         }
+
         exit = studentUI.studentListExit();
         return exit;
     }
@@ -453,53 +493,99 @@ public class StudentController {
         int exit;
         int count = 0, countCoursePicked;
         double totalFees;
+        boolean isSort = false;
 
         studentUI.titleUI("Calculate Total Cost of Registed Course");
-
-        // Sort the List
-        student.selectionSort();
+        isSort = studentUI.inputSortList();
 
         studentUI.totalCostListHeader();
-        if (student.isEmpty()) {
-            System.out.println("Oops !!! Student List is Empty............");
-        } else {
-            Iterator<Student> getStudent = student.getIterator();
-            while (getStudent.hasNext()) {
-                ++count;
-                totalFees = 0.00;
 
-                Student studentObject = getStudent.next();
-                if (studentObject.getStudentCourseSize() != 0) {
-                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
-                    Iterator<StudentCourse> getCourseFees = studentObject.getStudentCourse().getIterator();
+        if (isSort == true) {
+            if (student.selectionSort() == false) {
+                System.out.println("Oops !!! Student List is Empty............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++count;
+                    totalFees = 0.00;
 
-                    countCoursePicked = 0;
+                    Student studentObject = getStudent.sortedNext();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getCourseFees = studentObject.getStudentCourse().getIterator();
 
-                    // Calculate Student Total Course Fees
-                    while (getCourseFees.hasNext()) {
-                        StudentCourse courseFees = getCourseFees.next();
-                        totalFees += courseFees.getFees();
-                    }
+                        countCoursePicked = 0;
 
-                    // Display List
-                    while (getStudentCourse.hasNext()) {
-                        StudentCourse courseObject = getStudentCourse.next();
-                        if (countCoursePicked == 0) {
-                            System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
-                                    count, studentObject.getStudentId(), studentObject.getStudentName(),
-                                    courseObject.getCourse(), totalFees);
-
-                            countCoursePicked++;
-                        } else {
-                            System.out.printf("%-5s \t %-15s \t %-15s \t %-45s\n",
-                                    "", "", "", courseObject.getCourse());
-
-                            countCoursePicked++;
+                        // Calculate Student Total Course Fees
+                        while (getCourseFees.hasNext()) {
+                            StudentCourse courseFees = getCourseFees.next();
+                            totalFees += courseFees.getFees();
                         }
+
+                        // Display List
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
+                                        count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                        courseObject.getCourse(), totalFees);
+
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-45s\n",
+                                        "", "", "", courseObject.getCourse());
+
+                                countCoursePicked++;
+                            }
+                        }
+                    } else {
+                        System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
+                                count, studentObject.getStudentId(), studentObject.getStudentName(), "", totalFees);
                     }
-                } else {
-                    System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
-                            count, studentObject.getStudentId(), studentObject.getStudentName(), "", totalFees);
+                }
+            }
+        } else {
+            if (student.isEmpty()) {
+                System.out.println("Oops !!! Student List is Empty............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++count;
+                    totalFees = 0.00;
+
+                    Student studentObject = getStudent.next();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getCourseFees = studentObject.getStudentCourse().getIterator();
+
+                        countCoursePicked = 0;
+
+                        // Calculate Student Total Course Fees
+                        while (getCourseFees.hasNext()) {
+                            StudentCourse courseFees = getCourseFees.next();
+                            totalFees += courseFees.getFees();
+                        }
+
+                        // Display List
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
+                                        count, studentObject.getStudentId(), studentObject.getStudentName(),
+                                        courseObject.getCourse(), totalFees);
+
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-5s \t %-15s \t %-15s \t %-45s\n",
+                                        "", "", "", courseObject.getCourse());
+
+                                countCoursePicked++;
+                            }
+                        }
+                    } else {
+                        System.out.printf("%-5s \t %-15s \t %-15s \t %-45s \t %-15.2f\n",
+                                count, studentObject.getStudentId(), studentObject.getStudentName(), "", totalFees);
+                    }
                 }
             }
         }
@@ -512,62 +598,120 @@ public class StudentController {
         int totalRegistered = 0, countCoursePicked;
         int countMain = 0, countResit = 0, countRepeat = 0;
         double totalPaidFees = 0.00;
+        boolean isSort = false;
 
-        student.selectionSort();
         studentUI.titleUI("Generate Student Report");
+        isSort = studentUI.inputSortList();
         studentUI.summaryReportHeader();
-        if (student.isEmpty()) {
-            System.out.println("Oops !!! No Found Any Data............");
+
+        if (isSort == true) {
+            if (student.selectionSort() == false) {
+                System.out.println("Oops !!! No Found Any Data............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++totalRegistered;
+                    Student studentObject = getStudent.sortedNext();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getCourseSubItems = studentObject.getStudentCourse().getIterator();
+
+                        countCoursePicked = 0;
+                        countMain = 0;
+                        countResit = 0;
+                        countRepeat = 0;
+
+                        // Calculate current Student Each Course Status & Total up All Student Course Fees
+                        while (getCourseSubItems.hasNext()) {
+                            StudentCourse subItems = getCourseSubItems.next();
+                            if (subItems.getStatus().equals("Main")) {
+                                countMain++;
+                            } else if (subItems.getStatus().equals("Resit")) {
+                                countResit++;
+                            } else if (subItems.getStatus().equals("Repeat")) {
+                                countRepeat++;
+                            }
+                            totalPaidFees += subItems.getFees();
+                        }
+
+                        // List out current student all courses
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s \t %-15d \t %-15d \t %-15d\n",
+                                        studentObject.getStudentId(), studentObject.getStudentName(),
+                                        studentObject.getContactNo(), studentObject.getGender(),
+                                        studentObject.getStudentProgramme(), courseObject.getCourse(), countMain, countResit, countRepeat);
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s\n",
+                                        "", "", "", "", "", courseObject.getCourse());
+                                countCoursePicked++;
+                            }
+                        }
+                    } else {
+                        System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s\n",
+                                studentObject.getStudentId(), studentObject.getStudentName(),
+                                studentObject.getContactNo(), studentObject.getGender(),
+                                studentObject.getStudentProgramme());
+                    }
+                }
+            }
         } else {
-            Iterator<Student> getStudent = student.getIterator();
-            while (getStudent.hasNext()) {
-                ++totalRegistered;
-                Student studentObject = getStudent.next();
-                if (studentObject.getStudentCourseSize() != 0) {
-                    Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
-                    Iterator<StudentCourse> getCourseSubItems = studentObject.getStudentCourse().getIterator();
+            if (student.isEmpty()) {
+                System.out.println("Oops !!! No Found Any Data............");
+            } else {
+                SortedIterator<Student> getStudent = student.getIterator();
+                while (getStudent.hasNext()) {
+                    ++totalRegistered;
+                    Student studentObject = getStudent.next();
+                    if (studentObject.getStudentCourseSize() != 0) {
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getCourseSubItems = studentObject.getStudentCourse().getIterator();
 
-                    countCoursePicked = 0;
-                    countMain = 0;
-                    countResit = 0;
-                    countRepeat = 0;
+                        countCoursePicked = 0;
+                        countMain = 0;
+                        countResit = 0;
+                        countRepeat = 0;
 
-                    // Calculate current Student Each Course Status & Total up All Student Course Fees
-                    while (getCourseSubItems.hasNext()) {
-                        StudentCourse subItems = getCourseSubItems.next();
-                        if (subItems.getStatus().equals("Main")) {
-                            countMain++;
-                        } else if (subItems.getStatus().equals("Resit")) {
-                            countResit++;
-                        } else if (subItems.getStatus().equals("Repeat")) {
-                            countRepeat++;
+                        // Calculate current Student Each Course Status & Total up All Student Course Fees
+                        while (getCourseSubItems.hasNext()) {
+                            StudentCourse subItems = getCourseSubItems.next();
+                            if (subItems.getStatus().equals("Main")) {
+                                countMain++;
+                            } else if (subItems.getStatus().equals("Resit")) {
+                                countResit++;
+                            } else if (subItems.getStatus().equals("Repeat")) {
+                                countRepeat++;
+                            }
+                            totalPaidFees += subItems.getFees();
                         }
-                        totalPaidFees += subItems.getFees();
-                    }
 
-                    // Display List
-                    while (getStudentCourse.hasNext()) {
-                        StudentCourse courseObject = getStudentCourse.next();
-                        if (countCoursePicked == 0) {
-                            System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s \t %-15d \t %-15d \t %-15d\n",
-                                    studentObject.getStudentId(), studentObject.getStudentName(),
-                                    studentObject.getContactNo(), studentObject.getGender(),
-                                    studentObject.getStudentProgramme(), courseObject.getCourse(), countMain, countResit, countRepeat);
-                            countCoursePicked++;
-                        } else {
-                            System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s\n",
-                                    "", "", "", "", "", courseObject.getCourse());
-                            countCoursePicked++;
+                        // Display List
+                        while (getStudentCourse.hasNext()) {
+                            StudentCourse courseObject = getStudentCourse.next();
+                            if (countCoursePicked == 0) {
+                                System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s \t %-15d \t %-15d \t %-15d\n",
+                                        studentObject.getStudentId(), studentObject.getStudentName(),
+                                        studentObject.getContactNo(), studentObject.getGender(),
+                                        studentObject.getStudentProgramme(), courseObject.getCourse(), countMain, countResit, countRepeat);
+                                countCoursePicked++;
+                            } else {
+                                System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s \t %-45s\n",
+                                        "", "", "", "", "", courseObject.getCourse());
+                                countCoursePicked++;
+                            }
                         }
+                    } else {
+                        System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s\n",
+                                studentObject.getStudentId(), studentObject.getStudentName(),
+                                studentObject.getContactNo(), studentObject.getGender(),
+                                studentObject.getStudentProgramme());
                     }
-                } else {
-                    System.out.printf("%-10s \t %-15s \t %-15s \t %-7s \t %-75s\n",
-                            studentObject.getStudentId(), studentObject.getStudentName(),
-                            studentObject.getContactNo(), studentObject.getGender(),
-                            studentObject.getStudentProgramme());
                 }
             }
         }
+
         studentUI.summaryReportFooter(totalRegistered, totalPaidFees);
         exit = studentUI.studentListExit();
         return exit;
@@ -575,7 +719,7 @@ public class StudentController {
 
     private void listProgrammeOption(SetInterface<Programme> programme) {
         studentUI.optionListHeader("Programme Name");
-        Iterator<Programme> getProgramme = programme.getIterator();
+        SortedIterator<Programme> getProgramme = programme.getIterator();
         while (getProgramme.hasNext()) {
             Programme programmeItem = getProgramme.next();
             System.out.printf("%-5s \t %-50s\n", programmeItem.getProgrammeCode(), programmeItem.getProgrammeName());
@@ -585,7 +729,7 @@ public class StudentController {
 
     private void listCourseOption(SetInterface<Course> course) {
         studentUI.optionListHeader("Course Name");
-        Iterator<Course> getCourse = course.getIterator();
+        SortedIterator<Course> getCourse = course.getIterator();
         while (getCourse.hasNext()) {
             Course courseItem = getCourse.next();
             System.out.printf("%-5s \t %-50s\n", courseItem.getCourseId(), courseItem.getCourseName());

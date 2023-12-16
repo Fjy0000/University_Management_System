@@ -1,7 +1,5 @@
 package adt;
 
-import java.util.Iterator;
-
 /**
  *
  * @author
@@ -9,6 +7,7 @@ import java.util.Iterator;
 public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     T[] setArray;
+    T[] sortedSetArray;
     int numberOfElements;
     private static final int DEFAULT_INITIAL_CAPACITY = 25;
 
@@ -80,11 +79,11 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public SortedIterator<T> getIterator() {
         return new IteratorForArraySet();
     }
 
-    private class IteratorForArraySet implements Iterator<T> {
+    private class IteratorForArraySet implements SortedIterator<T> {
 
         private int nextIndex;
 
@@ -93,6 +92,7 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
         }
 
         @Override
+        // Checks if there are more elements to iterate over.
         public boolean hasNext() {
             return nextIndex < numberOfElements;
         }
@@ -100,7 +100,21 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
         @Override
         public T next() {
             if (hasNext()) {
+                // Retrieves the next element in the iteration.
                 T nextElement = (T) setArray[nextIndex++];
+                // Retrieves the element at the current index and increments the index for the next call.
+                return nextElement;
+            } else {
+                // Returns null if there are no more elements to iterate.
+                return null;
+            }
+        }
+
+        // Custom method for sorted iteration
+        @Override
+        public T sortedNext() {
+            if (hasNext()) {
+                T nextElement = (T) sortedSetArray[nextIndex++];
                 return nextElement;
             } else {
                 return null;
@@ -120,31 +134,48 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
     }
 
     @Override
-    public void union(SetInterface anotherSet) {
+    public void union(SetInterface anotherSet) { // use for merge two tutorial group student
+         // Check if the provided set is an instance of the Set class
         if (anotherSet instanceof Set) {
+            // If it is, cast it to a Set
             Set aSet = (Set) anotherSet;
+            // Iterate through each element in the 'aSet'
             for (int i = 0; i < aSet.numberOfElements; ++i) {
+                // Add each element from 'aSet' to the current set (this set)
                 add((T) aSet.setArray[i]);
             }
         }
     }
 
     @Override
-    public void selectionSort() {
-        for (int i = 0; i < numberOfElements - 1; i++) {
-            int minIndex = i; // Save the current object index
+    public boolean selectionSort() {
 
-            // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
-            for (int j = i + 1; j < numberOfElements; j++) {
-                if (setArray[j].compareTo(setArray[minIndex]) < 0) {
-                    minIndex = j;
-                }
+        //Check Array is empty or not
+        if (numberOfElements == 0) {
+            return false;
+        } else {
+            // Create a new array to store the sorted entries
+            sortedSetArray = (T[]) new Comparable[numberOfElements];
+            for (int i = 0; i < numberOfElements; i++) {
+                sortedSetArray[i] = setArray[i];
             }
 
-            // Swap the found minimum element with the first element
-            T object = setArray[i];
-            setArray[i] = setArray[minIndex];
-            setArray[minIndex] = object;
+            for (int i = 0; i < numberOfElements - 1; i++) {
+                int minIndex = i; // Save the current object index
+
+                // Compare the sizes one by one. If it is checked that there is a smaller object than the currently indexed object, then save the smaller object index.
+                for (int j = i + 1; j < numberOfElements; j++) {
+                    if (sortedSetArray[j].compareTo(sortedSetArray[minIndex]) < 0) {
+                        minIndex = j;
+                    }
+                }
+
+                // Swap the found minimum element with the first element
+                T object = sortedSetArray[i];
+                sortedSetArray[i] = sortedSetArray[minIndex];
+                sortedSetArray[minIndex] = object;
+            }
+            return true;
         }
     }
 
