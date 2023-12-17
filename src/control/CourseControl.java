@@ -1,6 +1,5 @@
 package control;
 
-
 import adt.Set;
 import adt.SetInterface;
 import adt.SortedIterator;
@@ -356,3 +355,4 @@ public class CourseControl {
         return null;
     }
 }
+

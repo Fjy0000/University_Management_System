@@ -84,6 +84,7 @@ public class ProgrammeController {
             //Ask the user if they want to add another data
             String choice = programmeUI.inputYOrN();
 
+
             if (!choice.equals("Y")) {
                 break; // Exit the loop if the user doesn't want to add another programme
             }
@@ -91,6 +92,7 @@ public class ProgrammeController {
     }
 
     public void removeProgramme() {
+
         programmeUI.titleUI("Remove A Programme");
 
         String codeToSearch = programmeUI.inputProgrammeCode();
@@ -98,6 +100,7 @@ public class ProgrammeController {
         
         //If matching programs are found, it displays the count and details of the matching programs. 
         //If there is more than one matching program, it allows the user to choose which one to remove.
+
         if (!matchingProgrammes.isEmpty()) {
             int matchingProgrammesCount = matchingProgrammes.getSize();
             System.out.println("Programmes found with code " + codeToSearch + ":");
@@ -256,7 +259,9 @@ public class ProgrammeController {
     }
 
     public void searchProgramme() {
+
         programmeUI.titleUI("Search Programme");
+
 
         int searchChoice = programmeUI.inputSearchChoice();
         String searchKeyword = "";
@@ -280,7 +285,6 @@ public class ProgrammeController {
             case 6:
                 int search = programmeUI.inputProgrammeDuration();
                 break;
-
             default:
                 System.out.println("Invalid search choice.");
                 return;
@@ -305,7 +309,9 @@ public class ProgrammeController {
 
 //Update function --------------------------------------------------------------------------------------------------------------------------------
     public void updateProgramme() {
+
         programmeUI.titleUI("Update Programme");
+
         String codeToSearch = programmeUI.inputProgrammeCode();
         SortedIterator<Programme> iterator = programmeSet.getIterator();
 
@@ -352,6 +358,7 @@ public class ProgrammeController {
 
         // Update the selected program
         updateProgrammeDetails(selectedProgramme);
+
         // Ask for confirmation
         System.out.print("Are you sure to make the changes? (Y/N): ");
         String confirmChoice = programmeUI.justYorN();
@@ -399,7 +406,7 @@ public class ProgrammeController {
         }
     }
 
-//Assign a tutorial group to a programme---------------------------------------------------------------------------------------------------------------
+    //Assign a tutorial group to a programme---------------------------------------------------------------------------------------------------------------
     public void addProgrammeToGroup() {
         programmeUI.titleUI("Add a tutorial group to a programme");
 
@@ -627,6 +634,7 @@ public class ProgrammeController {
     }
 
 //--------------------------------------------------------------------------------------------------------------------------
+
     public String getAllProgrammes() {
         StringBuilder outputStr = new StringBuilder();
         SortedIterator<Programme> iterator = programmeSet.getIterator();

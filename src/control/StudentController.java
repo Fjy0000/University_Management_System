@@ -19,7 +19,7 @@ import java.util.Iterator;
  */
 public class StudentController {
 
-    private StudentRegistrationUI studentUI = new StudentRegistrationUI();
+    private final StudentRegistrationUI studentUI = new StudentRegistrationUI();
 
     public void studentManagement() {
         int result, exit;
@@ -75,7 +75,8 @@ public class StudentController {
     private int registration(SetInterface<Student> student, SetInterface<Programme> programme) {
         int exit, randomNum;
         String id;
-        boolean isSuccess = false, found = false;
+        boolean isSuccess, found = false;
+
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();
@@ -115,7 +116,7 @@ public class StudentController {
 
     private int manageStudentCourse(SetInterface<Student> student, SetInterface<Course> course) {
         int exit, opt;
-        double fees = 0.0;
+        double fees;
         String id, courseId, status;
         boolean isSuccess = false, found = false;
 
@@ -169,12 +170,12 @@ public class StudentController {
                         if (found == true) {
                             System.out.println("Added Course to this Student Successful.......");
                         } else {
-                            System.out.println("**********************************************");
-                            System.out.println("Unsuccessful Adding Course to Student Reason: ");
-                            System.out.println("1.Student Already registered this course....");
-                            System.out.println("2.Enter Course ID no match with the Course ID inside the Course List....");
-                            System.out.println("3.Enter Student ID no found in Student List....");
-                            System.out.println("***********************************************");
+                            System.out.print("""
+                                             Unsuccessful Adding Course to Student Reason: 
+                                             1.Student Already registered this course....
+                                             2.Enter Course ID no match with the Course ID inside the Course List....
+                                             3.Enter Student ID no found in Student List....
+                                             """);
                         }
                     } else {
                         System.out.println("Cancelled Adding the Course !!!!");

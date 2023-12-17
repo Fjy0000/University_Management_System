@@ -1,6 +1,5 @@
 package adt;
 
-
 /**
  *
  * @author
@@ -24,4 +23,6 @@ public interface SetInterface<T> {
     public boolean replace(T newObject, int position);
 
     public int getSize();
+
 }
+

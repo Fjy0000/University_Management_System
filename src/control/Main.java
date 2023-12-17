@@ -1,6 +1,5 @@
 package control;
 
-
 import adt.Set;
 import adt.SetInterface;
 import dao.StudentInitializer;
@@ -25,26 +24,22 @@ public class Main {
     private static ProgrammeController programmePage = new ProgrammeController();
 
     // Set Array List --------------------------------------------------------------
-    // declare collection ADT object
+    // Declare Collection ADT Object
     static SetInterface<Course> courseSet = new Set<>();
     static SetInterface<Faculty> facultySet = new Set<>();
     
-    static SetInterface<Student> student = new Set<>();
+    static StudentInitializer stu = new StudentInitializer();
+    static SetInterface<Student> student = stu.initializeStudent();
     
     static SetInterface<Programme> programmeSet = new Set<>();
 
-    //take student from student register set into assignedStudents0
+    //take student from student register set into assignedStudents
     static SetInterface<Student> assignedStudents = new Set<>();
     static SetInterface<TutorialGroup> tutorialGroups = new Set<>();
-
-    static StudentInitializer stu = new StudentInitializer();
 
     public static void main(String[] args) {
 
         //Initialize Data --------------------------------------------------------------------------------------------------
-        // Student 
-        stu.initializeStudent(student);
-
         // Course & Faculty
         courseSet.add(new Course("1001", "Object-Oriented Programming"));
         courseSet.add(new Course("1002", "Cloud Computing"));
@@ -68,7 +63,7 @@ public class Main {
         tutorialGroups.add(new TutorialGroup("G1"));
         tutorialGroups.add(new TutorialGroup("G2"));
         tutorialGroups.add(new TutorialGroup("G3"));
-        
+
         homepage();
     }
 

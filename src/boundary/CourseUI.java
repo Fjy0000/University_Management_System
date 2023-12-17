@@ -13,16 +13,18 @@ import entity.Programme;
  * @author Yap Ki Nen
  */
 public class CourseUI {
-
+    
+    
+    
     CourseControl courseInitializer = new CourseControl();
-
+    
     Scanner scanner = new Scanner(System.in);
-
+    
     public static void CourseManagement() {
-
-        Scanner input = new Scanner(System.in);
-        int selection;
-
+        
+         Scanner input = new Scanner(System.in);
+         int selection;
+         
         System.out.println("======================================");
         System.out.printf("%-10s\n", "Course Management");
         System.out.println("======================================");
@@ -35,10 +37,10 @@ public class CourseUI {
         System.out.printf("%2s %-10s\n", "7", "Add programme to Course");
         System.out.printf("%2s %-10s\n", "8", "Remove programme from a Course");
         System.out.printf("%2s %-10s\n", "9", "Generate Report");
-        System.out.printf("%2s %-5s\n", "10", "Exit");
+        System.out.printf("%2s %-5s\n",  "10", "Exit");
         System.out.println("======================================");
-
-        do {
+        
+         do {
             System.out.printf("%-10s", "Enter Number(0-9): ");
             selection = input.nextInt();
 
@@ -48,49 +50,46 @@ public class CourseUI {
         } while (selection < 1 || selection > 10);
 
         switch (selection) {
-            case 1: {
+            case 1 -> {
                 System.out.printf("%-10s\n", "Add New Course");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 2: {
+            case 2 -> {
                 System.out.printf("%-10s\n", "Remove Course");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 3: {
+            case 3 -> {
                 System.out.printf("%-10s\n", "Update Course Details");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 4: {
+            case 4 -> {
                 System.out.printf("%-10s\n", "List course take by each faculties");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 5: {
+            case 5 -> {
                 System.out.printf("%-10s\n", "View Course List");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 6: {
+            case 6 -> {
                 System.out.printf("%-10s\n", "Search Course");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 7: {
+            case 7 -> {
                 System.out.printf("%-10s\n", "Add programme to Course");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 8: {
+            case 8 -> {
                 System.out.printf("%-10s\n", "Remove programme from a Course");
                 System.out.printf("%10s\n", "====================================");
             }
-            case 9: {
+            case 9 -> {
                 System.out.printf("%-10s\n", "Generate Report");
                 System.out.printf("%10s\n", "====================================");
             }
-            default:
-                System.out.println("Invalid search choice.");
-                return;
-
-        }
     }
-
+   }
+    
+ 
     private void addCourse() {
         scanner.nextLine(); // Consume newline left by previous nextInt()
         System.out.println("Enter Course details (ID, Name, Faculty, fee):");
@@ -108,7 +107,7 @@ public class CourseUI {
         int courseFee = scanner.nextInt();
 
         courseInitializer.addCourseByUserInput();
-
+        
 //         String logEntry = "Added course - ID: " + courseId + ", Name: " + courseName + ", Faculty: " + faculty;
 //        reportLog.append(logEntry).append("\n");
     }
@@ -119,6 +118,7 @@ public class CourseUI {
 //        String facultyName = scanner.nextLine().trim();
 //        courseInitializer.listCoursesByFaculty(facultyName);
 //    }
+
     private void viewCourseList() {
         courseInitializer.getCourseSet();
     }
@@ -135,11 +135,11 @@ public class CourseUI {
         System.out.print("Enter Course ID to remove: ");
         String courseId = scanner.nextLine().trim();
         courseInitializer.removeCourseByUserInput();
-
+        
 //        String logEntry = "Removed course - ID: " + courseId;
 //        reportLog.append(logEntry).append("\n");
     }
-
+    
 //    private void updateCourseDetail() {
 //    scanner.nextLine(); // Consume newline left by previous nextInt()
 //    System.out.print("Enter Course ID to update details: ");
@@ -172,6 +172,7 @@ public class CourseUI {
 ////                ", Updated Faculty: " + updatedFaculty + ", Updated Fee: " + updatedFee;
 ////        reportLog.append(logEntry).append("\n");
 //            }
+    
 //    public void addProgrammeToCourse() {
 //    Scanner scanner = new Scanner(System.in);
 //
@@ -208,6 +209,7 @@ public class CourseUI {
 ////        String logEntry = "Added course - ID: " + courseId + ", Name: " + courseName + ", Faculty: " + faculty;
 ////        reportLog.append(logEntry).append("\n");
 //    }
+    
 //    public void removeProgrammeFromCourse() {
 //    Scanner scanner = new Scanner(System.in);
 //
@@ -254,4 +256,4 @@ public class CourseUI {
 //
 //        // Display or save the summary report as needed
 //        System.out.println(summaryReport.toString());
-}
+    }

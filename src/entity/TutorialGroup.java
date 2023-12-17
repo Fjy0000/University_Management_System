@@ -96,9 +96,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
         return "Tutorial Group\n"
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
-
     }
-
 
     // Override compareTo method for sorting tutorial groups based on group names
     @Override

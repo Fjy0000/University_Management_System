@@ -1,6 +1,5 @@
 package entity;
 
-
 import adt.Set;
 import adt.SetInterface;
 import java.util.Objects;
