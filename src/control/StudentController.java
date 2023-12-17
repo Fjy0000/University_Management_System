@@ -410,7 +410,7 @@ public class StudentController {
     private int displayStudentList(SetInterface<Student> student) {
         int exit;
         int count = 0, countCoursePicked;
-        boolean isSort = false;
+        boolean isSort;
 
         studentUI.titleUI("View Student List");
         isSort = studentUI.inputSortList();
@@ -493,9 +493,9 @@ public class StudentController {
         int exit;
         int count = 0, countCoursePicked;
         double totalFees;
-        boolean isSort = false;
+        boolean isSort;
 
-        studentUI.titleUI("Calculate Total Cost of Registed Course");
+        studentUI.titleUI("Calculate Total Cost of Registered Course");
         isSort = studentUI.inputSortList();
 
         studentUI.totalCostListHeader();
@@ -594,11 +594,9 @@ public class StudentController {
     }
 
     private int generateStuReport(SetInterface<Student> student) {
-        int exit;
-        int totalRegistered = 0, countCoursePicked;
-        int countMain = 0, countResit = 0, countRepeat = 0;
+        int exit, totalRegistered = 0, countCoursePicked, countMain, countResit, countRepeat;
         double totalPaidFees = 0.00;
-        boolean isSort = false;
+        boolean isSort;
 
         studentUI.titleUI("Generate Student Report");
         isSort = studentUI.inputSortList();
