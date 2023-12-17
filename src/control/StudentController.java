@@ -11,7 +11,6 @@ import entity.Course;
 import entity.Programme;
 import entity.Student;
 import entity.StudentCourse;
-import java.util.Iterator;
 
 /**
  *
@@ -19,7 +18,7 @@ import java.util.Iterator;
  */
 public class StudentController {
 
-    private StudentRegistrationUI studentUI = new StudentRegistrationUI();
+    private final StudentRegistrationUI studentUI = new StudentRegistrationUI();
 
     public void studentManagement() {
         int result, exit;
@@ -75,7 +74,8 @@ public class StudentController {
     private int registration(SetInterface<Student> student, SetInterface<Programme> programme) {
         int exit, randomNum;
         String id;
-        boolean isSuccess = false, found = false;
+        boolean isSuccess, found = false;
+
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();
@@ -87,7 +87,7 @@ public class StudentController {
 
             if (studentUI.inputConfirmation("add new student") == true) {
 
-                Iterator<Programme> findProgramme = programme.getIterator();
+                SortedIterator<Programme> findProgramme = programme.getIterator();
                 while (findProgramme.hasNext()) {
                     Programme result = findProgramme.next();
                     if (result.getProgrammeCode().equals(stuProgramme)) {
@@ -115,7 +115,7 @@ public class StudentController {
 
     private int manageStudentCourse(SetInterface<Student> student, SetInterface<Course> course) {
         int exit, opt;
-        double fees = 0.0;
+        double fees;
         String id, courseId, status;
         boolean isSuccess = false, found = false;
 
@@ -145,13 +145,13 @@ public class StudentController {
                     if (studentUI.inputConfirmation("add this Course") == true) {
 
                         // Checking the Input Course ID is same with the Course ID in Array Course or not
-                        Iterator<Course> findCourse = course.getIterator();
+                        SortedIterator<Course> findCourse = course.getIterator();
                         while (findCourse.hasNext()) {
                             Course result = findCourse.next();
                             if (result.getCourseId().equals(courseId)) {
 
                                 // Checking the Input Student ID is same with the Student ID in Array Student or not
-                                Iterator<Student> getStudent = student.getIterator();
+                                SortedIterator<Student> getStudent = student.getIterator();
                                 while (getStudent.hasNext()) {
                                     Student object = getStudent.next();
                                     if (object.getStudentId().equals(id)) {
@@ -185,11 +185,11 @@ public class StudentController {
                     id = studentUI.inputStudentId();
                     courseId = studentUI.inputStudentCourse();
                     if (studentUI.inputConfirmation("remove this Course") == true) {
-                        Iterator<Student> getStudent = student.getIterator();
+                        SortedIterator<Student> getStudent = student.getIterator();
                         while (getStudent.hasNext()) {
                             Student object1 = getStudent.next();
                             if (object1.getStudentId().equals(id)) {
-                                Iterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
+                                SortedIterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
                                 while (getStudentCourse.hasNext()) {
                                     StudentCourse object2 = getStudentCourse.next();
                                     if (object2.getCourseId().equals(courseId)) {
@@ -224,13 +224,13 @@ public class StudentController {
             key = studentUI.inputStuSearch();
 
             studentUI.searchStudenHeader();
-            Iterator<Student> getStudent = student.getIterator();
+            SortedIterator<Student> getStudent = student.getIterator();
             while (getStudent.hasNext()) {
                 Student studentObject = getStudent.next();
                 if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgrammeCode().equals(key)) {
                     ++foundObject;
                     if (studentObject.getStudentCourseSize() != 0) {
-                        Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
                         count = 0;
                         while (getStudentCourse.hasNext()) {
                             StudentCourse courseObject = getStudentCourse.next();
@@ -292,7 +292,7 @@ public class StudentController {
                 }
             }
             if (studentUI.inputConfirmation("update the student detail") == true) {
-                Iterator<Student> getStudent = student.getIterator();
+                SortedIterator<Student> getStudent = student.getIterator();
                 count = 0;
                 while (getStudent.hasNext()) {
                     count++;
@@ -320,7 +320,7 @@ public class StudentController {
                             break;
                         }
                         if (option == 4) {
-                            Iterator<Programme> findProgramme = programme.getIterator();
+                            SortedIterator<Programme> findProgramme = programme.getIterator();
                             while (findProgramme.hasNext()) {
                                 Programme result = findProgramme.next();
                                 if (result.getProgrammeCode().equals(programmeID)) {
@@ -356,7 +356,7 @@ public class StudentController {
         do {
             id = studentUI.inputStudentId();
             if (studentUI.inputConfirmation("remove this Student") == true) {
-                Iterator<Student> getStudent = student.getIterator();
+                SortedIterator<Student> getStudent = student.getIterator();
                 while (getStudent.hasNext()) {
                     Student object = getStudent.next();
                     if (object.getStudentId().equals(id)) {
@@ -387,13 +387,13 @@ public class StudentController {
         do {
             id = studentUI.inputStuBill();
 
-            Iterator<Student> getStudent = student.getIterator();
+            SortedIterator<Student> getStudent = student.getIterator();
             while (getStudent.hasNext()) {
                 Student object1 = getStudent.next();
                 if (object1.getStudentId().equals(id)) {
                     studentUI.billHeader(object1.getStudentName(), object1.getStudentId(), object1.getContactNo(), object1.getStudentProgramme());
 
-                    Iterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
+                    SortedIterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
                     while (getStudentCourse.hasNext()) {
                         StudentCourse object2 = getStudentCourse.next();
                         totalFees += object2.getFees();
@@ -410,7 +410,7 @@ public class StudentController {
     private int displayStudentList(SetInterface<Student> student) {
         int exit;
         int count = 0, countCoursePicked;
-        boolean isSort = false;
+        boolean isSort;
 
         studentUI.titleUI("View Student List");
         isSort = studentUI.inputSortList();
@@ -493,9 +493,9 @@ public class StudentController {
         int exit;
         int count = 0, countCoursePicked;
         double totalFees;
-        boolean isSort = false;
+        boolean isSort;
 
-        studentUI.titleUI("Calculate Total Cost of Registed Course");
+        studentUI.titleUI("Calculate Total Cost of Registered Course");
         isSort = studentUI.inputSortList();
 
         studentUI.totalCostListHeader();
@@ -594,11 +594,9 @@ public class StudentController {
     }
 
     private int generateStuReport(SetInterface<Student> student) {
-        int exit;
-        int totalRegistered = 0, countCoursePicked;
-        int countMain = 0, countResit = 0, countRepeat = 0;
+        int exit, totalRegistered = 0, countCoursePicked, countMain, countResit, countRepeat;
         double totalPaidFees = 0.00;
-        boolean isSort = false;
+        boolean isSort;
 
         studentUI.titleUI("Generate Student Report");
         isSort = studentUI.inputSortList();

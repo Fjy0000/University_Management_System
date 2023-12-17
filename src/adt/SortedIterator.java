@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public interface SortedIterator<T> extends Iterator<T> {
 

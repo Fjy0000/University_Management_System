@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author User
+ * @author Geng Seng
  */
-public class ProgrammeMaintenanceUI {
+public class ProgrammeUI {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -28,6 +28,10 @@ public class ProgrammeMaintenanceUI {
             System.out.println("3. Search programme");
             System.out.println("4. Amend programme details");
             System.out.println("5. List all programme");
+            System.out.println("6. Add a tutorial group to a programme");
+            System.out.println("7. Remove a tutorial group from a programme");
+            System.out.println("8. List all tutorial groups for a programme");
+            System.out.println("9. Generate summary reports.");
             System.out.println("0. Quit");
             System.out.print("Enter your choice: ");
             String input = scanner.nextLine().trim();
@@ -36,16 +40,16 @@ public class ProgrammeMaintenanceUI {
                 try {
                     choice = Integer.parseInt(input);
 
-                    if (choice >= 0 && choice <= 5) {
+                    if (choice >= 0 && choice <= 9) {
                         break;
                     } else {
-                        System.out.println("Invalid choice. Please enter a valid option (0-5).");
+                        System.out.println("Invalid choice. Please enter a valid option (0-9).");
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter a number.");
                 }
             } else {
-                System.out.println("Input cannot be blank. Please enter a valid option (0-5).");
+                System.out.println("Input cannot be blank. Please enter a valid option (0-9).");
             }
         }
         return choice;
@@ -53,7 +57,7 @@ public class ProgrammeMaintenanceUI {
 
     public void listAllProgramme(String outputStr) {
         System.out.println("\nList of Programme:");
-        System.out.printf("%-10s %-15s %-40s %-10s %-15s %-10s", "Code", "LevelofStudy", "Name", "Faculty", "Year Intake", "Duration(Year)" + "\n" + outputStr);
+        System.out.printf("%-10s\t %-10s\t %-80s\t %-10s\t %-10s\t %-10s", "Code", "Level of Study", "Name", "Faculty", "Year Intake", "Duration(Year)" + "\n" + outputStr);
     }
 //-------------------------------------------ADD PROGRAMME-------------------------------------------------------//
 
@@ -108,7 +112,6 @@ public class ProgrammeMaintenanceUI {
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-        scanner.nextLine(); // Consume the newline character
         return levelofstudy;
     }
 
@@ -175,7 +178,6 @@ public class ProgrammeMaintenanceUI {
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-        scanner.nextLine(); // Consume the newline character
         return faculty;
     }
 
@@ -214,7 +216,6 @@ public class ProgrammeMaintenanceUI {
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-        scanner.nextLine(); // Consume the newline character
         return year;
     }
 
@@ -252,7 +253,6 @@ public class ProgrammeMaintenanceUI {
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-        scanner.nextLine(); // Consume the newline character
         return duration;
     }
 
@@ -278,7 +278,7 @@ public class ProgrammeMaintenanceUI {
             System.out.println("4. Year Intake");
             System.out.println("5. Duration");
             System.out.println("6. Tutorial Group");
-            System.out.println("Choose one to update (1-6):");
+            System.out.print("Choose one to update (1-6):");
 
             if (scanner.hasNextInt()) {
                 int choice = choosechoice();
@@ -311,38 +311,6 @@ public class ProgrammeMaintenanceUI {
         return choice;
     }
 
-    public String updateProgrammeCode() {
-        String programmecode;
-        do {
-            scanner.nextLine();
-            System.out.print("Enter Programme Code : ");
-            programmecode = scanner.nextLine().toUpperCase();
-            if (programmecode.trim().isEmpty()) {
-                System.out.println("Programme Code cannot be blank. Please enter a valid code.");
-            } else if (programmecode.length() < 3 || programmecode.length() > 4) {
-                System.out.println("Programme Code must be at least 3 letters but not more than 4 letters.");
-            }
-
-        } while (programmecode.trim().isEmpty() || programmecode.length() < 3 || programmecode.length() > 4);
-        System.out.println();
-        return programmecode;
-    }
-
-    public String updateProgrammeName() {
-        String name;
-        do {
-            scanner.nextLine();
-            System.out.print("Enter Programme Name : ");
-            name = scanner.nextLine().toUpperCase();
-            if (name.trim().isEmpty() && name.length() < 4) {
-                System.out.println("Programme Name must more than 4 letter and cannot leave it blank");
-            }
-        } while (name.trim().isEmpty() && name.length() < 4);
-
-        System.out.println();
-        return name;
-    }
-
 //--------------------------------------------------Search Programme----------------------------------------------------
     public int inputSearchChoice() {
 
@@ -366,11 +334,36 @@ public class ProgrammeMaintenanceUI {
         }
 
     }
+//-----------------------------------------------------Tutorial Group----------------------------------------------------------------
+
+    public void listofGroupwithProgramme(String outputStr) {
+        System.out.println("\nList of Tutorial Group with Programme:");
+        System.out.printf("%-10s\t %-15s\t %-80s", "Tutorial Groups", "Programme Code", "Programme Name" + "\n" + outputStr);
+    }
+
+    public String inputGroupName() {
+        System.out.print("Group Name: ");
+        return scanner.nextLine().toUpperCase().trim();
+    }
 
 //--------------------------------------------------Others--------------------------------------------------------------
-    public String confirmation() {
+    public String inputYOrN() {
+
         while (true) {
             System.out.print("Do you want to continue? (Y/N): ");
+            String choice = scanner.nextLine().toUpperCase();
+
+            if (choice.equals("Y") || choice.equals("N")) {
+                return choice;
+            } else {
+                System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
+            }
+        }
+    }
+
+    public String justYorN() {
+
+        while (true) {
             String choice = scanner.nextLine().toUpperCase();
 
             if (choice.equals("Y") || choice.equals("N")) {
@@ -384,6 +377,7 @@ public class ProgrammeMaintenanceUI {
     //Input choice-----------------------------------------------------------------------------------
     public int choosechoice() {
         int choice = scanner.nextInt();
+        scanner.nextLine();
         System.out.println();
         return choice;
     }
@@ -397,4 +391,5 @@ public class ProgrammeMaintenanceUI {
         }
         System.out.println();
     }
+
 }

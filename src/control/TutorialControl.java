@@ -1,9 +1,5 @@
 package control;
 
-/**
- *
- * @author 60111
- */
 import adt.SetInterface;
 import adt.SortedIterator;
 import boundary.TutorialGroupUI;
@@ -14,6 +10,10 @@ import static control.Main.tutorialGroups;
 import entity.Student;
 import entity.TutorialGroup;
 
+/**
+ *
+ * @author Hong Li
+ */
 public class TutorialControl {
 
     private TutorialGroupUI tutorialUI = new TutorialGroupUI();
@@ -122,7 +122,7 @@ public class TutorialControl {
 
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
-            
+
             // Check if the current TutorialGroup's name matches the specified groupName
             if (tutorialGroup.getGroupName().equalsIgnoreCase(groupName)) {
                 return tutorialGroup;
@@ -136,10 +136,9 @@ public class TutorialControl {
         // Call inputgroupName method to get assigned group from the user
         String groupName = tutorialUI.inputgroupName();
         System.out.print("\n");
-        
+
         TutorialGroup tutorialGroup = findGroupByName(groupName);
-        
-       
+
         if (tutorialGroup != null) {
             System.out.println("Students in " + groupName + ":");
             tutorialUI.groupListHeader();
@@ -263,13 +262,12 @@ public class TutorialControl {
         int numberOfStudents = tutorialUI.inputNumberOfStudents();
         boolean groupsFound = false;
 
-
         SortedIterator<TutorialGroup> groupIterator = tutorialGroups.getIterator();
         // Iterate through each tutorial group in the set.
 
         while (groupIterator.hasNext()) {
             TutorialGroup tutorialGroup = groupIterator.next();
-            
+
             // Check if the current tutorial group has the specified number of students.
             if (tutorialGroup.getSize() == numberOfStudents) {
                 System.out.println("\nGroup " + tutorialGroup.getGroupName() + " has " + numberOfStudents + " students:");
@@ -328,10 +326,10 @@ public class TutorialControl {
                 SortedIterator<Student> studentIterator = tutorialGroup.getStudentsSet().getIterator();
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
-                    System.out.printf("%-15s \t %-15s \t %-15s\n" 
-                            , student.getStudentId()
-                            , student.getStudentName()
-                            , student.getStudentProgrammeCode());
+                    System.out.printf("%-15s \t %-15s \t %-15s\n",
+                             student.getStudentId(),
+                             student.getStudentName(),
+                             student.getStudentProgrammeCode());
                 }
             }
         }

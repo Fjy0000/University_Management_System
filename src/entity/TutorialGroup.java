@@ -2,11 +2,11 @@ package entity;
 
 import adt.Set;
 import adt.SetInterface;
-import java.util.Iterator;
+import adt.SortedIterator;
 
 /**
  *
- * @author 60111
+ * @author Hong Li
  */
 public class TutorialGroup implements Comparable<TutorialGroup> {
 
@@ -43,19 +43,19 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     public boolean containsStudent(Student student) {
         return students.contains(student);
     }
-    
+
     // Getter method to retrieve the set of students in the tutorial group
     public SetInterface<Student> getStudentsSet() {
         return students;
     }
-    
+
     // Method to list students in the tutorial group
     public void listStudents() {
         if (students.isEmpty()) {
             System.out.println("No students in this group.");
         } else {
             // Use an iterator to traverse the set of students
-            Iterator<Student> iterator = students.getIterator();
+            SortedIterator<Student> iterator = students.getIterator();
             while (iterator.hasNext()) {
                 // Print each student's information
                 System.out.println(iterator.next());
@@ -97,7 +97,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
     }
-    
+
     // Override compareTo method for sorting tutorial groups based on group names
     @Override
     public int compareTo(TutorialGroup object) {
