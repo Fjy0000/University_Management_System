@@ -36,6 +36,7 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
         return true;
     }
 
+    @Override
     public boolean replace(T newObject, int position) {
         if (position >= 0 && position <= numberOfElements) {
             setArray[position - 1] = newObject;
@@ -61,10 +62,12 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     }
 
+    @Override
     public int getSize() {
         return numberOfElements;
     }
 
+    @Override
     public boolean isEmpty() {
         return numberOfElements == 0;
     }
