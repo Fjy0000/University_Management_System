@@ -2,7 +2,7 @@ package entity;
 
 import adt.Set;
 import adt.SetInterface;
-import java.util.Iterator;
+import adt.SortedIterator;
 
 /**
  *
@@ -55,7 +55,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
             System.out.println("No students in this group.");
         } else {
             // Use an iterator to traverse the set of students
-            Iterator<Student> iterator = students.getIterator();
+            SortedIterator<Student> iterator = students.getIterator();
             while (iterator.hasNext()) {
                 // Print each student's information
                 System.out.println(iterator.next());
