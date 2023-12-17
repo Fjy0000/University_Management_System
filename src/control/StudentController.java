@@ -11,7 +11,6 @@ import entity.Course;
 import entity.Programme;
 import entity.Student;
 import entity.StudentCourse;
-import java.util.Iterator;
 
 /**
  *
@@ -88,7 +87,7 @@ public class StudentController {
 
             if (studentUI.inputConfirmation("add new student") == true) {
 
-                Iterator<Programme> findProgramme = programme.getIterator();
+                SortedIterator<Programme> findProgramme = programme.getIterator();
                 while (findProgramme.hasNext()) {
                     Programme result = findProgramme.next();
                     if (result.getProgrammeCode().equals(stuProgramme)) {
@@ -146,13 +145,13 @@ public class StudentController {
                     if (studentUI.inputConfirmation("add this Course") == true) {
 
                         // Checking the Input Course ID is same with the Course ID in Array Course or not
-                        Iterator<Course> findCourse = course.getIterator();
+                        SortedIterator<Course> findCourse = course.getIterator();
                         while (findCourse.hasNext()) {
                             Course result = findCourse.next();
                             if (result.getCourseId().equals(courseId)) {
 
                                 // Checking the Input Student ID is same with the Student ID in Array Student or not
-                                Iterator<Student> getStudent = student.getIterator();
+                                SortedIterator<Student> getStudent = student.getIterator();
                                 while (getStudent.hasNext()) {
                                     Student object = getStudent.next();
                                     if (object.getStudentId().equals(id)) {
@@ -186,11 +185,11 @@ public class StudentController {
                     id = studentUI.inputStudentId();
                     courseId = studentUI.inputStudentCourse();
                     if (studentUI.inputConfirmation("remove this Course") == true) {
-                        Iterator<Student> getStudent = student.getIterator();
+                        SortedIterator<Student> getStudent = student.getIterator();
                         while (getStudent.hasNext()) {
                             Student object1 = getStudent.next();
                             if (object1.getStudentId().equals(id)) {
-                                Iterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
+                                SortedIterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
                                 while (getStudentCourse.hasNext()) {
                                     StudentCourse object2 = getStudentCourse.next();
                                     if (object2.getCourseId().equals(courseId)) {
@@ -225,13 +224,13 @@ public class StudentController {
             key = studentUI.inputStuSearch();
 
             studentUI.searchStudenHeader();
-            Iterator<Student> getStudent = student.getIterator();
+            SortedIterator<Student> getStudent = student.getIterator();
             while (getStudent.hasNext()) {
                 Student studentObject = getStudent.next();
                 if (studentObject.getStudentId().equals(key) || studentObject.getStudentName().equals(key) || studentObject.getStudentProgrammeCode().equals(key)) {
                     ++foundObject;
                     if (studentObject.getStudentCourseSize() != 0) {
-                        Iterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
+                        SortedIterator<StudentCourse> getStudentCourse = studentObject.getStudentCourse().getIterator();
                         count = 0;
                         while (getStudentCourse.hasNext()) {
                             StudentCourse courseObject = getStudentCourse.next();
@@ -293,7 +292,7 @@ public class StudentController {
                 }
             }
             if (studentUI.inputConfirmation("update the student detail") == true) {
-                Iterator<Student> getStudent = student.getIterator();
+                SortedIterator<Student> getStudent = student.getIterator();
                 count = 0;
                 while (getStudent.hasNext()) {
                     count++;
@@ -321,7 +320,7 @@ public class StudentController {
                             break;
                         }
                         if (option == 4) {
-                            Iterator<Programme> findProgramme = programme.getIterator();
+                            SortedIterator<Programme> findProgramme = programme.getIterator();
                             while (findProgramme.hasNext()) {
                                 Programme result = findProgramme.next();
                                 if (result.getProgrammeCode().equals(programmeID)) {
@@ -357,7 +356,7 @@ public class StudentController {
         do {
             id = studentUI.inputStudentId();
             if (studentUI.inputConfirmation("remove this Student") == true) {
-                Iterator<Student> getStudent = student.getIterator();
+                SortedIterator<Student> getStudent = student.getIterator();
                 while (getStudent.hasNext()) {
                     Student object = getStudent.next();
                     if (object.getStudentId().equals(id)) {
@@ -388,13 +387,13 @@ public class StudentController {
         do {
             id = studentUI.inputStuBill();
 
-            Iterator<Student> getStudent = student.getIterator();
+            SortedIterator<Student> getStudent = student.getIterator();
             while (getStudent.hasNext()) {
                 Student object1 = getStudent.next();
                 if (object1.getStudentId().equals(id)) {
                     studentUI.billHeader(object1.getStudentName(), object1.getStudentId(), object1.getContactNo(), object1.getStudentProgramme());
 
-                    Iterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
+                    SortedIterator<StudentCourse> getStudentCourse = object1.getStudentCourse().getIterator();
                     while (getStudentCourse.hasNext()) {
                         StudentCourse object2 = getStudentCourse.next();
                         totalFees += object2.getFees();
