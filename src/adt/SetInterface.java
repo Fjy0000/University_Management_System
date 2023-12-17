@@ -25,4 +25,3 @@ public interface SetInterface<T> {
     public int getSize();
 
 }
-

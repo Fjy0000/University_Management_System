@@ -13,7 +13,7 @@ import utility.MessageUI;
 
 /**
  *
- * @author User
+ * @author Geng Seng
  */
 public class ProgrammeController {
 
@@ -84,7 +84,6 @@ public class ProgrammeController {
             //Ask the user if they want to add another data
             String choice = programmeUI.inputYOrN();
 
-
             if (!choice.equals("Y")) {
                 break; // Exit the loop if the user doesn't want to add another programme
             }
@@ -97,10 +96,9 @@ public class ProgrammeController {
 
         String codeToSearch = programmeUI.inputProgrammeCode();
         Set<Programme> matchingProgrammes = findProgrammesByCode(codeToSearch);
-        
+
         //If matching programs are found, it displays the count and details of the matching programs. 
         //If there is more than one matching program, it allows the user to choose which one to remove.
-
         if (!matchingProgrammes.isEmpty()) {
             int matchingProgrammesCount = matchingProgrammes.getSize();
             System.out.println("Programmes found with code " + codeToSearch + ":");
@@ -261,7 +259,6 @@ public class ProgrammeController {
     public void searchProgramme() {
 
         programmeUI.titleUI("Search Programme");
-
 
         int searchChoice = programmeUI.inputSearchChoice();
         String searchKeyword = "";
@@ -634,7 +631,6 @@ public class ProgrammeController {
     }
 
 //--------------------------------------------------------------------------------------------------------------------------
-
     public String getAllProgrammes() {
         StringBuilder outputStr = new StringBuilder();
         SortedIterator<Programme> iterator = programmeSet.getIterator();

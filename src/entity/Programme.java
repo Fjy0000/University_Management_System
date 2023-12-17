@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  *
- * @author User
+ * @author Geng Seng
  */
 public class Programme implements Comparable<Programme> {
 

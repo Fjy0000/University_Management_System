@@ -6,7 +6,7 @@ import adt.SortedIterator;
 
 /**
  *
- * @author 60111
+ * @author Hong Li
  */
 public class TutorialGroup implements Comparable<TutorialGroup> {
 

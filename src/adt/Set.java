@@ -2,8 +2,7 @@ package adt;
 
 /**
  *
- * @author
- * @param <T>
+ * @author @param <T>
  */
 public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
@@ -136,7 +135,7 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     @Override
     public void union(SetInterface anotherSet) { // use for merge two tutorial group student
-         // Check if the provided set is an instance of the Set class
+        // Check if the provided set is an instance of the Set class
         if (anotherSet instanceof Set) {
             // If it is, cast it to a Set
             Set aSet = (Set) anotherSet;
@@ -203,4 +202,3 @@ public class Set<T extends Comparable<T>> implements SetInterface<T> {
 
     }
 }
-

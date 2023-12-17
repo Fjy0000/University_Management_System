@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author User
+ * @author Geng Seng
  */
 public class ProgrammeUI {
 
@@ -57,7 +57,7 @@ public class ProgrammeUI {
 
     public void listAllProgramme(String outputStr) {
         System.out.println("\nList of Programme:");
-        System.out.printf("%-10s\t %-10s\t %-80s\t %-10s\t %-10s\t %-10s", "Code", "Level of Study", "Name", "Faculty", "Year Intake", "Duration(Year)"+ "\n" + outputStr);
+        System.out.printf("%-10s\t %-10s\t %-80s\t %-10s\t %-10s\t %-10s", "Code", "Level of Study", "Name", "Faculty", "Year Intake", "Duration(Year)" + "\n" + outputStr);
     }
 //-------------------------------------------ADD PROGRAMME-------------------------------------------------------//
 
@@ -311,7 +311,6 @@ public class ProgrammeUI {
         return choice;
     }
 
-
 //--------------------------------------------------Search Programme----------------------------------------------------
     public int inputSearchChoice() {
 
@@ -339,14 +338,13 @@ public class ProgrammeUI {
 
     public void listofGroupwithProgramme(String outputStr) {
         System.out.println("\nList of Tutorial Group with Programme:");
-        System.out.printf("%-10s\t %-15s\t %-80s", "Tutorial Groups", "Programme Code", "Programme Name" +"\n"+ outputStr);
+        System.out.printf("%-10s\t %-15s\t %-80s", "Tutorial Groups", "Programme Code", "Programme Name" + "\n" + outputStr);
     }
-    
+
     public String inputGroupName() {
         System.out.print("Group Name: ");
         return scanner.nextLine().toUpperCase().trim();
     }
-    
 
 //--------------------------------------------------Others--------------------------------------------------------------
     public String inputYOrN() {
@@ -362,7 +360,7 @@ public class ProgrammeUI {
             }
         }
     }
-    
+
     public String justYorN() {
 
         while (true) {

@@ -2,10 +2,15 @@ package boundary;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author Hong Li
+ */
 public class TutorialGroupUI {
 
     private Scanner scanner = new Scanner(System.in);
     Scanner input = new Scanner(System.in);
+
     public int getMenuChoice() {
         int option;
         System.out.println("\nMAIN MENU");
@@ -41,24 +46,24 @@ public class TutorialGroupUI {
         System.out.print("Group Name: ");
         return scanner.nextLine().trim();
     }
-    
+
     public int inputNumberOfStudents() {
         System.out.print("Enter the number of students to filter tutorial groups: ");
         return scanner.nextInt();
     }
-    
+
     public String inputMergeGroups(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine().trim();
     }
-    
+
     public void titleUI(String header) {
         System.out.println();
         System.out.println(header);
         printLine(1, 35);
     }
-    
-     public void groupListHeader() {
+
+    public void groupListHeader() {
         System.out.println();
         printLine(1, 52);
         System.out.printf("%-15s \t %-15s \t %-15s\n",
@@ -66,6 +71,7 @@ public class TutorialGroupUI {
         printLine(1, 52);
     }
 //    --------------------------------------------------------------------------------------------------------------
+
     public void printLine(int row, int col) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {

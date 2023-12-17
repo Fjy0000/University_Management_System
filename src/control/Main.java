@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author fongj
+ * @author Fong Jun Yi
  */
 public class Main {
 
@@ -27,10 +27,10 @@ public class Main {
     // Declare Collection ADT Object
     static SetInterface<Course> courseSet = new Set<>();
     static SetInterface<Faculty> facultySet = new Set<>();
-    
+
     static StudentInitializer stu = new StudentInitializer();
     static SetInterface<Student> student = stu.initializeStudent();
-    
+
     static SetInterface<Programme> programmeSet = new Set<>();
 
     //take student from student register set into assignedStudents
@@ -58,8 +58,7 @@ public class Main {
         programmeSet.add(new Programme("RIT", "DEGREE", "Bachelor of Information Technology (Honours) in Internet Technology", "FOCS", "June", 1));
         programmeSet.add(new Programme("RSE", "DEGREE", "SOFTWARE ENGINEERING", "FOCS", "OCTOBER", 3));
         programmeSet.add(new Programme("RDS", "DEGREE", "DATA SCIENCE", "FOCS", "OCTOBER", 3));
-        
-        
+
         tutorialGroups.add(new TutorialGroup("G1"));
         tutorialGroups.add(new TutorialGroup("G2"));
         tutorialGroups.add(new TutorialGroup("G3"));
