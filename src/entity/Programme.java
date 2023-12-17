@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
+import adt.Set;
+import adt.SortedIterator;
 import java.util.Objects;
 
 /**
@@ -18,12 +16,13 @@ public class Programme implements Comparable<Programme> {
     private String faculty;
     private String yearIntake;
     private int duration;
-//    private TutorialGroup tutorialgroup;
+    private Set<TutorialGroup> tutorialGroups; // Added set to store tutorial groups
 
     public Programme() {
-
+        this.tutorialGroups = new Set<>();
     }
 
+    // Constructor without tutorial groups
     public Programme(String programmeCode, String levelofstudy, String programmeName, String faculty, String yearIntake, int duration) {
         this.programmeCode = programmeCode;
         this.levelofstudy = levelofstudy;
@@ -31,17 +30,20 @@ public class Programme implements Comparable<Programme> {
         this.faculty = faculty;
         this.yearIntake = yearIntake;
         this.duration = duration;
+        this.tutorialGroups = new Set<>();
     }
 
-//    public Programme(String programmeCode, String levelofstudy, String programmeName, String faculty, int yearIntake, int duration, TutorialGroup tutorialgroup) {
-//        this.programmeCode = programmeCode;
-//        this.levelofstudy = levelofstudy;
-//        this.programmeName = programmeName;
-//        this.faculty = faculty;
-//        this.yearIntake = yearIntake;
-//        this.duration = duration;
-//        this.tutorialgroup = tutorialgroup;
-//    }
+    // Constructor with tutorial groups
+    public Programme(String programmeCode, String levelofstudy, String programmeName, String faculty, String yearIntake, int duration, Set<TutorialGroup> tutorialGroups) {
+        this.programmeCode = programmeCode;
+        this.levelofstudy = levelofstudy;
+        this.programmeName = programmeName;
+        this.faculty = faculty;
+        this.yearIntake = yearIntake;
+        this.duration = duration;
+        this.tutorialGroups = tutorialGroups;
+    }
+
     public String getProgrammeCode() {
         return programmeCode;
     }
@@ -90,6 +92,18 @@ public class Programme implements Comparable<Programme> {
         this.duration = duration;
     }
 
+    public Set<TutorialGroup> getTutorialGroups() {
+        return tutorialGroups;
+    }
+
+    public void addTutorialGroup(TutorialGroup tutorialGroup) {
+        tutorialGroups.add(tutorialGroup);
+    }
+
+    public void removeTutorialGroup(TutorialGroup tutorialGroup) {
+        tutorialGroups.remove(tutorialGroup);
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -133,7 +147,22 @@ public class Programme implements Comparable<Programme> {
 
     @Override
     public String toString() {
-        return String.format("%-10s %-15s %-40s %-10s %-25s %-10d", programmeCode, levelofstudy, programmeName, faculty, yearIntake, duration);
-
+        return String.format("%-10s\t %-10s\t %-80s\t %-10s\t %-10s\t %-10d", programmeCode, levelofstudy, programmeName, faculty, yearIntake, duration);
     }
+
+    public String toListGroup() {
+        StringBuilder outputStr = new StringBuilder();
+
+        // Check if the program has associated tutorial groups
+        if (!tutorialGroups.isEmpty()) {
+            SortedIterator<TutorialGroup> iterator = tutorialGroups.getIterator();
+            while (iterator.hasNext()) {
+                TutorialGroup tutorialGroup = iterator.next();
+                outputStr.append(String.format("%-10s\t %-15s\t %-80s", tutorialGroup.getGroupName(), programmeCode, programmeName)).append("\n");
+            }
+        }
+
+        return outputStr.toString();
+    }
+
 }

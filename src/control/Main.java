@@ -1,11 +1,14 @@
 package control;
 
+
 import adt.Set;
 import adt.SetInterface;
-import boundary.TutorialGroupUI;
-import control.StudentController;
 import dao.StudentInitializer;
+import entity.Course;
+import entity.Faculty;
+import entity.Programme;
 import entity.Student;
+import entity.TutorialGroup;
 import java.util.Scanner;
 
 /**
@@ -15,18 +18,57 @@ import java.util.Scanner;
 public class Main {
 
     private static final int MAX_INVALID_ATTEMPTS = 3;
+
+    // Page ------------------------------------------------------------------------
     private static StudentController studentPage = new StudentController();
-    private static TutorialGroupUI tutorialPage = new TutorialGroupUI();
+    private static TutorialControl tutorialPage = new TutorialControl();
     private static ProgrammeController programmePage = new ProgrammeController();
 
+    // Set Array List --------------------------------------------------------------
+    // declare collection ADT object
+    static SetInterface<Course> courseSet = new Set<>();
+    static SetInterface<Faculty> facultySet = new Set<>();
+    
     static SetInterface<Student> student = new Set<>();
+    
+    static SetInterface<Programme> programmeSet = new Set<>();
+
+    //take student from student register set into assignedStudents0
+    static SetInterface<Student> assignedStudents = new Set<>();
+    static SetInterface<TutorialGroup> tutorialGroups = new Set<>();
+
     static StudentInitializer stu = new StudentInitializer();
 
     public static void main(String[] args) {
 
-//        //Initialize Data
+        //Initialize Data --------------------------------------------------------------------------------------------------
+        // Student 
         stu.initializeStudent(student);
 
+        // Course & Faculty
+        courseSet.add(new Course("1001", "Object-Oriented Programming"));
+        courseSet.add(new Course("1002", "Cloud Computing"));
+        courseSet.add(new Course("1003", "Web Design and Development"));
+
+        facultySet.add(new Faculty("FAFB", "Faculty of Accountancy,Finance and Business"));
+        facultySet.add(new Faculty("FOAS", "Faculty of Applied Sciences"));
+        facultySet.add(new Faculty("FOCS", "Faculty of Computing and Information Technology"));
+        facultySet.add(new Faculty("FAFB", "Faculty of Built Environment"));
+        facultySet.add(new Faculty("FOET", "Faculty of Engineering and Technology"));
+        facultySet.add(new Faculty("FCCI", "Faculty of Communication and Creative Industries"));
+        facultySet.add(new Faculty("FSSH", "Faculty of Social Science and Humanities"));
+
+        // Programme
+        programmeSet.add(new Programme("RSD", "DEGREE", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS", "June", 1));
+        programmeSet.add(new Programme("RIT", "DEGREE", "Bachelor of Information Technology (Honours) in Internet Technology", "FOCS", "June", 1));
+        programmeSet.add(new Programme("RSE", "DEGREE", "SOFTWARE ENGINEERING", "FOCS", "OCTOBER", 3));
+        programmeSet.add(new Programme("RDS", "DEGREE", "DATA SCIENCE", "FOCS", "OCTOBER", 3));
+        
+        
+        tutorialGroups.add(new TutorialGroup("G1"));
+        tutorialGroups.add(new TutorialGroup("G2"));
+        tutorialGroups.add(new TutorialGroup("G3"));
+        
         homepage();
     }
 

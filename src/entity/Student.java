@@ -1,5 +1,6 @@
 package entity;
 
+
 import adt.Set;
 import adt.SetInterface;
 import java.util.Objects;
@@ -8,33 +9,38 @@ import java.util.Objects;
  *
  * @author Fong Jun Yi
  */
-public class Student extends StudentCourse {
+public class Student implements Comparable<Student> {
 
     private String studentId;
     private String contactNo;
     private String studentName;
     private String gender;
-    private String studentProgremme;
+    private String studentProgramme;
+    private String studentProgrammeCode;
     private SetInterface<StudentCourse> studentCourse = new Set<>();
 
     // Student ------------------------------------------------------------------------------
     public Student() {
     }
 
-    public Student(String id, String name, String contactNo, String gender, String progremme) {
+    // For Registration Use
+    public Student(String id, String name, String contactNo, String gender, String programme, String programmeCode) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
-        this.studentProgremme = progremme;
+        this.studentProgramme = programme;
+        this.studentProgrammeCode = programmeCode;
     }
 
-    public Student(String id, String name, String contactNo, String gender, String progremme, SetInterface<StudentCourse> courses) {
+    // For Update student use
+    public Student(String id, String name, String contactNo, String gender, String programme, String programmeCode, SetInterface<StudentCourse> courses) {
         this.studentId = id;
         this.studentName = name;
         this.contactNo = contactNo;
         this.gender = gender;
-        this.studentProgremme = progremme;
+        this.studentProgramme = programme;
+        this.studentProgrammeCode = programmeCode;
         this.studentCourse = courses;
     }
 
@@ -70,12 +76,20 @@ public class Student extends StudentCourse {
         this.gender = gender;
     }
 
-    public String getStudentProgremme() {
-        return studentProgremme;
+    public String getStudentProgramme() {
+        return studentProgramme;
     }
 
-    public void setStudentProgremme(String studentProgremme) {
-        this.studentProgremme = studentProgremme;
+    public void setStudentProgramme(String studentProgramme) {
+        this.studentProgramme = studentProgramme;
+    }
+
+    public String getStudentProgrammeCode() {
+        return studentProgrammeCode;
+    }
+
+    public void setStudentProgrammeCode(String studentProgrammeCode) {
+        this.studentProgrammeCode = studentProgrammeCode;
     }
 
     // Student Course ------------------------------------------------------------------------------
@@ -87,8 +101,8 @@ public class Student extends StudentCourse {
         return this.studentCourse.getSize();
     }
 
-    public void addStudentCourse(StudentCourse courses) {
-        this.studentCourse.add(courses);
+    public boolean addStudentCourse(StudentCourse courses) {
+        return this.studentCourse.add(courses);
     }
 
     public void removeStudentCourse(StudentCourse courses) {
@@ -96,28 +110,33 @@ public class Student extends StudentCourse {
     }
 
     @Override
+    public int compareTo(Student object) {
+        return this.studentId.compareTo(object.getStudentId());
+    }
+
+    @Override
     public String toString() {
-        return "Student ID: " + studentId
-                + "\nContactNo: " + contactNo
-                + "\nName: " + studentName
-                + "\nGender: " + gender
-                + "\nProgremme: " + studentProgremme + "\n";
+        return String.format("%-15s \t %-15s \t %-15s", studentId, studentName,studentProgrammeCode);
     }
 
     // add by hongli  -----------------------------------------------------------------------------------   
     @Override
     public boolean equals(Object obj) {
+        // Check if the objects are the same reference
         if (this == obj) {
             return true;
         }
+        // Check if the object is null or of a different class
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+        // Cast the object to the specific class Student
         Student student = (Student) obj;
         return Objects.equals(studentId, student.studentId);
     }
 
     @Override
+    ////Consistency with equals:  ensures consistency in behavior when using these objects in hash-based collections.
     public int hashCode() {
         return Objects.hash(studentId);
     }

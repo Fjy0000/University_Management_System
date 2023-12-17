@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package adt;
 
-import java.util.Iterator;
 
 /**
  *
- * @author fongj
+ * @author
  */
 public interface SetInterface<T> {
 
@@ -18,7 +13,9 @@ public interface SetInterface<T> {
 
     public boolean contains(T anEntry);
 
-    public Iterator<T> getIterator();
+    public boolean selectionSort();
+
+    public SortedIterator<T> getIterator();
 
     public boolean isEmpty();
 
@@ -27,7 +24,4 @@ public interface SetInterface<T> {
     public boolean replace(T newObject, int position);
 
     public int getSize();
-
-    //    public boolean addAll(SetInterface<T> otherSet);
-    //    public int getTotalEntries();
 }
