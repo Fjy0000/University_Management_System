@@ -24,11 +24,12 @@ public class Main {
     private static ProgrammeController programmePage = new ProgrammeController();
 
     // Set Array List --------------------------------------------------------------
-    // declare collection ADT object
+    // Declare Collection ADT Object
     static SetInterface<Course> courseSet = new Set<>();
     static SetInterface<Faculty> facultySet = new Set<>();
     
-    static SetInterface<Student> student = new Set<>();
+    static StudentInitializer stu = new StudentInitializer();
+    static SetInterface<Student> student = stu.initializeStudent();
     
     static SetInterface<Programme> programmeSet = new Set<>();
 
@@ -36,14 +37,9 @@ public class Main {
     static SetInterface<Student> assignedStudents = new Set<>();
     static SetInterface<TutorialGroup> tutorialGroups = new Set<>();
 
-    static StudentInitializer stu = new StudentInitializer();
-
     public static void main(String[] args) {
 
         //Initialize Data --------------------------------------------------------------------------------------------------
-        // Student 
-        stu.initializeStudent(student);
-
         // Course & Faculty
         courseSet.add(new Course("1001", "Object-Oriented Programming"));
         courseSet.add(new Course("1002", "Cloud Computing"));

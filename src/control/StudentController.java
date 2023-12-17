@@ -19,7 +19,7 @@ import java.util.Iterator;
  */
 public class StudentController {
 
-    private StudentRegistrationUI studentUI = new StudentRegistrationUI();
+    private final StudentRegistrationUI studentUI = new StudentRegistrationUI();
 
     public void studentManagement() {
         int result, exit;
@@ -75,7 +75,7 @@ public class StudentController {
     private int registration(SetInterface<Student> student, SetInterface<Programme> programme) {
         int exit, randomNum;
         String id;
-        boolean isSuccess = false, found = false;
+        boolean isSuccess, found = false;
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();
@@ -115,7 +115,7 @@ public class StudentController {
 
     private int manageStudentCourse(SetInterface<Student> student, SetInterface<Course> course) {
         int exit, opt;
-        double fees = 0.0;
+        double fees;
         String id, courseId, status;
         boolean isSuccess = false, found = false;
 
