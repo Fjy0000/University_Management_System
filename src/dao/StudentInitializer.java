@@ -12,9 +12,10 @@ public class StudentInitializer {
 
     public SetInterface<Student> initializeStudent() {
 
+        // Declare Collection ADT Object
         SetInterface<Student> stuList = new Set<>();
 
-        //Initialize Student Data --------------------------------------------------------------------------------------------------
+        //Initialize Student Data
         stuList.add(new Student("F1001", "Fong Jun Yi", "0127995565", "Male", "Bachelor of Information Technology (Honours) in Software Systems Development", "RSD"));
         stuList.add(new Student("O1002", "Ong Kar Yi", "0127995565", "Male", "Bachelor of Information Technology (Honours) in Software Systems Development", "RSD"));
         stuList.add(new Student("C1003", "Cheng Yi", "0127995565", "Female", "Bachelor of Information Technology (Honours) in Software Systems Development", "RSD"));
