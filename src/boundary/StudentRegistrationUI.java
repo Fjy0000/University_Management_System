@@ -415,3 +415,4 @@ public class StudentRegistrationUI {
         System.out.println();
     }
 }
+

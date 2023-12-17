@@ -72,5 +72,4 @@ public class Course implements Comparable<Course> {
     public boolean removeProgram(String programId) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

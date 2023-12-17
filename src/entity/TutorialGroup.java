@@ -43,12 +43,12 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
     public boolean containsStudent(Student student) {
         return students.contains(student);
     }
-    
+
     // Getter method to retrieve the set of students in the tutorial group
     public SetInterface<Student> getStudentsSet() {
         return students;
     }
-    
+
     // Method to list students in the tutorial group
     public void listStudents() {
         if (students.isEmpty()) {
@@ -97,7 +97,7 @@ public class TutorialGroup implements Comparable<TutorialGroup> {
                 + "Group Name: " + groupName
                 + "\nIs Assigned: " + assigned;
     }
-    
+
     // Override compareTo method for sorting tutorial groups based on group names
     @Override
     public int compareTo(TutorialGroup object) {

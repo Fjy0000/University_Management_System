@@ -56,6 +56,13 @@ public class Main {
         // Programme
         programmeSet.add(new Programme("RSD", "DEGREE", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS", "June", 1));
         programmeSet.add(new Programme("RIT", "DEGREE", "Bachelor of Information Technology (Honours) in Internet Technology", "FOCS", "June", 1));
+        programmeSet.add(new Programme("RSE", "DEGREE", "SOFTWARE ENGINEERING", "FOCS", "OCTOBER", 3));
+        programmeSet.add(new Programme("RDS", "DEGREE", "DATA SCIENCE", "FOCS", "OCTOBER", 3));
+        
+        
+        tutorialGroups.add(new TutorialGroup("G1"));
+        tutorialGroups.add(new TutorialGroup("G2"));
+        tutorialGroups.add(new TutorialGroup("G3"));
 
         homepage();
     }

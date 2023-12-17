@@ -10,3 +10,4 @@ public interface SortedIterator<T> extends Iterator<T> {
 
     T sortedNext();
 }
+

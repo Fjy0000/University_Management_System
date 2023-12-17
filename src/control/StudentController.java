@@ -76,6 +76,7 @@ public class StudentController {
         int exit, randomNum;
         String id;
         boolean isSuccess, found = false;
+
         studentUI.titleUI("Add New Student");
         do {
             String name = studentUI.inputStudentName();

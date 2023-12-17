@@ -310,7 +310,7 @@ public class ProgrammeMaintenanceUI {
 
         return choice;
     }
-
+    
     public String updateProgrammeCode() {
         String programmecode;
         do {
@@ -327,7 +327,7 @@ public class ProgrammeMaintenanceUI {
         System.out.println();
         return programmecode;
     }
-
+    
     public String updateProgrammeName() {
         String name;
         do {
@@ -342,8 +342,9 @@ public class ProgrammeMaintenanceUI {
         System.out.println();
         return name;
     }
-
+    
 //--------------------------------------------------Search Programme----------------------------------------------------
+
     public int inputSearchChoice() {
 
         while (true) {
@@ -398,3 +399,4 @@ public class ProgrammeMaintenanceUI {
         System.out.println();
     }
 }
+
