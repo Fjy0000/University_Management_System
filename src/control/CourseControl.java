@@ -3,14 +3,19 @@ package control;
 import adt.Set;
 import adt.SetInterface;
 import adt.SortedIterator;
+import boundary.CourseUI;
+import static control.Main.courseSet;
+import static control.Main.facultySet;
+import static control.Main.homepage;
 import entity.Course;
 import entity.Faculty;
 import entity.Programme;
 import java.util.Scanner;
-import static control.Main.courseSet;
-import static control.Main.facultySet;
-import static control.Main.homepage;
 import static control.Main.programmeSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -18,70 +23,66 @@ import static control.Main.programmeSet;
  */
 public class CourseControl {
 
-    public static void main(String[] args) {
+    private CourseUI courseUI = new CourseUI();
+    private static final String TITLE = "Course Management System Summary Report";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+
+    private Set<String> actionHistory = new Set<>();
+
+    public void CourseManagement() {
+
         // Create an instance of Course_Faculty
         CourseControl course = new CourseControl();
         Scanner scanner = new Scanner(System.in);
 
-        // Main Menu
-        System.out.println("Menu:");
-        System.out.println("1. Add Course");
-        System.out.println("2. Remove Course");
-        System.out.println("3. Search Course");
-        System.out.println("4. Display All Courses");
-        System.out.println("5. Display Courses Taken by Faculty");
-        System.out.println("6. Amend Courses detail");
-        System.out.println("7. List all course for a programme ");
-        System.out.println("8. Add programme to a course ");
-        System.out.println("9. Remove programme to a course ");
-        System.out.println("0. Exit");
-
-        System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
-
-        switch (choice) {
-            case 1:
-                course.addCourseByUserInput();
-                break;
-            case 2:
-                course.removeCourseByUserInput();
-                break;
-            case 3:
-                course.searchCourseByUserInput();
-                break;
-            case 4:
-                course.displayAllCourses(courseSet);
-                break;
-            case 5:
-                System.out.print("Enter Faculty ID: ");
-                String facultyId = scanner.next();
-
-                System.out.println("Courses taken by Faculty " + facultyId + ":");
-                //course.displayAllCourses(coursesTakenByFaculty);
-                break;
-            case 6:
-                course.editCourseDetail();
-                break;
-            case 7:
-//                System.out.print("Enter Programme ID: ");
-//                String programmeId = scanner.next();
-//                SetInterface<Course> coursesForProgramme = initializer.getCoursesForProgramme(programmeId);
-//                System.out.println("Courses for Programme " + programmeId + ":");
-//                initializer.displayAllCourses(coursesForProgramme);
-                break;
-            case 8:
-//                course.addProgramToCourse();
-                break;
-            case 9:
-//                course.removeProgramFromCourse();
-                break;
-            case 0:
-                homepage();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
-        }
+        do {
+            choice = courseUI.CourseManagementMenu();
+            switch (choice) {
+                case 1:
+                    course.addCourseByUserInput();
+                    break;
+                case 2:
+                    course.removeCourseByUserInput();
+                    break;
+                case 3:
+                    course.editCourseDetail();
+                    break;
+                case 4:
+                    System.out.println("\nAll Faculties:");
+                    Iterator<Faculty> getFaculty = facultySet.getIterator();
+                    displayAllFaculties(facultySet);
+                    break;
+                case 5:
+                    System.out.println("All Programmes:");
+                    course.displayAllPrograms(programmeSet);
+                    break;
+                case 6:
+                    System.out.println("\nAll Programmes:");
+                    course.displayAllCourses(courseSet);
+                case 7:
+                    course.searchCourseByUserInput();
+                    break;
+                case 8:
+                    course.addProgramToCourse();
+//                    CourseManagement();
+                    break;
+                case 9:
+                    course.removeProgramFromCourse();
+//                    CourseManagement();
+                    break;
+                case 10:
+                    course.generateSummaryReport();
+                    break;
+                case 0:
+                    homepage();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 0);
 
     }
 
@@ -97,46 +98,41 @@ public class CourseControl {
             System.out.println("Enter Course Name:");
             String courseName = scanner.next();
 
-            System.out.println("Enter Faculty:");
-            String faculty = scanner.next();
+            Course newCourse = new Course(courseId, courseName);
+            courseSet.add(newCourse);
 
-            System.out.println("Confirm Add Course? (yes =1 / no =2)");
-            int enter = scanner.nextInt();
-            if (enter == 1) {
-                Course newCourse = new Course(courseId, courseName);
-                courseSet.add(newCourse);
+            System.out.println("ID \t Faculty Name");
+            Iterator<Faculty> getFaculty = facultySet.getIterator();
+            while (getFaculty.hasNext()) {
+                Faculty facultyOj = getFaculty.next();
+                System.out.println(facultyOj.getfacultyId() + "\t" + facultyOj.getfacultyName());
+            }
 
-                // Display Faculty List
-                SortedIterator<Faculty> getFaculty = facultySet.getIterator();
-                while (getFaculty.hasNext()) {
+            do {
+                scanner.nextLine();
+                System.out.print("Enter Select the Faculty : ");
+                String facultyID = scanner.nextLine();
 
-                    Faculty facultyOj = getFaculty.next();
-                    System.out.println("ID \t Faculty Name");
-                    System.out.println(facultyOj.getfacultyId() + ")" + facultyOj.getfacultyName());
-                }
-                do {
-                    System.out.println("Enter Select the Faculty : ");
-                    String facultyID = scanner.nextLine();
-                    SortedIterator<Course> getCourse = courseSet.getIterator();
-                    while (getCourse.hasNext()) {
-                        Course courseOj = getCourse.next();
-                        if (courseOj.getCourseId().equals(courseId)) {
-                            while (getFaculty.hasNext()) {
-                                Faculty facultyOj = getFaculty.next();
-                                if (facultyOj.getfacultyId().equals(facultyID)) {
-                                    courseOj.addFaculty(facultyOj);
-                                }
+                Iterator<Faculty> check1 = facultySet.getIterator();
+                while (check1.hasNext()) {
+                    Faculty result1 = check1.next();
+                    if (result1.getfacultyId().equals(facultyID)) {
+                        Iterator<Course> getCourse = courseSet.getIterator();
+                        while (getCourse.hasNext()) {
+                            Course result2 = getCourse.next();
+                            if (result2.getCourseId().equals(courseId)) {
+                                result2.addFaculty(new Faculty(result1.getfacultyId(), result1.getfacultyName()));
+                                System.out.println("Course added successfully: " + result2.getFacultyId().toString());
+                                break;
                             }
                         }
-
                     }
-                    System.out.println("Do you want to add another more faculty to this course (yes=1/no=2) :");
-                    continueAdd = scanner.nextInt();
-                } while (continueAdd == 1);
-                System.out.println("Course added successfully: " + newCourse);
-            } else {
-                System.out.println("Cancelled !!!!");
-            }
+                }
+                System.out.print("Do you want to add another more faculty to this course (yes=1/no=2) :");
+                continueAdd = scanner.nextInt();
+
+            } while (continueAdd == 1);
+
         } else {
             System.out.println("Course with ID " + courseId + " already exists.");
         }
@@ -191,146 +187,154 @@ public class CourseControl {
             if (!newCourseName.isEmpty()) {
                 courseToEdit.setCourseName(newCourseName);
             }
-            
             System.out.println("Course details updated successfully: " + courseToEdit);
         } else {
             System.out.println("Course with ID " + courseId + " not found.");
         }
     }
 
-//    public void addProgramToCourse() {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        // Get Course ID from the user
-//        System.out.print("Enter Course ID to add a program: ");
-//        String courseId = scanner.next();
-//
-//        // Find the course
-//        Course course = findCourseById(courseId);
-//
-//        if (course != null) {
-//            // Display available programs
-//            System.out.println("Available Programs:");
-//            displayAllPrograms(programmeSet);
-//
-//            // Get Program ID from the user
-//            System.out.print("Enter Program ID to add to the course: ");
-//            String programId = scanner.next();
-//
-//            // Check if the program exists
-//            Programme program = findProgramById(programId);
-//
-//            if (program != null) {
-//                // Add the program to the course
-//                course.addProgram(program);
-//
-//                System.out.println("Program added to the course successfully.");
-//                System.out.println("Updated Course Details: " + course);
-//            } else {
-//                System.out.println("Program with ID " + programId + " not found.");
-//            }
-//        } else {
-//            System.out.println("Course with ID " + courseId + " not found.");
-//        }
-//    }
-//    public boolean removeProgram(String programId) {
-//        Programme programToRemove = findProgramById(programId);
-//
-//        return programmeSet.remove(programToRemove);
-//    }
-//
-//    private Programme findProgramById(String programId) {
-//        SortedIterator<Programme> iterator = programmeSet.getIterator();
-//
-//        while (iterator.hasNext()) {
-//            Programme program = iterator.next();
-//            if (program.getprogrammeId().equals(programId)) {
-//                return program;
-//            }
-//        }
-//
-//        return null;
-//    }
-//
-//    public void removeProgramFromCourse() {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        // Display all courses and programs for user reference
-//        displayAllCourses(courseSet);
-//        displayAllPrograms(programmeSet);
-//
-//        System.out.println("Enter Course ID to remove a program:");
-//        String courseId = scanner.next();
-//
-//        Course courseToRemoveProgram = findCourseById(courseId);
-//
-//        if (courseToRemoveProgram != null) {
-//            System.out.println("Enter Program ID to remove:");
-//            String programId = scanner.next();
-//
-//            if (courseToRemoveProgram.removeProgram(programId)) {
-//                System.out.println("Program removed successfully from Course " + courseId + ": " + programId);
-//            } else {
-//                System.out.println("Program with ID " + programId + " not found in Course " + courseId + ".");
-//            }
-//        } else {
-//            System.out.println("Course with ID " + courseId + " not found.");
-//        }
-//    }
-//
-//    private void displayAllPrograms(SetInterface<Programme> programmeSet) {
-//        SortedIterator<Programme> iterator = programmeSet.getIterator();
-//        while (iterator.hasNext()) {
-//            System.out.println(iterator.next());
-//        }
-//    }
-//    public SetInterface<Course> getCoursesForProgramme(String programmeId) {
-//    SetInterface<Course> coursesForProgramme = new arraySet<>();
-//
-//    // Assuming you have a method to find the programme by ID
-//    Programme programme = findProgrammeById(programmeId);
-//
-//    if (programme != null) {
-//        // Iterate through all courses and check if they are associated with the given programme
-//        Iterator<Course> iterator = courseSet.getIterator();
-//        while (iterator.hasNext()) {
-//            Course course = iterator.next();
-//            if (course.getfacultyId().equals(programmeId)) {
-//                coursesForProgramme.add(course);
-//            }
-//        }
-//    } else {
-//        System.out.println("Programme with ID " + programmeId + " not found.");
-//    }
-//
-//    return coursesForProgramme;
-//}
-// Assuming you have a method to find the programme by ID
-//    private Programme findProgrammeById(String programmeId) {
-//        SortedIterator<Programme> iterator = programmeSet.getIterator();
-//
-//        while (iterator.hasNext()) {
-//            Programme programme = iterator.next();
-//            if (programme.getprogrammeId().equals(programmeId)) {
-//                return programme;
-//            }
-//        }
-//
-//        return null;
-//    }
-    public SetInterface<Course> getCourseSet() {
-        return courseSet;
+    public void addProgramToCourse() {
+        Scanner scanner = new Scanner(System.in);
+        int continueAdd = 0;
+
+        System.out.println("Enter Course ID to add a program:");
+        String courseId = scanner.next();
+
+        Course courseToAddProgram = findCourseById(courseId);
+
+        if (courseToAddProgram != null) {
+            System.out.println("Available Programs:");
+            displayAllPrograms(programmeSet);
+
+            do {
+                System.out.print("Enter Program ID to add to the course: ");
+                String programId = scanner.next();
+
+                Programme programToAdd = findProgramById(programId);
+
+                if (programToAdd != null) {
+                    courseToAddProgram.addProgramme(programToAdd);
+                    System.out.println("Program added to the course successfully.");
+                    System.out.println("Updated Course Details: " + courseToAddProgram);
+                } else {
+                    System.out.println("Program with ID " + programId + " not found.");
+                }
+
+                System.out.print("Do you want to add another program to this course (yes=1/no=2): ");
+                continueAdd = scanner.nextInt();
+
+            } while (continueAdd == 1);
+
+        } else {
+            System.out.println("Course with ID " + courseId + " not found.");
+        }
+    }
+
+    private Programme findProgramById(String programId) {
+        Iterator<Programme> iterator = programmeSet.getIterator();
+
+        while (iterator.hasNext()) {
+            Programme program = iterator.next();
+            if (program.getProgrammeCode().equals(programId)) {
+                return program;
+            }
+        }
+
+        return null;
+    }
+
+    public void removeProgramFromCourse() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Display all courses and programs for user reference
+        displayAllCourses(courseSet);
+        displayAllPrograms(programmeSet);
+
+        System.out.println("Enter Course ID to remove a program:");
+        String courseId = scanner.next();
+
+        Course courseToRemoveProgram = findCourseById(courseId);
+
+        if (courseToRemoveProgram != null) {
+            System.out.println("Enter Program ID to remove:");
+            String programId = scanner.next();
+
+            // Find the Programme object based on the programId
+            Programme programToRemove = findProgramById(programId);
+
+            if (programToRemove != null) {
+                if (courseToRemoveProgram.removeProgramme(programToRemove)) {
+                    System.out.println("Program removed successfully from Course " + courseId + ": " + programId);
+                } else {
+                    System.out.println("Program with ID " + programId + " not found in Course " + courseId + ".");
+                }
+            } else {
+                System.out.println("Program with ID " + programId + " not found.");
+            }
+        } else {
+            System.out.println("Course with ID " + courseId + " not found.");
+        }
+    }
+
+    private void displayAllPrograms(SetInterface<Programme> programmeSet) {
+        Iterator<Programme> iterator = programmeSet.getIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
+    public void displayAllFaculties(SetInterface<Faculty> facultySet) {
+        
+        Iterator<Faculty> iterator = facultySet.getIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
+    public SetInterface<Course> getCoursesForProgramme(String programmeId) {
+        SetInterface<Course> coursesForProgramme = new Set<>();
+
+        // Assuming you have a method to find the programme by ID
+        Programme programme = findProgrammeById(programmeId);
+
+        if (programme != null) {
+            // Iterate through all courses and check if they are associated with the given programme
+            Iterator<Course> iterator = courseSet.getIterator();
+            while (iterator.hasNext()) {
+                Course course = iterator.next();
+                if (course.containsProgram(programme)) {
+                    coursesForProgramme.add(course);
+                }
+            }
+        } else {
+            System.out.println("Programme with ID " + programmeId + " not found.");
+        }
+        return coursesForProgramme;
+    }
+
+//      Assuming you have a method to find the programme by ID
+    private Programme findProgrammeById(String programmeId) {
+        Iterator<Programme> iterator = programmeSet.getIterator();
+
+        while (iterator.hasNext()) {
+            Programme programme = iterator.next();
+            if (programme.getProgrammeCode().equals(programmeId)) {
+                return programme;
+            }
+        }
+
+        return null;
     }
 
     private void displayAllCourses(SetInterface<Course> courseSet) {
-        SortedIterator<Course> iterator = courseSet.getIterator();
+        Iterator<Course> iterator = courseSet.getIterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
     }
 
     private Faculty findFacultyById(String facultyId) {
-        SortedIterator<Faculty> iterator = facultySet.getIterator();
+        Iterator<Faculty> iterator = facultySet.getIterator();
 
         while (iterator.hasNext()) {
             Faculty faculty = iterator.next();
@@ -343,7 +347,7 @@ public class CourseControl {
     }
 
     private Course findCourseById(String courseId) {
-        SortedIterator<Course> iterator = courseSet.getIterator();
+        Iterator<Course> iterator = courseSet.getIterator();
 
         while (iterator.hasNext()) {
             Course course = iterator.next();
@@ -354,5 +358,29 @@ public class CourseControl {
 
         return null;
     }
-}
 
+    public void generateSummaryReport() {
+        // Get current date and time
+        String currentDateAndTime = DATE_FORMATTER.format(new Date());
+
+        // Display the summary report
+        System.out.println("================================================");
+        System.out.println("Course Management System");
+        System.out.println("================================================");
+        System.out.println("Date and Time: " + currentDateAndTime);
+        System.out.println("\nSummary Report:");
+
+        // Display all courses
+        System.out.println("\nAll Courses:");
+        displayAllCourses(courseSet);
+
+        System.out.println("\nAll Faculties:");
+        displayAllFaculties(facultySet);
+
+        // Display all programs
+        System.out.println("\nAll Programmes:");
+        displayAllPrograms(programmeSet);
+
+    }
+
+}
