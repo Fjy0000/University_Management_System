@@ -11,8 +11,8 @@ public class Course implements Comparable<Course> {
 
     private String CourseId;
     private String CourseName;
-    private String facultyId;
     private SetInterface<Faculty> faculty = new Set<>();
+    private SetInterface<Programme> programme = new Set<>();
 
     public Course(String CourseId, String CourseName) {
         this.CourseId = CourseId;
@@ -24,6 +24,13 @@ public class Course implements Comparable<Course> {
         this.CourseId = CourseId;
         this.CourseName = CourseName;
         this.faculty = faculty;
+
+    }
+
+    public Course(String CourseId, String CourseName, String emp, SetInterface<Programme> programme) {
+        this.CourseId = CourseId;
+        this.CourseName = CourseName;
+        this.programme = programme;
 
     }
 
@@ -55,6 +62,22 @@ public class Course implements Comparable<Course> {
         this.faculty.remove(faculty);
     }
 
+    public SetInterface<Programme> getProgrammeCode() {
+        return programme;
+    }
+
+    public void addProgramme(Programme programme) {
+        this.programme.add(programme);
+    }
+
+    public boolean removeProgramme(Programme program) {
+        return programme.remove(program);
+    }
+    
+    public boolean containsProgram(Programme program) {
+        return programme.contains(program);
+    }
+
     @Override
     public int compareTo(Course object) {
         return this.CourseId.compareTo(object.getCourseId());
@@ -62,14 +85,7 @@ public class Course implements Comparable<Course> {
 
     @Override
     public String toString() {
-        return CourseId + "\t" + CourseName + "\t" + facultyId;
+        return CourseId + "\t" + CourseName;
     }
 
-    public void addProgram(Programme program) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public boolean removeProgram(String programId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
