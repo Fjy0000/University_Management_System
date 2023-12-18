@@ -22,14 +22,14 @@ public class TutorialGroupUI {
         System.out.println("6. Filter tutorial groups by given number of students");
         System.out.println("7. Merge tutorial groups who less than three students");
         System.out.println("8. Summary Report");
-        System.out.println("9. Quit");
+        System.out.println("0. Quit");
         System.out.print("\n");
         System.out.print("Enter choice: ");
         option = input.nextInt();
         System.out.print("\n");
 
-        while (option < 1 || option > 9) {
-            System.out.print("Invalid option! Please select a number between 1 and 9 : ");
+        while (option < 0 || option > 8) {
+            System.out.print("Invalid option! Please select a number between 0 and 8 : ");
             option = input.nextInt();
         }
 

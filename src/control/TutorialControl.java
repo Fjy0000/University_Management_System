@@ -51,13 +51,13 @@ public class TutorialControl {
                 case 8:
                     generateSummaryReport();
                     break;
-                case 9:
+                case 0:
                     homepage();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice < 0 || choice > 9);
+        } while (choice != 0);
     }
 
     private void addStudentToGroup() {
