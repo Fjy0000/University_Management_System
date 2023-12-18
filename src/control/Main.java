@@ -81,7 +81,7 @@ public class Main {
             countInvalidInput = 0;
             System.out.printf("%2s %-10s\n", "1)", "Student Registration Management");
             System.out.printf("%2s %-10s\n", "2)", "Course Management");
-            System.out.printf("%2s %-10s\n", "3)", "Progremme Management");
+            System.out.printf("%2s %-10s\n", "3)", "Programme Management");
             System.out.printf("%2s %-10s\n", "4)", "Tutorial Group Management");
             System.out.printf("%2s %-5s\n", "5)", "Exit System");
             printLine(1, 40);
