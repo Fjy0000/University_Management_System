@@ -57,7 +57,7 @@ public class TutorialControl {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 0);
+        } while (choice < 0 || choice > 9);
     }
 
     private void addStudentToGroup() {
@@ -327,9 +327,9 @@ public class TutorialControl {
                 while (studentIterator.hasNext()) {
                     Student student = studentIterator.next();
                     System.out.printf("%-15s \t %-15s \t %-15s\n",
-                             student.getStudentId(),
-                             student.getStudentName(),
-                             student.getStudentProgrammeCode());
+                            student.getStudentId(),
+                            student.getStudentName(),
+                            student.getStudentProgrammeCode());
                 }
             }
         }
