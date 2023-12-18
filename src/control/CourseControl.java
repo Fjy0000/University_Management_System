@@ -2,7 +2,7 @@ package control;
 
 import adt.Set;
 import adt.SetInterface;
-import adt.SortedIterator;
+import utility.SortedIterator;
 import boundary.CourseUI;
 import static control.Main.courseSet;
 import static control.Main.facultySet;

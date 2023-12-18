@@ -1,4 +1,4 @@
-package adt;
+package utility;
 
 import java.util.Iterator;
 

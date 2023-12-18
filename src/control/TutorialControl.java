@@ -1,7 +1,7 @@
 package control;
 
 import adt.SetInterface;
-import adt.SortedIterator;
+import utility.SortedIterator;
 import boundary.TutorialGroupUI;
 import static control.Main.assignedStudents;
 import static control.Main.homepage;

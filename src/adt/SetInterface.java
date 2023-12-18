@@ -1,5 +1,7 @@
 package adt;
 
+import utility.SortedIterator;
+
 /**
  *
  * @author

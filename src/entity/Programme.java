@@ -1,7 +1,7 @@
 package entity;
 
 import adt.Set;
-import adt.SortedIterator;
+import utility.SortedIterator;
 import java.util.Objects;
 
 /**

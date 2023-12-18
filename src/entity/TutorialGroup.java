@@ -2,7 +2,7 @@ package entity;
 
 import adt.Set;
 import adt.SetInterface;
-import adt.SortedIterator;
+import utility.SortedIterator;
 
 /**
  *
