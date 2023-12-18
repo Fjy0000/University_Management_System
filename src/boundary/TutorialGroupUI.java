@@ -29,7 +29,7 @@ public class TutorialGroupUI {
         System.out.print("\n");
 
         while (option < 1 || option > 9) {
-            System.out.print("Invalid option! Please select a number between 1 and 8 : ");
+            System.out.print("Invalid option! Please select a number between 1 and 9 : ");
             option = input.nextInt();
         }
 
