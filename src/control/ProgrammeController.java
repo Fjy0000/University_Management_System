@@ -600,13 +600,12 @@ public class ProgrammeController {
 
             // Check if the current program has the specified year intake
             if (currentProgramme.getYearIntake().equals(yearIntake)) {
-                // Display the program details (customize this based on your Program class structure)
+                // Display the program details
                 System.out.println("\tProgram Code: " + currentProgramme.getProgrammeCode());
                 System.out.println("\tProgram Name: " + currentProgramme.getProgrammeName());
                 System.out.println("\tFaculty: " + currentProgramme.getFaculty());
                 System.out.println("\tDuration: " + currentProgramme.getDuration() + " years");
-                // Add more details as needed
-
+                
                 System.out.println(); // Add a newline for better readability between programs
             }
         }
