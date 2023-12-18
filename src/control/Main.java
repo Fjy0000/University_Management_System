@@ -22,6 +22,7 @@ public class Main {
     private static StudentController studentPage = new StudentController();
     private static TutorialControl tutorialPage = new TutorialControl();
     private static ProgrammeController programmePage = new ProgrammeController();
+    private static CourseControl coursePage = new CourseControl();
 
     // Set Array List --------------------------------------------------------------
     // Declare Collection ADT Object
@@ -104,6 +105,7 @@ public class Main {
                     studentPage.studentManagement();
                     break;
                 case 2: //Course Management
+                    coursePage.CourseManagement();
                     break;
                 case 3: // Progremme Management
                     programmePage.ProgrammeManagement();
