@@ -50,23 +50,20 @@ public class CourseControl {
                     course.editCourseDetail();
                     break;
                 case 4:
-                    System.out.print("Enter Faculty ID: ");
-                    String facultyId = scanner.next();
-                    System.out.println("Courses taken by Faculty " + facultyId + ":");
+                    System.out.println("\nAll Faculties:");
+                    Iterator<Faculty> getFaculty = facultySet.getIterator();
+                    displayAllFaculties(facultySet);
                     break;
                 case 5:
-                    System.out.print("Enter Programme ID: ");
-                    String programmeId = scanner.next();
-                    course.findCourseById(programmeId);
+                    System.out.println("All Programmes:");
+                    course.displayAllPrograms(programmeSet);
                     break;
                 case 6:
+                    System.out.println("\nAll Programmes:");
                     course.displayAllCourses(courseSet);
-//                    CourseManagement();
                 case 7:
                     course.searchCourseByUserInput();
-//                    CourseManagement();
                     break;
-//                    
                 case 8:
                     course.addProgramToCourse();
 //                    CourseManagement();
@@ -76,6 +73,7 @@ public class CourseControl {
 //                    CourseManagement();
                     break;
                 case 10:
+                    course.generateSummaryReport();
                     break;
                 case 0:
                     homepage();
@@ -285,6 +283,14 @@ public class CourseControl {
         }
     }
 
+    public void displayAllFaculties(SetInterface<Faculty> facultySet) {
+        
+        Iterator<Faculty> iterator = facultySet.getIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
     public SetInterface<Course> getCoursesForProgramme(String programmeId) {
         SetInterface<Course> coursesForProgramme = new Set<>();
 
@@ -352,31 +358,6 @@ public class CourseControl {
 
         return null;
     }
- // Helper method to display added faculties
-    private static void displayAddedFaculties(SetInterface<Faculty> addedFaculties) {
-        Iterator<Faculty> iterator = addedFaculties.getIterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
-    }
-
-    // Helper method to display programs added to specified courses
-    private static void displayProgramsAddedToCourses(Map<Course, SetInterface<Programme>> programsAddedToCourses) {
-        for (Map.Entry<Course, SetInterface<Programme>> entry : programsAddedToCourses.entrySet()) {
-            Course course = entry.getKey();
-            SetInterface<Programme> programs = entry.getValue();
-
-            System.out.println("\nCourse ID: " + course.getCourseId());
-            System.out.println("Course Name: " + course.getCourseName());
-            System.out.println("Programs Added:");
-
-            Iterator<Programme> programIterator = programs.getIterator();
-            while (programIterator.hasNext()) {
-                System.out.println(programIterator.next());
-            }
-        }
-    }
-    
 
     public void generateSummaryReport() {
         // Get current date and time
@@ -393,15 +374,13 @@ public class CourseControl {
         System.out.println("\nAll Courses:");
         displayAllCourses(courseSet);
 
-//        // Display added faculties
-//        System.out.println("\nAdded Faculties:");
-//        displayAddedFaculties(addedFaculties);
-//
-//        // Display programs added to specified courses
-//        System.out.println("\nPrograms Added to Specified Courses:");
-//        displayProgramsAddedToCourses(programsAddedToCourses);
+        System.out.println("\nAll Faculties:");
+        displayAllFaculties(facultySet);
+
+        // Display all programs
+        System.out.println("\nAll Programmes:");
+        displayAllPrograms(programmeSet);
 
     }
 
-   
 }

@@ -17,8 +17,8 @@ public class CourseUI {
     Scanner scanner = new Scanner(System.in);
 
     public static int CourseManagementMenu() {
-        int option;
-        Scanner input = new Scanner(System.in);
+        int option = 0;
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("======================================");
         System.out.printf("%-10s\n", "Course Management");
@@ -36,11 +36,11 @@ public class CourseUI {
         System.out.printf("%2s %-5s\n", "0", "Exit");
         System.out.println("======================================");
         System.out.print("Enter Number(0-10): ");
-        option = input.nextInt();
+        option = scanner.nextInt();
 
         while (option < 0 || option > 10) {
             System.out.print("Invalid option! Please select a number between 0 and 10 : ");
-            option = input.nextInt();
+            option = scanner.nextInt();
         }
         return option;
     }
