@@ -107,7 +107,7 @@ public class Main {
                 case 2: //Course Management
                     coursePage.CourseManagement();
                     break;
-                case 3: // Progremme Management
+                case 3: // Programme Management
                     programmePage.ProgrammeManagement();
                     break;
                 case 4: // Tutorial Group Management
