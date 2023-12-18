@@ -38,6 +38,7 @@ public class Faculty implements Comparable<Faculty> {
 
     @Override
     public String toString() {
-        return facultyId + "\t" + facultyName;
+        return facultyId + "\t" + facultyName + "\t" ;
     }
+    
 }
