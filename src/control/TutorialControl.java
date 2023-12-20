@@ -20,9 +20,9 @@ public class TutorialControl {
 
     public void tutorialtManagement() {
         //initialize TutorialGroups set
-        tutorialGroups.add(new TutorialGroup("G1"));
-        tutorialGroups.add(new TutorialGroup("G2"));
-        tutorialGroups.add(new TutorialGroup("G3"));
+//        tutorialGroups.add(new TutorialGroup("G1"));
+//        tutorialGroups.add(new TutorialGroup("G2"));
+//        tutorialGroups.add(new TutorialGroup("G3"));
         int choice;
         do {
             choice = tutorialUI.getMenuChoice();
